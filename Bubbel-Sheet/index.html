@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ar" data-theme="light" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--for footer -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- css file -->
+    <link rel="stylesheet" href="CSS/home.css">
+    <link rel="stylesheet" href="CSS/nav.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+    <!-- icon -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00A9F2">
+    <!-- iOS Safari doesn't read the manifest for icon/name, needs these explicitly -->
+    <link rel="apple-touch-icon" href="IMG/logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bubble Sheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass-navbar" id="siteNav" style="direction: ltr;">
+        <div class="navbar-container">
+
+            <!-- Theme Toggle (start side — mirrors dashboard mobile layout) -->
+            <div class="nav-right">
+                <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                    <input type="checkbox" id="input">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Logo/Brand (centered — same as dashboard brand-center) -->
+            <a href="index.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper">
+                </div>
+                <span class="logo-svg">Bubble Sheet</span>
+            </a>
+
+            <!-- Desktop Auth Buttons (right side) -->
+            <div class="navbar-buttons">
+                <a href="login.html" class="glass-btn">تسجيل الدخول</a>
+                <a href="register.html" class="glass-btn btn-register">إنشاء حساب</a>
+            </div>
+
+            <!-- Hamburger (mobile only) -->
+            <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+        <!-- Scroll-progress strip — the animated line under the navbar -->
+        <span class="nav-progress" id="navProgress" aria-hidden="true" style="direction: rtl;"></span>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="mobile-menu-items">
+            <a href="login.html" class="glass-btn" onclick="closeMenu()">
+                <i class="bi bi-box-arrow-in-right" style="margin-inline-end:.5rem;"></i>
+                تسجيل الدخول
+            </a>
+            <a href="register.html" class="glass-btn btn-register" onclick="closeMenu()">
+                <i class="bi bi-person-plus-fill" style="margin-inline-end:.5rem;"></i>
+                إنشاء حساب
+            </a>
+        </div>
+    </div>
+    <!-- finish navbar -->
+    <!-- Ambient background -->
+    <div class="bg-canvas">
+        <div class="bg-spot bs1"></div>
+        <div class="bg-spot bs2"></div>
+        <div class="bg-spot bs3"></div>
+    </div>
+
+    <!-- Floating glass bubbles -->
+    <div class="gl-bubble gb1" aria-hidden="true"></div>
+    <div class="gl-bubble gb2" aria-hidden="true"></div>
+    <div class="gl-bubble gb3" aria-hidden="true"></div>
+    <div class="gl-bubble gb4" aria-hidden="true"></div>
+    <div class="gl-bubble gb5" aria-hidden="true"></div>
+
+    <!-- Particles -->
+    <div id="ptc" aria-hidden="true"></div>
+
+    <div class="sections-root">
+
+        <!-- ========================================================
+     SECTION 1 — رحلتك مع Bubble Sheet
+     ======================================================== -->
+        <section id="journey" class="bs-section">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+
+                    <!-- Right: steps content -->
+                    <div class="col-lg-6 order-lg-2" data-r="right">
+                        <span class="eyebrow"><span class="dot"></span>رحلتك معانا</span>
+                        <h2 class="sec-title">ابدأ رحلتك التعليمية<br><span class="hl">بشكل أذكى</span></h2>
+                        <div class="sep"></div>
+                        <p class="sec-desc mb-4">مع Bubble Sheet مش هتذاكر بالطريقة القديمة تاني — هتتدرب، تتنافس، وتشوف
+                            نتائج حقيقية من أول أسبوع.</p>
+
+                        <div class="journey-steps">
+
+                            <div class="step-item">
+                                <div class="step-num">١</div>
+                                <div>
+                                    <div class="step-title">📖 ذاكر المنهج</div>
+                                    <div class="step-sub">اتصفح شرح الدروس المنظم حسب مادتك وسنتك الدراسية</div>
+                                </div>
+                            </div>
+
+                            <div class="step-arrow">↓</div>
+
+                            <div class="step-item">
+                                <div class="step-num">٢</div>
+                                <div>
+                                    <div class="step-title">✏️ اتدرب يوميًا</div>
+                                    <div class="step-sub">حل تمارين يومية متدرجة من السهل للصعب في وقت قياسي</div>
+                                </div>
+                            </div>
+
+                            <div class="step-arrow">↓</div>
+
+                            <div class="step-item">
+                                <div class="step-num">٣</div>
+                                <div>
+                                    <div class="step-title">📝 حل آلاف الأسئلة</div>
+                                    <div class="step-sub">اختار من بنك أسئلة ضخم مقسم بدقة حسب المادة والمستوى</div>
+                                </div>
+                            </div>
+
+                            <div class="step-arrow">↓</div>
+
+                            <div class="step-item">
+                                <div class="step-num">٤</div>
+                                <div>
+                                    <div class="step-title">📊 شوف مستواك</div>
+                                    <div class="step-sub">تقارير فورية بتفضح نقاط ضعفك وقوتك بالأرقام</div>
+                                </div>
+                            </div>
+
+                            <div class="step-arrow">↓</div>
+
+                            <div class="step-item">
+                                <div class="step-num">٥</div>
+                                <div>
+                                    <div class="step-title">🏆 نافس أصحابك</div>
+                                    <div class="step-sub">دخل المسابقات، اتصدر الليدربورد، واكسب جوايز حقيقية</div>
+                                </div>
+                            </div>
+
+                            <div class="step-arrow">↓</div>
+
+                            <div class="step-item">
+                                <div class="step-num">٦</div>
+                                <div>
+                                    <div class="step-title">🎯 حقق نتائج أفضل</div>
+                                    <div class="step-sub">طلابنا بيرفعوا درجاتهم بمعدل ٤٠٪ في أول ٣ شهور</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Left: image -->
+                    <div class="col-lg-6 order-lg-1" data-r="right">
+                        <div class="img-frame" style="min-height:500px;">
+                            <div class="frame-shine"></div>
+                            <div class="img-ph"
+                                style="background:linear-gradient(135deg,rgba(0,226,224,.08),rgba(120,124,254,.12)); min-height:500px;">
+                                <img src="IMG/student.png" alt="student img">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+    SECTION 2 — ليه Bubble Sheet؟
+    ======================================================== -->
+        <section id="why" class="bs-section">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <!-- Left: image -->
+                    <div class="col-lg-5" data-r="right">
+                        <div class="img-frame" style="min-height:480px;">
+                            <div class="frame-shine"></div>
+                            <div class="img-ph"
+                                style="background:linear-gradient(135deg,rgba(0,169,242,.07),rgba(0,226,224,.1));min-height:480px;">
+                                <div
+                                    style="width:90px;height:90px;border-radius:28px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:2.5rem;box-shadow:0 12px 32px rgba(0,169,242,.3);">
+                                    📚</div>
+                                <img src="IMG/bubbelsheet.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: cards -->
+                    <div class="col-lg-7" data-r="right">
+                        <span class="eyebrow"><span class="dot"></span>ليه تختار Bubble Sheet؟</span>
+                        <h2 class="sec-title mb-1">المنصة اللي <span class="hl">بتفرق فعلًا</span></h2>
+                        <div class="sep"></div>
+
+                        <div class="d-flex flex-column gap-3">
+
+                            <div class="gc why-card" data-r="up" data-d="1">
+                                <div class="gc-bar" style="background:var(--grad-main);"></div>
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="ic ic-1 mt-1"><i class="bi bi-journal-check text-white"></i></div>
+                                    <div>
+                                        <h3>تدريب مستمر ومنظم</h3>
+                                        <p>Bubble Sheet مش مجرد موقع أسئلة — هي منظومة تدريب متكاملة. كل يوم بيلاقي
+                                            الطالب تمارين جديدة متدرجة مصممة بعناية من مدرسين متخصصين. النظام بيتابع
+                                            أداء الطالب تلقائيًا وبيقترح عليه التمارين اللي محتاجها بالظبط — مش أكتر ومش
+                                            أقل. ده بيخلي الطالب يتقدم بخطى واضحة وملموسة كل أسبوع.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="gc why-card" data-r="up" data-d="2">
+                                <div class="gc-bar" style="background:var(--grad-accent);"></div>
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="ic ic-2 mt-1"><i class="bi bi-database-fill text-white"></i></div>
+                                    <div>
+                                        <h3>آلاف الأسئلة في كل المواد</h3>
+                                        <p>بنك الأسئلة عندنا فيه أكتر من 50,000 سؤال شامل كل مواد ابتدائي وإعدادي وثانوي
+                                            — وبيتزاد كل أسبوع. كل سؤال معاه شرح تفصيلي وحل نموذجي، والأسئلة اتراجعت من
+                                            تيمات تربوية متخصصة عشان تضمن الجودة. ميزة السؤال الغلط بتتحول لفرصة تعليمية
+                                            حقيقية مش مجرد رقم في الإحصائيات.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="gc why-card" data-r="up" data-d="3">
+                                <div class="gc-bar" style="background:linear-gradient(90deg,var(--purple),#c06bfa);">
+                                </div>
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="ic ic-3 mt-1"><i class="bi bi-trophy-fill text-white"></i></div>
+                                    <div>
+                                        <h3>منافسات وجوايز حقيقية</h3>
+                                        <p>مش بس أسئلة — في مسابقات أسبوعية وشهرية بين الطلاب من كل المدارس. في ليدربورد
+                                            حي بيتحدث لحظة بلحظة، وفي شهادات رقمية موثقة للطلاب المتميزين. نقاط الإنجاز
+                                            بتتراكم وبتفتح مكافآت حصرية، وده بيحول الدراسة من واجب ممل لتحدي بيشتهوه
+                                            الطلاب كل يوم.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+    SECTION 3 — الأرقام بتتكلم
+    ======================================================== -->
+        <section id="stats" class="bs-section">
+            <div class="container">
+                <div class="text-center mb-5" data-r="left">
+                    <span class="eyebrow"><span class="dot"></span>إنجازاتنا بالأرقام</span>
+                    <h2 class="sec-title">الأرقام <span class="hl">بتتكلم عنا</span></h2>
+                    <div class="sep center"></div>
+                </div>
+
+                <div class="stats-inner" data-r="scale">
+                    <div class="row g-0">
+                        <div class="col-6 col-md-3 stat-item">
+                            <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+                            <div class="stat-num" data-count="15000" data-sfx="+">0</div>
+                            <div class="stat-label">طالب نشط</div>
+                        </div>
+                        <div class="col-6 col-md-3 stat-item">
+                            <div class="stat-icon"><i class="bi bi-patch-question-fill"></i></div>
+                            <div class="stat-num" data-count="50000" data-sfx="+">0</div>
+                            <div class="stat-label">سؤال متاح</div>
+                        </div>
+                        <div class="col-6 col-md-3 stat-item">
+                            <div class="stat-icon"><i class="bi bi-building-fill"></i></div>
+                            <div class="stat-num" data-count="150" data-sfx="+">0</div>
+                            <div class="stat-label">مدرسة شريكة</div>
+                        </div>
+                        <div class="col-6 col-md-3 stat-item">
+                            <div class="stat-icon"><i class="bi bi-person-workspace"></i></div>
+                            <div class="stat-num" data-count="1000" data-sfx="+">0</div>
+                            <div class="stat-label">معلم معتمد</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+     SECTION 4 — من ابتدائي لحد ثانوي
+     ======================================================== -->
+        <section id="stages" class="bs-section">
+            <div class="container">
+                <div class="text-center mb-5" data-r="right">
+                    <span class="eyebrow"><span class="dot"></span>المراحل الدراسية</span>
+                    <h2 class="sec-title">من <span class="hl">ابتدائي لحد ثانوي</span></h2>
+                    <div class="sep center"></div>
+                    <p class="sec-desc mx-auto text-center">مهما كانت سنة ابنك أو بنتك — Bubble Sheet عندها اللي يحتاجوه
+                        بالظبط.</p>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-4" data-r="up" data-d="1" onclick="register()">
+                        <div class="gc stage-panel h-100">
+                            <div class="stage-img">
+                                <div
+                                    style="width:100%;height:240px;background:linear-gradient(135deg,rgba(72,190,217,.15),rgba(0,226,224,.12));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                                    <img src="IMG/1.webp" alt="1">
+                                </div>
+                                <div class="stage-overlay"></div>
+                            </div>
+                            <div class="stage-body">
+                                <div class="stage-badge"
+                                    style="background:rgba(72,190,217,.12);color:var(--teal);border:1px solid rgba(72,190,217,.3);">
+                                    الصفوف 4 – 6</div>
+                                <h3>المرحلة الابتدائية</h3>
+                                <p>تمارين سهلة وممتعة بتبني الأساس الصح من أول يوم. الأنشطة التفاعلية بتخلي الأطفال
+                                    يحبوا الدراسة بدل ما يتعبوا منها — ومع كل تمرين بيحلوه بيكسبوا نقاط وبيتقدموا
+                                    للمستوى الجاي.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" data-r="up" data-d="2" onclick="register()">
+                        <div class="gc stage-panel h-100">
+                            <div class="stage-img">
+                                <div
+                                    style="width:100%;height:240px;background:linear-gradient(135deg,rgba(120,124,254,.12),rgba(192,107,250,.1));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                                    <img src="IMG/2.webp" alt="2">
+                                </div>
+                                <div class="stage-overlay"></div>
+                            </div>
+                            <div class="stage-body">
+                                <div class="stage-badge"
+                                    style="background:rgba(120,124,254,.12);color:var(--purple);border:1px solid rgba(120,124,254,.3);">
+                                    الصفوف 1 – 3</div>
+                                <h3>المرحلة الإعدادية</h3>
+                                <p>المناهج بتتقل والضغط بيزيد — وده بالظبط وقت Bubble Sheet. بنك أسئلة متخصص لكل مادة مع
+                                    امتحانات تجريبية كاملة وتوقيت دقيق بيجهز الطالب نفسيًا وعلميًا لإمتحانات الشهادة
+                                    الإعدادية.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" data-r="up" data-d="3" onclick="register()">
+                        <div class="gc stage-panel h-100">
+                            <div class="stage-img">
+                                <div
+                                    style="width:100%;height:240px;background:linear-gradient(135deg,rgba(23,45,157,.1),rgba(0,169,242,.1));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+                                    <img src="IMG/3.webp" alt="3">
+                                </div>
+                                <div class="stage-overlay"></div>
+                            </div>
+                            <div class="stage-body">
+                                <div class="stage-badge"
+                                    style="background:rgba(23,45,157,.1);color:var(--indigo);border:1px solid rgba(23,45,157,.2);">
+                                    الصفوف 1 – 3</div>
+                                <h3>المرحلة الثانوية</h3>
+                                <p>تحضير كامل للثانوية العامة — امتحانات على نظام الوزارة بالظبط، شرح مفصل لكل إجابة
+                                    غلط، وتقارير أسبوعية بتبين للطالب وولي الأمر فين وصل ومحتاج يركز على إيه.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+     SECTION 5 — معاك في أي وقت
+     ======================================================== -->
+        <section id="anytime" class="bs-section">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+
+                    <!-- Right: content -->
+                    <div class="col-lg-5 order-lg-2" data-r="right">
+                        <span class="eyebrow"><span class="dot"></span>24/7 في خدمتك</span>
+                        <h2 class="sec-title">ذاكر <span class="hl">وقت ما تحب</span></h2>
+                        <div class="sep"></div>
+                        <p class="sec-desc mb-4">المنصة شغالة 24 ساعة يوميًا، 7 أيام في الأسبوع — من أي جهاز وأي مكان.
+                            سواء الطالب في البيت، في المدرسة، أو في الأتوبيس — Bubble Sheet معاه في ثانية.</p>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="gc p-3 d-flex gap-3 align-items-center" style="--bs-border-radius:16px">
+                                <div class="ic ic-1"><i class="bi bi-wifi text-white"></i></div>
+                                <div>
+                                    <div style="font-weight:800;font-size:.95rem;color:var(--text-dark);">متصل دايمًا
+                                    </div>
+                                    <div style="font-size:.82rem;color:var(--text-muted);">تزامن فوري بين كل أجهزتك
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gc p-3 d-flex gap-3 align-items-center">
+                                <div class="ic ic-2"><i class="bi bi-shield-check text-white"></i></div>
+                                <div>
+                                    <div style="font-weight:800;font-size:.95rem;color:var(--text-dark);">آمن ومحمي
+                                    </div>
+                                    <div style="font-size:.82rem;color:var(--text-muted);">بيانات طفلك في أمان تام</div>
+                                </div>
+                            </div>
+                            <div class="gc p-3 d-flex gap-3 align-items-center">
+                                <div class="ic ic-4"><i class="bi bi-lightning-charge-fill text-white"></i></div>
+                                <div>
+                                    <div style="font-weight:800;font-size:.95rem;color:var(--text-dark);">سريع وخفيف
+                                    </div>
+                                    <div style="font-size:.82rem;color:var(--text-muted);">بيشتغل حتى على النت البطيء
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left: device mockups -->
+                    <div class="col-lg-7 order-lg-1" data-r="left">
+                        <div class="device-showcase">
+
+                            <!-- Laptop -->
+                            <div class="device device-laptop">
+                                <div class="device-bar">
+                                    <div class="d-dot" style="background:#ff5f57;"></div>
+                                    <div class="d-dot" style="background:#febc2e;"></div>
+                                    <div class="d-dot" style="background:#28c840;"></div>
+                                </div>
+                                <div class="device-screen">
+                                    <div style="text-align:center">
+                                        <div style="font-size:1.8rem;margin-bottom:.5rem;">💻</div>
+                                        <div style="color:var(--indigo);font-weight:800;font-size:.8rem;">لوحة تحكم
+                                            الطالب</div>
+                                        <div style="font-size:.72rem;color:var(--text-muted);margin-top:.3rem;">تقارير ·
+                                            أسئلة · مسابقات</div>
+                                    </div>
+                                </div>
+                                <div class="device-label">Laptop / Desktop</div>
+                            </div>
+
+                            <!-- Tablet -->
+                            <div class="device device-tablet">
+                                <div class="device-bar" style="height:22px;justify-content:center;">
+                                    <div
+                                        style="width:30px;height:5px;border-radius:3px;background:rgba(120,124,254,.2);">
+                                    </div>
+                                </div>
+                                <div class="device-screen">
+                                    <div style="text-align:center">
+                                        <div style="font-size:1.5rem;margin-bottom:.3rem;">📱</div>
+                                        <div style="color:var(--purple);font-weight:800;font-size:.72rem;">Tablet</div>
+                                    </div>
+                                </div>
+                                <div class="device-label">Tablet / iPad</div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="device device-phone">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <div style="text-align:center">
+                                        <div style="font-size:1.2rem;margin-bottom:.2rem;">📲</div>
+                                        <div style="color:var(--blue);font-weight:800;font-size:.65rem;">Mobile</div>
+                                    </div>
+                                </div>
+                                <div class="device-label" style="font-size:.62rem;">Phone</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+     SECTION 6 — شركاء النجاح (SLIDER)
+     ======================================================== -->
+        <section id="partners" class="bs-section">
+            <div class="container">
+                <div class="text-center mb-5" data-r="left">
+                    <span class="eyebrow"><span class="dot"></span>شركاؤنا</span>
+                    <h2 class="sec-title">شركاء <span class="hl">النجاح</span></h2>
+                    <div class="sep center"></div>
+                    <p class="sec-desc mx-auto text-center">أكتر من 150 مدرسة من كل أنحاء مصر اختارت Bubble Sheet لرفع
+                        مستوى طلابها.</p>
+                </div>
+            </div>
+
+            <div class="board-frame" data-r="up">
+                <div class="board-sweep"></div>
+                <div class="slider-track-wrap">
+                    <div class="strack" id="stk"></div>
+                </div>
+                <div class="board-dots">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+     SECTION 7 — إنجازات نفتخر بيها
+     ======================================================== -->
+        <section id="achievements" class="bs-section">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+
+                    <!-- Left: image -->
+                    <div class="col-lg-5" data-r="achieve-img">
+                        <div class="img-frame" style="min-height:420px;">
+                            <div class="frame-shine"></div>
+                            <div class="img-ph"
+                                style="background:linear-gradient(135deg,rgba(120,124,254,.08),rgba(192,107,250,.1));min-height:420px;">
+                                <img src="IMG/achive.png" alt="achive">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: achievement cards -->
+                    <div class="col-lg-7" data-r="right">
+                        <span class="eyebrow"><span class="dot"></span>فخر بيها</span>
+                        <h2 class="sec-title">إنجازات <span class="hl">نفتخر بيها</span></h2>
+                        <div class="sep"></div>
+
+                        <div class="row g-3">
+
+                            <div class="col-6" data-r="achieve-card" data-d="1">
+                                <div class="gc ach-card">
+                                    <div class="ach-ring"
+                                        style="background:linear-gradient(135deg,rgba(0,226,224,.12),rgba(0,169,242,.1));">
+                                        🥇</div>
+                                    <div class="ach-num" data-count="320" data-sfx="+">0</div>
+                                    <div class="ach-label">مسابقة</div>
+                                    <div class="ach-desc">مسابقات أسبوعية وشهرية ومحلية بين طلاب من كل أنحاء مصر</div>
+                                </div>
+                            </div>
+
+                            <div class="col-6" data-r="achieve-card" data-d="2">
+                                <div class="gc ach-card">
+                                    <div class="ach-ring"
+                                        style="background:linear-gradient(135deg,rgba(120,124,254,.12),rgba(192,107,250,.1));">
+                                        🎖️</div>
+                                    <div class="ach-num" data-count="5800" data-sfx="+">0</div>
+                                    <div class="ach-label">جائزة</div>
+                                    <div class="ach-desc">شهادات إنجاز ومكافآت قدمناها لأبطال المنصة</div>
+                                </div>
+                            </div>
+
+                            <div class="col-6" data-r="achieve-card" data-d="3">
+                                <div class="gc ach-card">
+                                    <div class="ach-ring"
+                                        style="background:linear-gradient(135deg,rgba(0,169,242,.1),rgba(72,190,217,.1));">
+                                        📈</div>
+                                    <div class="ach-num" data-count="92" data-sfx="٪">0</div>
+                                    <div class="ach-label">نسبة نجاح</div>
+                                    <div class="ach-desc">من طلابنا بيعدوا امتحاناتهم بتفوق بعد 3 شهور على المنصة</div>
+                                </div>
+                            </div>
+
+                            <div class="col-6" data-r="achieve-card" data-d="4">
+                                <div class="gc ach-card">
+                                    <div class="ach-ring"
+                                        style="background:linear-gradient(135deg,rgba(23,45,157,.08),rgba(120,124,254,.1));">
+                                        ⭐</div>
+                                    <div class="ach-num" data-count="1200" data-sfx="+">0</div>
+                                    <div class="ach-label">طالب متميز</div>
+                                    <div class="ach-desc">طلاب حققوا المراكز الأولى في مدارسهم بعد الانضمام للمنصة</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+     SECTION 8 — CTA
+     ======================================================== -->
+        <section id="cta" class="bs-section">
+            <div class="container">
+                <div class="cta-box" data-r="scale">
+                    <div style="position:relative;z-index:2;">
+                        <span class="eyebrow" style="justify-content:center;margin-bottom:1rem;"><span
+                                class="dot"></span>ابدأ دلوقتي</span>
+                        <h2 class="cta-title">جاهز تبدأ رحلتك<br><span class="hl">مع Bubble Sheet؟</span></h2>
+                        <p class="cta-desc">ما تسيبش طفلك يتأخر وهو يقدر يتقدم. انضم لأكتر من 15,000 طالب بيتدربوا بشكل
+                            أذكى كل يوم — وشوف الفرق بنفسك من أول أسبوع.</p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="register.html" class="btn-main"><i class="bi bi-rocket-takeoff-fill"></i>
+                                اعمل اكونت جديد وأبدا دلوقتي</a>
+                            <a href="login.html" class="btn-outline"><i class="bi bi-play-circle-fill"></i>سجل دخول
+                                وأعرف أكتر</a>
+                        </div>
+                        <div class="trust-tags">
+                            <span class="trust-tag"><i class="bi bi-check2 me-1" style="color:var(--blue)"></i>تجربة
+                                مجانية</span>
+                            <span class="trust-tag"><i class="bi bi-check2 me-1" style="color:var(--blue)"></i> في
+                                أي وقت</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end sections-root -->
+
+    <!-- WhatsApp -->
+    <a href="http://wa.me/+201033878808" class="wa-btn" target="_blank" rel="noopener noreferrer"
+        aria-label="تواصل معنا على واتساب">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+    <footer class="main-footer">
+
+        <div class="footer-logo">
+            <span>Bubble</span> Sheet
+        </div>
+
+        <div class="footer-subtitle">
+            منصة ذكية لإدارة وتصحيح الاختبارات
+        </div>
+
+        <div class="footer-description">
+            💙 تساعد منصة <strong>Bubble Sheet</strong> المدارس والمعلمين والمراكز التعليمية
+            على إنشاء الاختبارات وتصحيحها وتحليل النتائج بدقة وسرعة.
+            تم تصميم المنصة لتوفير تجربة حديثة تسهّل إدارة الامتحانات
+            ومتابعة الأداء وتحليل النتائج بشكل احترافي.
+        </div>
+
+        <div class="footer-badge">
+            Smart • Fast • Accurate
+        </div>
+
+        <br>
+
+        <div class="social-glass">
+
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+
+        </div>
+
+        <div class="footer-dev-title">
+            &lt; DEVELOPED BY &gt;
+        </div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/">Fahd Gamal</a>
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/">Mina Hany</a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+            Bubble Sheet — All Rights Reserved.
+        </div>
+
+    </footer>
+    <!-- pwa -->
+    <div id="install-popup">
+        <div class="install-popup-content">
+            <div class="install-icon">📝</div>
+            <h3>تثبيت Bubble Sheet</h3>
+            <p>
+                ثبت التطبيق على جهازك للوصول السريع
+                وحل الاختبارات بسهولة في أي وقت.
+            </p>
+            <div class="install-actions">
+                <button id="installBtn" class="install-btn">
+                    تثبيت
+                </button>
+                <button id="closeBtn" class="close-btn">
+                    لاحقًا
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/nav.js"></script>
+    <script src="JS/home.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+</body>
+
+</html>
