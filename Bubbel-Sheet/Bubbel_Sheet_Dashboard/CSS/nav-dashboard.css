@@ -1,0 +1,1251 @@
+/* ==========================================================================
+   BUBBLE SHEET — SHARED NAVBAR STYLES
+   Used by both navbar-public.html (before login) and navbar-dashboard.html
+   (after login). Keeps the project's own brand colors / logo / identity,
+   only the UI/UX behaviour (glass, hover, active-link underline,
+   animations, spacing consistency) has been refined.
+   ========================================================================== */
+
+:root {
+    --cyan: #00E2E0;
+    --blue: #00A9F2;
+    --indigo: #172D9D;
+    --purple: #787CFE;
+    --teal: #48BED9;
+
+    --grad-main: linear-gradient(135deg, var(--indigo) 0%, var(--purple) 55%, var(--blue) 100%);
+    --grad-accent: linear-gradient(120deg, var(--cyan), var(--blue));
+    --grad-warm: linear-gradient(135deg, var(--purple), var(--teal));
+
+    /* Light mode glass */
+    --body-bg: #f0f6ff;
+    --glass-bg: rgba(255, 255, 255, 0.62);
+    --glass-bg-h: rgba(255, 255, 255, 0.80);
+    --glass-border: rgba(120, 124, 254, 0.18);
+    --glass-shadow: 0 12px 40px rgba(23, 45, 157, 0.10), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    --glass-hover: 0 24px 60px rgba(23, 45, 157, 0.16), 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    --text-dark: #0f1c5c;
+    --text-body: #334470;
+    --text-muted: #6878a8;
+
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-pill: 999px;
+
+    /* unified motion system — every navbar animation/transition uses these */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: .22s;
+    --dur-med: .4s;
+
+    /* unified navbar geometry (this is what fixes the dashboard size mismatch) */
+    --nav-h: 84px;
+    --nav-h-scrolled: 68px;
+    --nav-pad-x: 2rem;
+    --nav-pad-x-sm: 1rem;
+
+    /* Light Mode */
+    --light-bg: #BFD0F3;
+    --light-secondary: #E8FAFF;
+    --light-primary: #00A9F2;
+    --light-accent: #00E2E0;
+    --light-highlight: #787CFE;
+    --light-text: #172D9D;
+    --light-text-secondary: #48BED9;
+    --light-border: #BFEFFF;
+    --light-card: #FFFFFF;
+    --light-shadow: rgba(0, 169, 242, 0.15);
+
+    /* Dark Mode */
+    --dark-bg: #081126;
+    --dark-secondary: #10204D;
+    --dark-primary: #172D9D;
+    --dark-accent: #00A9F2;
+    --dark-highlight: #787CFE;
+    --dark-text: #FFFFFF;
+    --dark-text-secondary: #48BED9;
+    --dark-border: #1F3BAF;
+    --dark-card: #0D183D;
+    --dark-shadow: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.dark {
+    --bg: var(--dark-bg);
+    --secondary: var(--dark-secondary);
+    --primary: var(--dark-primary);
+    --accent: var(--dark-accent);
+    --highlight: var(--dark-highlight);
+    --text: var(--dark-text);
+    --text-secondary: var(--dark-text-secondary);
+    --border: var(--dark-border);
+    --card: var(--dark-card);
+    --shadow: var(--dark-shadow);
+}
+
+body {
+    --bg:
+        radial-gradient(ellipse 700px 500px at 15% 10%, rgba(0, 226, 224, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 600px 600px at 85% 20%, rgba(120, 124, 254, 0.16) 0%, transparent 65%),
+        radial-gradient(ellipse 800px 400px at 50% 80%, rgba(0, 169, 242, 0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 500px 500px at 5% 70%, rgba(72, 190, 217, 0.12) 0%, transparent 65%),
+        linear-gradient(160deg, #eaf6ff 0%, #f5f0ff 35%, #e8f8ff 70%, #f0f0ff 100%);
+    --secondary: var(--light-secondary);
+    --primary: var(--light-primary);
+    --accent: var(--light-accent);
+    --highlight: var(--light-highlight);
+    --text: var(--light-text);
+    --text-secondary: var(--light-text-secondary);
+    --border: var(--light-border);
+    --card: var(--light-card);
+    --shadow: var(--light-shadow);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color var(--dur-med) var(--ease), color var(--dur-med) var(--ease);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* leave room under the fixed navbar so page content never hides behind it */
+body {
+    padding-top: var(--nav-h);
+}
+
+/* ==========================================================================
+   LEGACY IN-PAGE NAV LINKS (.nav-link) — kept for any page across the site
+   that renders a real link list inside the navbar. Active-link now gets a
+   proper animated underline (grows in on hover, stays filled when active)
+   instead of a static bar, matching the "Animated Underline" reference.
+   ========================================================================== */
+.nav-link {
+    text-decoration: none;
+    color: var(--text-secondary, #f5f5f5);
+    font-weight: 500;
+    padding-bottom: 4px;
+    position: relative;
+    transition: color var(--dur-fast) var(--ease);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    inset-inline-start: 0;
+    height: 2px;
+    width: 0%;
+    background-color: var(--accent);
+    border-radius: 2px;
+    transition: width var(--dur-med) var(--ease);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ==========================================================================
+   THEME SWITCH — sun/moon glass toggle (used identically on both variants)
+   ========================================================================== */
+.theme-switch {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    flex-shrink: 0;
+    direction: ltr;
+}
+
+.theme-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.toggle-track {
+    width: 62px;
+    height: 32px;
+    border-radius: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #87CEEB, #4A90E2);
+    transition: background var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+    box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, .15),
+        0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.toggle-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--dur-med) var(--ease), background var(--dur-med) var(--ease);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+}
+
+.toggle-thumb::before {
+    content: "☀️";
+    font-size: 13px;
+}
+
+.theme-switch input:focus-visible+.toggle-track {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+}
+
+.theme-switch input:checked+.toggle-track {
+    background: linear-gradient(135deg, #111827, #000000);
+}
+
+.theme-switch input:checked+.toggle-track .toggle-thumb {
+    transform: translateX(30px) rotate(360deg);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.theme-switch input:checked+.toggle-track .toggle-thumb::before {
+    content: "🌙";
+}
+
+.toggle-track::before {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    transition: opacity var(--dur-med) var(--ease);
+}
+
+.theme-switch input:checked+.toggle-track::before {
+    opacity: 1;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    top: 7px;
+    left: 10px;
+    box-shadow:
+        9px 7px white,
+        20px -2px white,
+        15px 13px white,
+        29px 3px white;
+}
+
+/* ==========================================================================
+   NAVBAR SHELL — one geometry system shared by public + dashboard variants.
+   Real glass only kicks in once the page scrolls (.is-scrolled), so the hero
+   content behind it stays fully visible at the top like the reference.
+   ========================================================================== */
+.glass-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    background: linear-gradient(0deg, rgba(0, 169, 242, 0) 25%, rgba(120, 124, 254, 0.55) 60%, rgba(23, 45, 157, 0.85) 100%);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    box-shadow: none;
+    border: none;
+    transition: height var(--dur-med) var(--ease), background var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease), backdrop-filter var(--dur-med) var(--ease);
+}
+
+body.dark .glass-navbar {
+    background: linear-gradient(0deg, rgba(0, 169, 242, 0) 25%, rgba(16, 32, 77, 0.65) 60%, rgba(8, 17, 38, 0.92) 100%);
+}
+
+.glass-navbar.is-scrolled {
+    height: var(--nav-h-scrolled);
+    background: rgba(37, 99, 255, .55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 10px 30px -14px rgba(15, 28, 92, .45);
+}
+
+body.dark .glass-navbar.is-scrolled {
+    background: rgba(8, 17, 38, .72);
+}
+
+/* scroll-progress strip — subtle motion cue borrowed from the reference nav */
+.nav-progress {
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--grad-accent);
+    background-size: 200% 100%;
+    box-shadow: 0 0 10px 1px rgba(0, 169, 242, .55);
+    transition: width .12s linear;
+}
+
+.navbar-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--nav-pad-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+}
+
+/* ==========================================================================
+   BRAND — logo scales with the navbar height instead of a fixed px value,
+   so it never overflows or looks oversized once the nav shrinks on scroll
+   or on smaller breakpoints.
+   ========================================================================== */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+    font-weight: 700;
+    transition: transform var(--dur-fast) var(--ease);
+    flex-shrink: 0;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+    transform: scale(1.04);
+}
+
+.brand-logo {
+    width: clamp(118px, 6vw, 52px);
+    height: clamp(118px, 6vw, 52px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    flex-shrink: 0;
+    transition: width var(--dur-med) var(--ease), height var(--dur-med) var(--ease);
+}
+
+.logo-text-wrapper {
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* centered logo layout — used on the public pages only */
+.navbar-brand.brand-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-brand.brand-center:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* ==========================================================================
+   DESKTOP AUTH BUTTONS (public variant)
+   ========================================================================== */
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-inline-start: auto;
+}
+
+.glass-btn {
+    padding: .6rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: .95rem;
+    font-weight: 500;
+    transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+    display: inline-block;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.glass-btn:active {
+    transform: translateY(0) scale(.97);
+}
+
+body.dark .glass-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark .glass-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-register {
+    background: linear-gradient(135deg, #667eea 0%, #2563ff 100%);
+    border: none;
+}
+
+/* ==========================================================================
+   HAMBURGER — shared trigger, morphs into an X
+   ========================================================================== */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    transition: background var(--dur-fast) var(--ease);
+    z-index: 10001;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.dark .hamburger {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .hamburger:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hamburger span {
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform var(--dur-med) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   MOBILE MENU + OVERLAY (shared shell)
+   ========================================================================== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur-med) var(--ease), visibility var(--dur-med);
+    z-index: 9997;
+}
+
+.menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    padding: calc(var(--nav-h) + 1rem) 1.5rem 2rem;
+    transition: right var(--dur-med) var(--ease);
+    z-index: 9998;
+    overflow-y: auto;
+}
+
+body.dark .mobile-menu {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.mobile-menu.show {
+    right: 0;
+}
+
+.mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+}
+
+.mobile-menu-items .glass-btn {
+    width: 100%;
+    text-align: center;
+}
+
+.mobile-menu-items a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background var(--dur-fast) var(--ease), padding var(--dur-fast) var(--ease);
+}
+
+.mobile-menu-items a:hover {
+    background: rgba(255, 255, 255, .1);
+    padding-inline-end: 24px;
+}
+
+.mobile-menu-items i {
+    font-size: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-title {
+    padding: 15px 16px 5px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.logout {
+    color: #ff6b6b !important;
+    margin-top: 12px;
+}
+
+/* ==========================================================================
+   DASHBOARD ACCOUNT AREA — student profile trigger, notifications, wallet.
+   Sized on the same rem scale as the theme switch / hamburger (40–42px)
+   so every action item in the dashboard navbar reads as one consistent row.
+   ========================================================================== */
+.student-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    background: rgba(255, 255, 255, .15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    height: 42px;
+    transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.student-profile:hover {
+    background: rgba(255, 255, 255, .24);
+    transform: translateY(-1px);
+}
+
+.student-profile span {
+    font-size: .9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.student-avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00e2e0, #172d9d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: .85rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.student-profile i {
+    font-size: 12px;
+}
+
+.notification-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.notification-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .15);
+    color: white;
+    position: relative;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.notification-box:hover {
+    background: rgba(255, 255, 255, .24);
+    transform: translateY(-1px);
+}
+
+.notification-box i {
+    font-size: 19px;
+}
+
+.notification-box span {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff4757;
+    color: white;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    left: auto;
+    width: min(320px, calc(100vw - 20px));
+    border-radius: 24px;
+    overflow: hidden;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px) scale(.97);
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-med) var(--ease), visibility var(--dur-fast);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, .85);
+    border: 1px solid rgba(255, 255, 255, .4);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .15);
+    color: var(--text-dark);
+}
+
+.notification-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+body.dark .notification-dropdown {
+    background: rgba(16, 20, 35, .85);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .notification-dropdown.show {
+        position: fixed;
+        top: calc(var(--nav-h-scrolled) + 10px);
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+}
+
+.notification-title {
+    padding: 16px 18px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(120, 124, 254, .15);
+}
+
+body.dark .notification-title {
+    border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--dur-fast) var(--ease);
+}
+
+.notification-item:hover {
+    background: rgba(120, 124, 254, .1);
+}
+
+body.dark .notification-item:hover {
+    background: rgba(255, 255, 255, .08);
+}
+
+.notification-item i {
+    font-size: 18px;
+    color: var(--teal);
+}
+
+.student-menu-head {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.student-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00e2e0, #172d9d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.student-menu-head h4 {
+    margin: 0;
+    color: white;
+    font-size: 1rem;
+}
+
+.student-menu-head p {
+    margin: 3px 0 0;
+    color: #ddd;
+    font-size: .85rem;
+}
+
+/* ==========================================================================
+   WALLET CHIP — desktop pill + mobile row, one visual language
+   ========================================================================== */
+.student-wallet {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 14px 6px 6px;
+    height: 42px;
+    background: rgba(255, 255, 255, .75);
+    border: 1px solid rgba(120, 124, 254, .18);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+body.dark .student-wallet {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .12);
+}
+
+.student-wallet:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(23, 45, 157, .12);
+}
+
+.student-wallet i {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #fff;
+    font-size: .95rem;
+    background: linear-gradient(135deg, #00E2E0, #00A9F2);
+    flex-shrink: 0;
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.wallet-label {
+    font-size: .68rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+body.dark .wallet-label {
+    color: rgba(255, 255, 255, .6);
+}
+
+.wallet-balance {
+    font-size: .9rem;
+    font-weight: 900;
+    color: #172D9D;
+}
+
+body.dark .wallet-balance {
+    color: #fff;
+}
+
+.wallet-balance small {
+    color: #00A9F2;
+    font-size: .7rem;
+}
+
+.desktop-wallet {
+    display: flex;
+}
+
+.mobile-wallet {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-wallet i {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #00E2E0, #00A9F2);
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.mobile-wallet .wallet-label,
+.mobile-wallet .wallet-balance {
+    color: #fff;
+}
+
+/* ==========================================================================
+   NAV ACTIONS ROW — the flex row that holds theme switch + account items,
+   identical structure on public/dashboard so alignment never drifts.
+   ========================================================================== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   NAV WALLET — balance chip that lives inside the navbar itself (desktop
+   and mobile alike). #studentBalance is the same element the existing
+   initWalletBalance() in navbar-dashboard.js already looks for, so the
+   value / API / localStorage source and its update logic are untouched —
+   this only adds the missing markup + a "+" shortcut to the wallet page.
+   ========================================================================== */
+.nav-wallet {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 6px 0 14px;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: background var(--dur-fast) var(--ease);
+}
+
+.nav-wallet:hover {
+    background: rgba(255, 255, 255, .22);
+}
+
+body.dark .nav-wallet {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .14);
+}
+
+.nav-wallet-amount {
+    font-size: .9rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .2px;
+}
+
+.nav-wallet-amount small {
+    font-size: .7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .8);
+    margin-inline-start: 2px;
+}
+
+.nav-wallet-plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    color: #fff;
+    text-decoration: none;
+    transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.nav-wallet-plus i {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.nav-wallet-plus:hover {
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(0, 169, 242, .45);
+}
+
+.nav-wallet-plus:active {
+    transform: scale(.94);
+}
+
+/* ==========================================================================
+   RESPONSIVE — one consolidated breakpoint ladder for both navbar variants.
+
+   Mobile order is mirrored on purpose (theme + notifications on the start
+   side, hamburger on the end side) — the bottom scroll-progress line
+   (.nav-progress) is absolutely positioned and unaffected by this order.
+
+   Component sizing (logo, name, notification icon, theme toggle) is now
+   the SAME across every mobile width (992px and below) — it no longer
+   shrinks at narrower widths. Only navbar height / container padding /
+   the logo↔name gap still scale down for smaller screens.
+   ========================================================================== */
+@media (max-width: 1200px) {
+    :root {
+        --nav-h: 78px;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --nav-h: 72px;
+        --nav-h-scrolled: 62px;
+    }
+
+    /* Desktop-only actions hidden on mobile */
+    .navbar-buttons,
+    .nav-actions>.student-profile,
+    .nav-actions>.student-dropdown,
+    .desktop-wallet {
+        display: none;
+    }
+
+    .mobile-wallet {
+        display: flex;
+    }
+
+    /* Let nav-actions children participate directly in the navbar's own
+       flex layout, instead of being grouped inside a separate box */
+    .nav-actions {
+        display: contents;
+    }
+
+    .navbar-container {
+        padding: 0 12px;
+        gap: 8px;
+    }
+
+    /* =========================
+       MIRRORED MOBILE LAYOUT
+       START : Theme toggle + Notifications
+       CENTER: Logo + Bubble Sheet
+       END   : Hamburger
+       ========================= */
+    .theme-switch {
+        order: 0;
+        position: static;
+        transform: none;
+        flex-shrink: 0;
+    }
+
+    .notification-wrapper {
+        order: 1;
+        display: block;
+        position: static;
+        flex-shrink: 0;
+    }
+    .nav-wallet {
+        order: 2;
+    }
+    .navbar-brand.brand-center {
+        order: 3;
+        position: static;
+        transform: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    .navbar-brand.brand-center:hover {
+        transform: none;
+    }
+
+    .hamburger {
+        order: 4;
+        display: flex;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    .hamburger span {
+        width: 21px;
+        height: 2px;
+    }
+
+    /* =========================
+       ENLARGED COMPONENT SIZING
+       (same values used at every mobile width, down to 375px and below)
+       ========================= */
+
+    .brand-logo {
+        width: 88px;
+        height: 88px;
+        margin-right: -45px;
+    }
+
+    .logo-text-wrapper {
+        width: 125%;
+        height: 125%;
+        object-fit: contain;
+        margin-right: 28px;
+    }
+
+    .logo-svg {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 1.04rem;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: -15px;
+    }
+
+    .notification-box {
+        width: 30px;
+        height: 30px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .notification-box i {
+        font-size:20px;
+    }
+
+    .notification-box span {
+        width: 17px;
+        height: 17px;
+        top: -3px;
+        right: -3px;
+        font-size: 10px;
+    }
+
+    .toggle-track {
+        width: 68px;
+        height: 35px;
+    }
+
+    .toggle-thumb {
+        width: 29px;
+        height: 29px;
+    }
+
+    .theme-switch input:checked+.toggle-track .toggle-thumb {
+        transform: translateX(31px) rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --nav-h: 66px;
+        --nav-h-scrolled: 58px;
+        --nav-pad-x: 1rem;
+    }
+
+    .navbar-container {
+        padding: 0 9px;
+        gap: 5px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    /* logo ↔ name spacing tightened further on small mobile */
+    .navbar-brand.brand-center {
+        gap: 3px;
+    }
+
+    .mobile-menu {
+        width: 100%;
+    }
+
+    .hamburger {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hamburger span {
+        width: 20px;
+    }
+
+    .nav-wallet {
+        height: 38px;
+        gap: 5px;
+        padding: 0 5px 0 5px;
+    }
+
+    .nav-wallet-amount {
+        font-size: .82rem;
+    }
+
+    .nav-wallet-amount small {
+        font-size: .74rem;
+    }
+
+    .nav-wallet-plus {
+        width: 20px;
+        height: 20px;
+    }
+
+    .nav-wallet-plus i {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 391px) {
+    :root {
+        --nav-h: 62px;
+        --nav-h-scrolled: 56px;
+    }
+
+    .navbar-container {
+        padding: 0 7px;
+        gap: 3px;
+    }
+
+    /* tightest logo ↔ name spacing, extra-small screens only */
+    .navbar-brand.brand-center {
+        gap: 2px;
+    }
+
+    .hamburger {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+    .hamburger span {
+        width: 18px;
+    }
+
+    .nav-wallet {
+        height: 34px;
+        gap: 4px;
+        padding: 0 4px 0 10px;
+    }
+
+    .nav-wallet-amount {
+        font-size: .74rem;
+    }
+
+    .nav-wallet-amount small {
+        font-size: .6rem;
+    }
+
+    .nav-wallet-plus {
+        width: 23px;
+        height: 23px;
+    }
+
+    .nav-wallet-plus i {
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .glass-navbar,
+    .toggle-thumb,
+    .toggle-track,
+    .hamburger span,
+    .mobile-menu,
+    .notification-dropdown,
+    .nav-link::after {
+        transition: none !important;
+    }
+}

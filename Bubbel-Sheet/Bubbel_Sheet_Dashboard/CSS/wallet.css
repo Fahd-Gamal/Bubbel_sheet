@@ -1,0 +1,1488 @@
+/* =========================================================
+   BUBBLE SHEET - WALLET DASHBOARD
+   No page background
+   Compatible with current HTML + JS classes
+   ========================================================= */
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+    --wallet-primary: #00a9f2;
+    --wallet-primary-dark: #008dcc;
+    --wallet-secondary: #00e2e0;
+
+    --wallet-green: #00c896;
+    --wallet-green-dark: #009f78;
+
+    --wallet-red: #ef5350;
+    --wallet-red-dark: #d9363e;
+
+    --wallet-yellow: #f5b942;
+    --wallet-yellow-dark: #d99a18;
+
+    --wallet-blue: #3f8cff;
+
+    --wallet-text: #172033;
+    --wallet-muted: #718096;
+
+    --wallet-card-bg: #ffffff;
+    --wallet-border: rgba(20, 35, 60, 0.08);
+
+    --wallet-table-bg: rgba(20, 35, 60, 0.025);
+    --wallet-row-hover: rgba(0, 169, 242, 0.06);
+
+    --wallet-shadow:
+        0 12px 35px rgba(20, 35, 60, 0.08);
+
+    --wallet-shadow-hover:
+        0 18px 45px rgba(20, 35, 60, 0.14);
+
+    --wallet-radius: 22px;
+}
+
+
+/* =========================================================
+   DARK THEME VARIABLES
+   ========================================================= */
+
+[data-theme="dark"] {
+    --wallet-text: #f4f7fb;
+    --wallet-muted: #a9b4c7;
+
+    --wallet-card-bg: rgba(17, 27, 48, 0.92);
+
+    --wallet-border: rgba(255, 255, 255, 0.08);
+
+    --wallet-table-bg: rgba(0, 0, 0, 0.18);
+    --wallet-row-hover: rgba(0, 169, 242, 0.1);
+
+    --wallet-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.25);
+
+    --wallet-shadow-hover:
+        0 22px 50px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.wallet-page {
+    width: min(1400px, calc(100% - 32px));
+    margin: 0 auto;
+
+    padding-top: 125px;
+    padding-bottom: 70px;
+
+    position: relative;
+    z-index: 2;
+
+    color: var(--wallet-text);
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   BUBBLES DECORATION
+   Floating "bubble" shapes above/around the summary cards,
+   themed for the Bubble Sheet brand. Purely decorative,
+   adapts opacity between light / dark.
+   ========================================================= */
+
+.wallet-bubbles {
+    position: relative;
+
+    height: 0;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.w-bubble {
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            rgba(0, 169, 242, 0.35),
+            rgba(0, 226, 224, 0.15));
+
+    border: 1px solid rgba(0, 169, 242, 0.25);
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    animation: wBubbleFloat 9s ease-in-out infinite;
+}
+
+[data-theme="dark"] .w-bubble {
+    background:
+        linear-gradient(135deg,
+            rgba(0, 169, 242, 0.22),
+            rgba(0, 226, 224, 0.08));
+
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.w-bubble.wb1 {
+    width: 46px;
+    height: 46px;
+
+    top: -68px;
+    right: 4%;
+
+    animation-delay: 0s;
+}
+
+.w-bubble.wb2 {
+    width: 26px;
+    height: 26px;
+
+    top: -40px;
+    right: 16%;
+
+    animation-delay: -2.4s;
+}
+
+.w-bubble.wb3 {
+    width: 64px;
+    height: 64px;
+
+    top: -84px;
+    left: 8%;
+
+    animation-delay: -4.8s;
+}
+
+.w-bubble.wb4 {
+    width: 20px;
+    height: 20px;
+
+    top: -30px;
+    left: 22%;
+
+    animation-delay: -6.5s;
+}
+
+.w-bubble.wb5 {
+    width: 34px;
+    height: 34px;
+
+    top: -55px;
+    left: 46%;
+
+    animation-delay: -3.2s;
+}
+
+@keyframes wBubbleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-14px) scale(1.08);
+    }
+}
+
+@media (max-width: 767px) {
+
+    .w-bubble {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .w-bubble {
+        animation: none !important;
+    }
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+    margin-bottom: 28px;
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.page-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.page-icon {
+    width: 64px;
+    height: 64px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            var(--wallet-primary),
+            var(--wallet-secondary));
+
+    box-shadow:
+        0 12px 28px rgba(0, 169, 242, 0.22);
+
+    font-size: 27px;
+}
+
+.page-title h1 {
+    margin: 0;
+
+    font-size: clamp(25px, 3vw, 34px);
+
+    font-weight: 800;
+
+    color: var(--wallet-text);
+}
+
+.page-title p {
+    margin: 5px 0 0;
+
+    color: var(--wallet-muted);
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   GENERAL WALLET CARD
+   ========================================================= */
+
+.wallet-card {
+    position: relative;
+
+    border: 1px solid var(--wallet-border);
+
+    border-radius: var(--wallet-radius);
+
+    box-shadow: var(--wallet-shadow);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.wallet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--wallet-shadow-hover);
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.summary-card {
+    min-height: 235px;
+
+    padding: 27px;
+
+    display: flex;
+    align-items: center;
+
+    color: #ffffff;
+
+    border: none;
+}
+
+
+/* =========================================================
+   SALES CARD - RED
+   ========================================================= */
+
+.summary-card.sales-card {
+    background:
+        linear-gradient(135deg,
+            #ef5350 0%,
+            #e53935 55%,
+            #c62828 100%);
+
+    box-shadow:
+        0 15px 35px rgba(229, 57, 53, 0.25);
+}
+
+.summary-card.sales-card:hover {
+    box-shadow:
+        0 22px 45px rgba(229, 57, 53, 0.34);
+}
+
+
+/* =========================================================
+   CONSUMED CARD - BUBBLE SHEET GREEN
+   ========================================================= */
+
+.summary-card.consumed-card {
+    background:
+        linear-gradient(135deg,
+            #00c896 0%,
+            #00b98b 52%,
+            #009f78 100%);
+
+    box-shadow:
+        0 15px 35px rgba(0, 200, 150, 0.24);
+}
+
+.summary-card.consumed-card:hover {
+    box-shadow:
+        0 22px 45px rgba(0, 200, 150, 0.34);
+}
+
+
+/* =========================================================
+   PENDING CARD - YELLOW
+   ========================================================= */
+
+.summary-card.pending-card {
+    background:
+        linear-gradient(135deg,
+            #f7c948 0%,
+            #f5b942 50%,
+            #e0a321 100%);
+
+    box-shadow:
+        0 15px 35px rgba(245, 185, 66, 0.24);
+}
+
+.summary-card.pending-card:hover {
+    box-shadow:
+        0 22px 45px rgba(245, 185, 66, 0.34);
+}
+
+
+/* =========================================================
+   SUMMARY ICON
+   ========================================================= */
+
+.summary-icon {
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   SUMMARY CONTENT
+   ========================================================= */
+
+.summary-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.summary-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.summary-label i {
+    font-size: 16px;
+}
+
+
+.summary-value {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    margin-bottom: 7px;
+
+    font-size: clamp(30px, 4vw, 42px);
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.summary-value small {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    opacity: 0.9;
+}
+
+
+.summary-meta {
+    font-size: 12px;
+
+    font-weight: 500;
+
+    color: rgba(255, 255, 255, 0.78);
+}
+
+
+/* =========================================================
+   CODES BADGE
+   ========================================================= */
+
+.codes-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 17px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.16);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.12);
+
+    animation: walletPulse 1.8s infinite;
+}
+
+@keyframes walletPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+
+/* =========================================================
+   SECTION CARDS
+   ========================================================= */
+
+.section-card {
+    padding: 30px;
+
+    background: var(--wallet-card-bg);
+
+    border: 1px solid var(--wallet-border);
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.section-header {
+    margin-bottom: 25px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    color: var(--wallet-primary);
+
+    letter-spacing: 0.2px;
+}
+
+.eyebrow-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            var(--wallet-primary),
+            var(--wallet-secondary));
+
+    box-shadow:
+        0 0 0 5px rgba(0, 169, 242, 0.08);
+}
+
+.section-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color: var(--wallet-text);
+}
+
+.section-header p {
+    margin: 7px 0 0;
+
+    color: var(--wallet-muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   CODES SECTION HEADER (title + export button)
+   ========================================================= */
+
+.codes-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   EXPORT EXCEL BUTTON
+   ========================================================= */
+
+.export-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    height: 46px;
+
+    padding: 0 20px;
+
+    flex-shrink: 0;
+
+    border: 1px solid rgba(0, 200, 150, 0.3);
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            var(--wallet-green),
+            var(--wallet-green-dark));
+
+    box-shadow:
+        0 10px 22px rgba(0, 200, 150, 0.22);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.export-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 28px rgba(0, 200, 150, 0.3);
+}
+
+.export-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.export-btn:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   FORM LABEL
+   ========================================================= */
+
+.form-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--wallet-text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+   ========================================================= */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.input-wrapper>i {
+    position: absolute;
+
+    top: 50%;
+    right: 17px;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    color: var(--wallet-primary);
+
+    font-size: 18px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   WALLET INPUT
+   ========================================================= */
+
+.wallet-input {
+    width: 100%;
+
+    height: 54px;
+
+    padding: 0 48px 0 18px;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--wallet-border);
+
+    outline: none;
+
+    background: rgba(128, 145, 170, 0.07);
+
+    color: var(--wallet-text);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.wallet-input::placeholder {
+    color: var(--wallet-muted);
+    opacity: 0.8;
+}
+
+.wallet-input:hover {
+    border-color: rgba(0, 169, 242, 0.25);
+}
+
+.wallet-input:focus {
+    border-color: var(--wallet-primary);
+
+    background: rgba(0, 169, 242, 0.04);
+
+    box-shadow:
+        0 0 0 4px rgba(0, 169, 242, 0.10);
+}
+
+
+/* Remove number arrows */
+
+.wallet-input::-webkit-outer-spin-button,
+.wallet-input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.wallet-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* =========================================================
+   GENERATE BUTTON
+   ========================================================= */
+
+.generate-btn {
+    width: 100%;
+
+    min-height: 54px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 0 20px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            var(--wallet-primary),
+            var(--wallet-secondary));
+
+    box-shadow:
+        0 10px 25px rgba(0, 169, 242, 0.20);
+
+    font-family: "Cairo", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.generate-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(0, 169, 242, 0.30);
+}
+
+.generate-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-btn:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+#walletAlert {
+    transition: opacity 0.35s ease;
+}
+
+.wallet-alert {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 14px 17px;
+
+    border-radius: 14px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.7;
+}
+
+.wallet-alert i {
+    flex-shrink: 0;
+
+    font-size: 19px;
+}
+
+.wallet-alert strong {
+    font-weight: 900;
+}
+
+
+/* SUCCESS */
+
+.wallet-alert.alert-success {
+    color: #087f5b;
+
+    background: rgba(0, 200, 150, 0.10);
+
+    border: 1px solid rgba(0, 200, 150, 0.25);
+}
+
+[data-theme="dark"] .wallet-alert.alert-success {
+    color: #53e6bd;
+
+    background: rgba(0, 200, 150, 0.12);
+
+    border-color: rgba(0, 200, 150, 0.25);
+}
+
+
+/* ERROR */
+
+.wallet-alert.alert-error {
+    color: #c62828;
+
+    background: rgba(239, 83, 80, 0.10);
+
+    border: 1px solid rgba(239, 83, 80, 0.25);
+}
+
+[data-theme="dark"] .wallet-alert.alert-error {
+    color: #ff7774;
+
+    background: rgba(239, 83, 80, 0.12);
+
+    border-color: rgba(239, 83, 80, 0.25);
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 17px;
+
+    border: 1px solid var(--wallet-border);
+
+    background: var(--wallet-table-bg);
+}
+
+
+/* =========================================================
+   WALLET TABLE
+   ========================================================= */
+
+.wallet-table {
+    width: 100%;
+
+    min-width: 720px;
+
+    margin: 0;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    color: var(--wallet-text);
+
+    font-family: "Cairo", sans-serif;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.wallet-table thead th {
+    padding: 17px 18px;
+
+    text-align: right;
+
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #00a9f2,
+            #00c9d9);
+
+    border: 0;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.wallet-table thead th:first-child {
+    border-top-right-radius: 15px;
+}
+
+.wallet-table thead th:last-child {
+    border-top-left-radius: 15px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.wallet-table tbody td {
+    padding: 17px 18px;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid var(--wallet-border);
+
+    color: var(--wallet-text);
+
+    background: transparent;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.wallet-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.wallet-table tbody tr {
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.wallet-table tbody tr:hover {
+    background: var(--wallet-row-hover);
+}
+
+
+/* =========================================================
+   TABLE INDEX
+   ========================================================= */
+
+.wallet-table tbody td:first-child {
+    width: 60px;
+
+    color: var(--wallet-muted);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   CODE
+   ========================================================= */
+
+.wallet-table .code {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 11px;
+
+    border-radius: 9px;
+
+    direction: ltr;
+
+    color: var(--wallet-primary);
+
+    background: rgba(0, 169, 242, 0.09);
+
+    border: 1px solid rgba(0, 169, 242, 0.14);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+   AMOUNT
+   ========================================================= */
+
+.wallet-table .amount {
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--wallet-green);
+
+    font-size: 13px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    min-width: 105px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.status i {
+    font-size: 13px;
+}
+
+
+/* USED = GREEN */
+
+.status.used {
+    color: #087f5b;
+
+    background: rgba(0, 200, 150, 0.11);
+
+    border: 1px solid rgba(0, 200, 150, 0.22);
+}
+
+[data-theme="dark"] .status.used {
+    color: #54e6bd;
+
+    background: rgba(0, 200, 150, 0.12);
+
+    border-color: rgba(0, 200, 150, 0.22);
+}
+
+
+/* UNUSED = YELLOW */
+
+.status.unused {
+    color: #a56b00;
+
+    background: rgba(245, 185, 66, 0.14);
+
+    border: 1px solid rgba(245, 185, 66, 0.25);
+}
+
+[data-theme="dark"] .status.unused {
+    color: #ffd166;
+
+    background: rgba(245, 185, 66, 0.12);
+
+    border-color: rgba(245, 185, 66, 0.23);
+}
+
+
+/* =========================================================
+   TABLE MESSAGE
+   ========================================================= */
+
+.table-message {
+    min-height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding: 30px;
+
+    color: var(--wallet-muted);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: center;
+}
+
+.table-message>i {
+    font-size: 31px;
+
+    color: var(--wallet-primary);
+}
+
+
+/* =========================================================
+   LOADING SPINNER
+   ========================================================= */
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    border: 3px solid rgba(0, 169, 242, 0.15);
+
+    border-top-color: var(--wallet-primary);
+
+    animation:
+        walletSpin 0.8s linear infinite;
+}
+
+@keyframes walletSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   BOOTSTRAP SPINNER OVERRIDE
+   ========================================================= */
+
+.generate-btn .spinner-border {
+    width: 16px;
+    height: 16px;
+
+    border-width: 2px;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+[data-reveal] {
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.65s ease,
+        transform 0.65s ease;
+}
+
+[data-reveal].visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   TABLE SCROLLBAR
+   ========================================================= */
+
+.table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 169, 242, 0.35);
+
+    border-radius: 999px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 169, 242, 0.55);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .wallet-page {
+        width: min(100% - 20px, 1400px);
+
+        padding-top: 105px;
+
+        padding-bottom: 45px;
+    }
+
+
+    .page-header-inner {
+        gap: 13px;
+    }
+
+
+    .page-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 16px;
+
+        font-size: 22px;
+    }
+
+
+    .page-title h1 {
+        font-size: 25px;
+    }
+
+
+    .page-title p {
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    .summary-card {
+        min-height: 190px;
+
+        padding: 21px;
+    }
+
+
+    .summary-icon {
+        width: 55px;
+        height: 55px;
+
+        margin-left: 14px;
+
+        border-radius: 16px;
+
+        font-size: 22px;
+    }
+
+
+    .summary-value {
+        font-size: 31px;
+    }
+
+
+    .summary-label {
+        font-size: 12px;
+    }
+
+
+    .summary-meta {
+        font-size: 10px;
+    }
+
+
+    .codes-badge {
+        margin-top: 13px;
+
+        padding: 6px 10px;
+
+        font-size: 10px;
+    }
+
+
+    .section-card {
+        padding: 21px 17px;
+
+        border-radius: 18px;
+    }
+
+
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+
+    .section-header h2 {
+        font-size: 19px;
+    }
+
+
+    .section-header p {
+        font-size: 11px;
+    }
+
+
+    .wallet-input,
+    .generate-btn {
+        height: 51px;
+        min-height: 51px;
+    }
+
+
+    .table-wrapper {
+        border-radius: 14px;
+    }
+
+
+    .wallet-table {
+        min-width: 680px;
+    }
+
+
+    .wallet-table thead th,
+    .wallet-table tbody td {
+        padding: 14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .wallet-page {
+        width: calc(100% - 14px);
+
+        padding-top: 100px;
+    }
+
+
+    .page-icon {
+        width: 47px;
+        height: 47px;
+
+        border-radius: 14px;
+    }
+
+
+    .page-title h1 {
+        font-size: 22px;
+    }
+
+
+    .summary-card {
+        min-height: 175px;
+
+        padding: 18px;
+    }
+
+
+    .summary-icon {
+        width: 48px;
+        height: 48px;
+
+        margin-left: 11px;
+
+        font-size: 19px;
+    }
+
+
+    .summary-value {
+        font-size: 28px;
+    }
+
+
+    .summary-label {
+        font-size: 11px;
+    }
+
+
+    .section-card {
+        padding: 18px 14px;
+    }
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .wallet-card,
+    .generate-btn,
+    .wallet-input,
+    [data-reveal],
+    .page-header {
+        transition: none !important;
+    }
+
+    .live-dot,
+    .loading-spinner {
+        animation: none !important;
+    }
+}
