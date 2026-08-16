@@ -868,6 +868,14 @@ body.dark .question-image {
 
     transition: .25s var(--ease);
 
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+
+    -webkit-user-select: none;
+
+    user-select: none;
+
 }
 
 body.dark .option-item {
@@ -888,10 +896,20 @@ body.dark .option-item {
 
     position: absolute;
 
+    inset: 0;
+
     opacity: 0;
 
-    width: 1px;
-    height: 1px;
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
 
 }
 
@@ -1317,8 +1335,6 @@ body.dark .question-feedback.feedback-correct {
         -6px 8px 26px rgba(0, 169, 242, .35);
 
     transition: .3s var(--ease);
-    margin-bottom: -800px;
-    margin-right: -200px;
 }
 
 .qnav-toggle:hover {
@@ -2083,8 +2099,11 @@ body.dark .exam-bubble {
     }
 
     .qnav {
+        top: auto;
+        right: auto;
         left: 12px;
         bottom: 12px;
+        transform: none;
     }
 
     .qnav-panel {
