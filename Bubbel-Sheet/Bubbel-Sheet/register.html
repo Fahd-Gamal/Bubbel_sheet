@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ar" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Register</title>
+    <meta name="description"
+        content="Create your free Bubble Sheet account and start building, grading and tracking exams in minutes." />
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--for footer -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="CSS/nav.css">
+    <link rel="stylesheet" href="CSS/register.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass-navbar" id="siteNav" style="direction: ltr;">
+        <div class="navbar-container">
+
+            <!-- Theme Toggle (start side — mirrors dashboard mobile layout) -->
+            <div class="nav-right">
+                <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                    <input type="checkbox" id="input">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Logo/Brand (centered — same as dashboard brand-center) -->
+            <a href="index.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper">
+                </div>
+                <span class="logo-svg">Bubble Sheet</span>
+            </a>
+
+            <!-- Desktop Auth Buttons (right side) -->
+            <div class="navbar-buttons">
+                <a href="login.html" class="glass-btn">تسجيل الدخول</a>
+                <a href="register.html" class="glass-btn btn-register">إنشاء حساب</a>
+            </div>
+
+            <!-- Hamburger (mobile only) -->
+            <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+        <!-- Scroll-progress strip — the animated line under the navbar -->
+        <span class="nav-progress" id="navProgress" aria-hidden="true" style="direction: rtl;"></span>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="mobile-menu-items">
+            <a href="login.html" class="glass-btn" onclick="closeMenu()">
+                <i class="bi bi-box-arrow-in-right" style="margin-inline-end:.5rem;"></i>
+                تسجيل الدخول
+            </a>
+            <a href="register.html" class="glass-btn btn-register" onclick="closeMenu()">
+                <i class="bi bi-person-plus-fill" style="margin-inline-end:.5rem;"></i>
+                إنشاء حساب
+            </a>
+        </div>
+    </div>
+    <!-- finish navbar -->
+    <!-- ============ MAIN SPLIT LAYOUT ============ -->
+    <main>
+        <div class="split-shell">
+
+            <!-- LEFT: HERO -->
+            <section class="hero-pane" aria-label="About Bubble Sheet">
+                <div class="hero-blobs" aria-hidden="true">
+                    <span class="blob blob-1"></span>
+                    <span class="blob blob-2"></span>
+                    <span class="blob blob-3"></span>
+                </div>
+                <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
+
+                <div class="hero-content" data-anim="fade-up">
+                    <span class="eyebrow glass-chip">لِطُلَّابِ المَدَارِسِ &amp; السَّنَاتِرِ التَّعْلِيمِيَّةِ</span>
+                    <h1 class="hero-title">
+                        اخْتَبِرْ مَعْلُومَاتِكَ..
+                        <span class="text-gradient">دلوقتي</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        منصة "بَبِلْ شِيتْ" تتيح لك خوض الِاختبارات التفاعلية والوصول إلى بَنُوكِ أَسْئِلَةٍ شاملة عبر
+                        الإِنتِرْنِت
+                        بنَتَائِجَ
+                        فَوْرِيَّةٍ ودقيقة. أَنْشِئْ حسابك الآنَ، وابدأ رحلة التَّقْيِيم الذكي في دقائق معدودة.
+                    </p>
+
+                    <!-- Illustration -->
+                    <div class="hero-illustration glass-surface" data-anim="float-card" aria-hidden="true">
+                        <div class="sheet-card">
+                            <div class="sheet-header">
+                                <span class="sheet-dot"></span>
+                                <span class="sheet-dot"></span>
+                                <span class="sheet-dot"></span>
+                                <span class="sheet-title">Answer Sheet · #0142</span>
+                            </div>
+                            <div class="sheet-rows">
+                                <div class="sheet-row" data-row="1">
+                                    <span class="row-index">1</span>
+                                    <span class="bubble-opt filled"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                </div>
+                                <div class="sheet-row" data-row="2">
+                                    <span class="row-index">2</span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt filled"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                </div>
+                                <div class="sheet-row" data-row="3">
+                                    <span class="row-index">3</span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt filled"></span>
+                                </div>
+                                <div class="sheet-row" data-row="4">
+                                    <span class="row-index">4</span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt filled"></span>
+                                    <span class="bubble-opt"></span>
+                                    <span class="bubble-opt"></span>
+                                </div>
+                            </div>
+                            <div class="sheet-footer">
+                                <span class="score-badge">Score 96%</span>
+                                <span class="sheet-progress"><span class="sheet-progress-fill"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="hero-features list-unstyled">
+                        <li data-anim="reveal">
+                            <span class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg></span>
+                            ​تَصْحِيح فَوْرِي للاختبارات بلمحة عين
+                        </li>
+                        <li data-anim="reveal">
+                            <span class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg></span>
+                            ​تَقَارِير ذَكِيَّة تتابع مستوى الطلاب بدقة
+                        </li>
+                        <li data-anim="reveal">
+                            <span class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg></span>
+                            ​بُنُوك أَسْئِلَة شَامِلَة لكل المواد والمراحل
+                        </li>
+                        <li data-anim="reveal">
+                            <span class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg></span>
+                            ​​لِطُلَّابِ المَدَارِسِ: خُضِ الِاخْتِبَارَاتِ التَّفَاعُلِيَّةِ
+                        </li>
+                        <li data-anim="reveal">
+                            <span class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" />
+                                </svg></span>
+                            ​لِلسَّنَاتِرِ التَّعْلِيمِيَّةِ: أَنْشِئْ امْتِحَانَاتِكَ وَتَابِعْ طُلَّابَكَ
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- RIGHT: REGISTER FORM -->
+            <!-- main -->
+            <div class="animated-bg"></div>
+
+            <div class="register-container">
+                <div class="glass-card">
+                    <h2>انشئ حسابك الآن</h2>
+                    <p class="subtitle">ادخل بياناتك بشكل صحيح للحصول علي افضل تجربة داخل الموقع</p>
+
+                    <form id="registerForm" novalidate>
+                        <div class="name-row">
+                            <div class="form-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-control" id="firstName" placeholder="الإسم الطالب"
+                                    required>
+                                <div class="error-message">مطلوب اسم الطالب</div>
+                            </div>
+
+                            <div class="form-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-control" id="lastName" placeholder="اسم الأب" required>
+                                <div class="error-message">مطلوب اسم ولي الأمر</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-school input-icon"></i>
+                            <input type="text" class="form-control" id="school" placeholder="اسم المدرسة" required>
+                            <div class="error-message">مطلوب اسم المدرسة</div>
+                        </div>
+                        <div class="form-group gender-group">
+                            <label class="gender-title">النوع</label>
+
+                            <div class="gender-options">
+                                <label class="gender-card">
+                                    <input type="radio" name="gender" value="true" checked>
+                                    <span class="gender-icon">
+                                        <i class="fas fa-mars"></i>
+                                    </span>
+                                    <span>ذكر</span>
+                                </label>
+
+                                <label class="gender-card">
+                                    <input type="radio" name="gender" value="false">
+                                    <span class="gender-icon">
+                                        <i class="fas fa-venus"></i>
+                                    </span>
+                                    <span>أنثى</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" class="form-control" id="email" placeholder="الإيميل" required>
+                            <div class="error-message">يرجى إدخال إيميل صالح</div>
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-phone input-icon"></i>
+                            <input type="tel" class="form-control" id="phone" placeholder="رقم التليفون" required>
+                            <div class="error-message">مطلوب رقم تليفون الطالب</div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-phone input-icon"></i>
+                            <input type="tel" class="form-control" id="fatherphone" placeholder="رقم ولي الأمر"
+                                required>
+                            <div class="error-message">مطلوب رقم تليفون ولي الأمر</div>
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" class="form-control" id="password" placeholder="الباسورد" required>
+                            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                            <div class="error-message">يجب أن تتكون كلمة المرور من 6 أحرف على الأقل</div>
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                placeholder="تأكيد الباسورد" required>
+                            <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+                            <div class="error-message">كلمات المرور غير متطابقة</div>
+                        </div>
+
+                        <button type="submit" class="btn-register2">
+                            <span>!انشئ الحساب</span>
+                        </button>
+                    </form>
+
+                    <div class="login-link">
+                        <a href="login.html" class="glass-link"> !يوجد لديك حساب بالفعل؟<strong>ادخل إلى حسابك الآن
+                            </strong></a>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <footer class="main-footer">
+
+        <div class="footer-logo">
+            <span>Bubble</span> Sheet
+        </div>
+
+        <div class="footer-subtitle">
+            منصة ذكية لإدارة وتصحيح الاختبارات
+        </div>
+
+        <div class="footer-description">
+            💙 تساعد منصة <strong>Bubble Sheet</strong> المدارس والمعلمين والمراكز التعليمية
+            على إنشاء الاختبارات وتصحيحها وتحليل النتائج بدقة وسرعة.
+            تم تصميم المنصة لتوفير تجربة حديثة تسهّل إدارة الامتحانات
+            ومتابعة الأداء وتحليل النتائج بشكل احترافي.
+        </div>
+
+        <div class="footer-badge">
+            Smart • Fast • Accurate
+        </div>
+
+        <br>
+
+        <div class="social-glass">
+
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+
+        </div>
+
+        <div class="footer-dev-title">
+            &lt; DEVELOPED BY &gt;
+        </div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/">Fahd Gamal</a>
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/">Mina Hany</a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+            Bubble Sheet — All Rights Reserved.
+        </div>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/register.js"></script>
+    <script src="JS/nav.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+</body>
+
+</html>

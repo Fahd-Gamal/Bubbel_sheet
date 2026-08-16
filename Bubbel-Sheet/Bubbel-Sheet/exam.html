@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Bubble Sheet — الامتحان</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="CSS/student_dashbord.css">
+<link rel="stylesheet" href="CSS/nav-dashboard.css">
+<link rel="stylesheet" href="CSS/footer.css">
+<link rel="stylesheet" href="CSS/academic-years.css">
+<link rel="stylesheet" href="CSS/exam.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass-navbar" id="siteNav">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <a href="student_dashboard.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper">
+                </div>
+                <span class="logo-svg">Bubble Sheet</span>
+            </a>
+    
+            <div class="nav-actions">
+                <!-- Desktop Student Profile -->
+                <div class="student-dropdown">
+                    <button class="student-profile" onclick="toggleMenu()" aria-haspopup="true" aria-label="حسابي">
+                        <div class="student-avatar-small"></div>
+                        <span id="navbarStudentName"></span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+    
+                <!-- Wallet -->
+                <div class="nav-wallet" id="navWallet">
+                    <span class="nav-wallet-amount"><span id="studentBalance"></span> <small>ج.م</small></span>
+                    <a href="wallet.html" class="nav-wallet-plus" aria-label="إضافة رصيد" title="إضافة رصيد">
+                        <i class="bi bi-plus-lg"></i>
+                    </a>
+                </div>
+    
+                <!-- Notifications -->
+                <div class="notification-wrapper">
+                    <div class="notification-box" onclick="toggleNotifications(event)" role="button" tabindex="0"
+                        aria-label="الإشعارات">
+                        <i class="bi bi-bell-fill"></i>
+                        <span>3</span>
+                    </div>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-title">
+                            الإشعارات
+                        </div>
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            تم تصحيح اختبار الرياضيات
+                        </a>
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-award-fill"></i>
+                            حصلت على شارة جديدة
+                        </a>
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-journal-check"></i>
+                            تدريب جديد متاح
+                        </a>
+                    </div>
+                </div>
+    
+                <!-- Hamburger -->
+                <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                    aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+    
+            <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                <input type="checkbox" id="input">
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+            </label>
+        </div>
+    
+        <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+    </nav>
+    
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="student-menu-head">
+            <div class="student-avatar"></div>
+            <div>
+                <h4 id="mobilewelcomeName"></h4>
+                <p>طالب</p>
+            </div>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="student_dashboard.html">
+                <i class="bi bi-grid-fill"></i>
+                لوحة التحكم
+            </a>
+            <a href="#profile">
+                <i class="bi bi-person-fill"></i>
+                بياناتي
+            </a>
+            <a href="wallet.html" style="text-decoration: none;">
+                <div class="mobile-wallet">
+                    <i class="bi bi-plus-lg"></i>
+                    <span class="wallet-balance"><span id="studentBalanceMobile"></span> ج.م</span>
+                </div>
+            </a>
+            <div class="menu-title">
+                المراحل الدراسية
+            </div>
+            <a href="#">
+                <i class="bi bi-book-fill"></i>
+                المرحلة الابتدائية
+            </a>
+            <a href="#">
+                <i class="bi bi-mortarboard-fill"></i>
+                المرحلة الإعدادية
+            </a>
+            <a href="#">
+                <i class="bi bi-award-fill"></i>
+                المرحلة الثانوية
+            </a>
+            <!-- <a href="#">
+                <i class="bi bi-journal-check"></i>
+                التدريبات
+            </a>
+            <a href="#">
+                <i class="bi bi-clipboard-check"></i>
+                الاختبارات
+            </a>    
+            <a href="#">
+                <i class="bi bi-bar-chart-fill"></i>
+                نتائجي
+            </a>
+            <a href="#">
+                <i class="bi bi-gear-fill"></i>
+                الإعدادات
+            </a> -->
+            <a href="home.html" class="logout">
+                <i class="bi bi-box-arrow-right"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </div>
+    <!-- finish nav -->
+<!-- Subtle floating bubble background (reused from the dashboard design system) -->
+<div class="bg-canvas">
+    <div class="bg-spot bs1"></div>
+    <div class="bg-spot bs2"></div>
+    <div class="bg-spot bs3"></div>
+</div>
+
+<!-- Rising soap-bubble background, subtle and non-distracting -->
+<div class="exam-bubbles" id="examBubbles" aria-hidden="true">
+    <span class="exam-bubble b1"></span>
+    <span class="exam-bubble b2"></span>
+    <span class="exam-bubble b3"></span>
+    <span class="exam-bubble b4"></span>
+    <span class="exam-bubble b5"></span>
+    <span class="exam-bubble b6"></span>
+    <span class="exam-bubble b7"></span>
+    <span class="exam-bubble b8"></span>
+</div>
+
+<div class="page-root d-flex">
+    <main class="main flex-grow-1" id="examMain">
+
+        <!-- =====================================================
+            START SCREEN
+    ===================================================== -->
+        <section class="exam-start-screen" id="startScreen">
+            <div class="gc exam-intro-card">
+
+                <span class="eyebrow"><span class="dot"></span>قبل البدء</span>
+                <h1 class="ay-title" id="startExamName">—</h1>
+                <p class="ay-subtitle">راجع تفاصيل الامتحان والتعليمات جيدًا قبل الضغط على ابدأ الامتحان.</p>
+
+                <div class="exam-meta-grid">
+                    <div class="exam-meta-item">
+                        <i class="bi bi-journal-richtext" aria-hidden="true"></i>
+                        <div>
+                            <span>المادة</span>
+                            <strong id="metaSubject">—</strong>
+                        </div>
+                    </div>
+                    <div class="exam-meta-item">
+                        <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+                        <div>
+                            <span>الصف الدراسي</span>
+                            <strong id="metaYear">—</strong>
+                        </div>
+                    </div>
+                    <div class="exam-meta-item">
+                        <i class="bi bi-patch-question-fill" aria-hidden="true"></i>
+                        <div>
+                            <span>عدد الأسئلة</span>
+                            <strong id="metaCount">—</strong>
+                        </div>
+                    </div>
+                    <div class="exam-meta-item">
+                        <i class="bi bi-stopwatch-fill" aria-hidden="true"></i>
+                        <div>
+                            <span>مدة الامتحان</span>
+                            <strong id="metaDuration">—</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam-instructions">
+                    <h3><i class="bi bi-info-circle-fill" aria-hidden="true"></i> تعليمات الامتحان</h3>
+                    <ul>
+                        <li>يحتوي الامتحان على أسئلة اختيار من متعدد وأسئلة صح / خطأ فقط.</li>
+                        <li>يبدأ العد التنازلي فور الضغط على زر "ابدأ الامتحان" ولا يمكن إيقافه.</li>
+                        <li>يمكنك التنقل بين الأسئلة باستخدام لوحة الأسئلة العائمة على جانب الشاشة.</li>
+                        <li>عند انتهاء الوقت المحدد، سيتم إرسال إجاباتك تلقائيًا.</li>
+                        <li>في حاله الخروج من صفحة الامتحان لاي سبب سيتم اعتبرها مخالفة وسيتم طردك من الامتحان.</li>
+                    </ul>
+                </div>
+
+                <div class="exam-warning-box" role="note">
+                    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                    <p>
+                        يجب الإجابة على جميع الأسئلة قبل الإرسال. تجنب مغادرة الصفحة أو تبديل النافذة
+                        أثناء الامتحان — سيتم تسجيل ذلك كمخالفة.
+                    </p>
+                </div>
+
+                <button type="button" class="exam-primary-btn" id="startExamBtn">
+                    ابدأ الامتحان
+                    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- =====================================================
+            EXAM SCREEN
+    ===================================================== -->
+        <section class="exam-screen d-none" id="examScreen" aria-live="off">
+
+            <div class="exam-sticky-header gc" id="examStickyHeader">
+                <div class="exam-sticky-top">
+                    <div class="exam-header-info">
+                        <h2 id="examTitle">—</h2>
+                        <span id="examSubMeta">—</span>
+                    </div>
+                    <div class="exam-timer" id="examTimer" role="timer" aria-live="polite"
+                        aria-label="الوقت المتبقي">
+                        <i class="bi bi-stopwatch-fill" aria-hidden="true"></i>
+                        <span id="timerText">00:00</span>
+                    </div>
+                </div>
+
+                <div class="exam-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                    aria-valuenow="0" id="examProgress">
+                    <div class="exam-progress-track">
+                        <div class="exam-progress-fill" id="examProgressFill"></div>
+                    </div>
+                    <div class="exam-progress-label">
+                        <span id="examProgressText">0 من 0 أسئلة</span>
+                        <span id="examProgressPercent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="exam-submit-wrap">
+                <button type="button" class="exam-primary-btn exam-submit-btn" id="submitExamBtn">
+                    <i class="bi bi-send-check-fill" aria-hidden="true"></i>
+                    إرسال الامتحان
+                </button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- =====================================================
+    FLOATING SIDEBAR NAVIGATOR
+===================================================== -->
+<div class="qnav d-none" id="qnav">
+    <button type="button" class="qnav-toggle" id="qnavToggle" aria-expanded="false" aria-controls="qnavPanel"
+        aria-label="فتح لوحة الأسئلة">
+        <i class="bi bi-grid-3x3-gap-fill"></i>
+    </button>
+    <div class="qnav-panel" id="qnavPanel">
+        <div class="qnav-panel-title">الأسئلة</div>
+        <div class="qnav-grid" id="qnavGrid" role="list"></div>
+        <div class="qnav-legend">
+            <span><i class="qnav-dot answered" aria-hidden="true"></i> تمت الإجابة</span>
+            <span><i class="qnav-dot current" aria-hidden="true"></i> السؤال الحالي</span>
+            <span><i class="qnav-dot" aria-hidden="true"></i> بدون إجابة</span>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+    CONFIRMATION MODAL
+===================================================== -->
+<div class="exam-modal-backdrop d-none" id="confirmModalBackdrop">
+    <div class="exam-modal gc" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+        <div class="exam-modal-icon">
+            <i class="bi bi-question-circle-fill" aria-hidden="true"></i>
+        </div>
+        <h3 id="confirmModalTitle">هل أنت متأكد من إرسال الامتحان؟</h3>
+        <p>لن تتمكن من تعديل إجاباتك بعد الإرسال.</p>
+        <div class="exam-modal-actions">
+            <button type="button" class="exam-modal-btn cancel" id="cancelSubmitBtn">إلغاء</button>
+            <button type="button" class="exam-modal-btn confirm" id="confirmSubmitBtn">إرسال</button>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+    TOAST (violations / warnings)
+===================================================== -->
+<div class="exam-toast d-none" id="examToast" role="alert">
+    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+    <span id="examToastMsg"></span>
+</div>
+
+<!-- =====================================================
+    PRINT-SCREEN DETERRENT OVERLAY
+===================================================== -->
+<div class="printscreen-overlay d-none" id="printScreenOverlay">
+    <div class="printscreen-msg">
+        <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
+        <p>تم رصد محاولة لالتقاط لقطة شاشة. هذا الإجراء غير مسموح به أثناء الامتحان.</p>
+    </div>
+</div>
+<footer class="main-footer">
+
+    <div class="footer-logo">
+        <span>Bubble</span> Sheet
+    </div>
+
+    <div class="footer-subtitle">
+        منصة ذكية لإدارة وتصحيح الاختبارات
+    </div>
+
+    <div class="footer-description">
+        💙 تساعد منصة <strong>Bubble Sheet</strong> المدارس والمعلمين والمراكز التعليمية
+        على إنشاء الاختبارات وتصحيحها وتحليل النتائج بدقة وسرعة.
+        تم تصميم المنصة لتوفير تجربة حديثة تسهّل إدارة الامتحانات
+        ومتابعة الأداء وتحليل النتائج بشكل احترافي.
+    </div>
+
+    <div class="footer-badge">
+        Smart • Fast • Accurate
+    </div>
+
+    <br>
+
+    <div class="social-glass">
+
+        <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="#" class="youtube">
+            <i class="bi bi-youtube"></i>
+        </a>
+
+        <a href="http://wa.me/+201033878808" class="whatsapp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+
+    </div>
+
+    <div class="footer-dev-title">
+        &lt; DEVELOPED BY &gt;
+    </div>
+
+    <div class="developers">
+        <a href="https://www.facebook.com/share/1HFecNkbx6/">Fahd Gamal</a>
+        <a href="https://www.facebook.com/share/1FLw3LeiFA/">Mina Hany</a>
+    </div>
+
+    <div class="footer-bottom">
+        © <span class="copyright">2026</span>
+        Bubble Sheet — All Rights Reserved.
+    </div>
+
+</footer>
+<script src="JS/auth.js"></script>
+<script src="JS/navbar-dashboard.js"></script>
+<script src="JS/exam.js"></script>
+</body>
+
+</html>
