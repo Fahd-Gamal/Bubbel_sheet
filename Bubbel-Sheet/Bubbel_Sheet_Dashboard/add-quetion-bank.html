@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubble Sheet — Teacher Question Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/nav-dashboard.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+    <link rel="stylesheet" href="CSS/add-quetion-bank.css">
+</head>
+
+<body>
+    <!-- =========================================================
+                NAVBAR
+        ========================================================== -->
+
+    <nav class="glass-navbar" id="siteNav">
+        <div class="navbar-container">
+            <a href="dashboard.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper" />
+                </div>
+
+                <span class="logo-svg"> Bubble Sheet </span>
+            </a>
+
+            <div class="nav-actions">
+                <div class="student-dropdown">
+                    <button class="student-profile" onclick="toggleMenu()" aria-haspopup="true" aria-label="حسابي">
+                        <div class="student-avatar-small" id="masterAvatarInitial">م</div>
+
+                        <span id="navbarMasterName"></span>
+
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+
+                <div class="nav-wallet" id="navWallet">
+                    <span class="nav-wallet-amount" id="studentBalance">
+                        شحن الرصيد <small>ج.م</small>
+                    </span>
+
+                    <a href="wallet.html" class="nav-wallet-plus" aria-label="إضافة رصيد" title="إضافة رصيد">
+                        <i class="bi bi-plus-lg"></i>
+                    </a>
+                </div>
+
+                <div class="notification-wrapper">
+                    <div class="notification-box" onclick="toggleNotifications(event)" role="button" tabindex="0"
+                        aria-label="الإشعارات">
+                        <i class="bi bi-bell-fill"></i>
+
+                        <span id="notifCount"> 2 </span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-title">الإشعارات</div>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-person-plus-fill"></i>
+
+                            طالب جديد سجّل في المنصة
+                        </a>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-wallet2"></i>
+
+                            تم استخدام كود شحن
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                    aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                <input type="checkbox" id="input" />
+
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+            </label>
+        </div>
+
+        <span class="nav-progress" id="navProgress" aria-hidden="true"> </span>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- =========================================================
+                MOBILE MENU
+        ========================================================== -->
+
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="student-menu-head">
+            <div class="student-avatar" id="masterAvatarMobile">م</div>
+
+            <div>
+                <h4 id="mobilewelcomeName"></h4>
+
+                <p>مستر / مشرف</p>
+            </div>
+        </div>
+
+        <div class="mobile-menu-items">
+            <a href="#home">
+                <i class="bi bi-grid-fill"></i>
+                الرئيسية
+            </a>
+
+            <a href="#stagesOverview">
+                <i class="bi bi-mortarboard-fill"></i>
+                المراحل الدراسية
+            </a>
+
+            <a href="#years">
+                <i class="bi bi-mortarboard-fill"></i>
+                السنوات الدراسية
+            </a>
+
+            <a href="#subjects">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                المواد
+            </a>
+
+            <a href="#announcements">
+                <i class="bi bi-megaphone-fill"></i>
+                الإعلانات
+            </a>
+
+            <a href="home.html" class="logout">
+                <i class="bi bi-box-arrow-right"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </div>
+    <!-- finish nav -->
+    <div class="shell">
+        <header class="topbar">
+            <a class="brand" href="dashboard.html">
+                <div class="brand-mark"><i class="bi bi-question-circle-fill"></i></div>
+                <div class="brand-copy">
+                    <strong>Bubble Sheet</strong>
+                    <span>Teacher Question Bank</span>
+                </div>
+            </a>
+            <div class="top-actions">
+                <button class="btn btn-soft" id="retryBtn" type="button"><i class="bi bi-arrow-clockwise"></i> إعادة
+                    التحميل</button>
+                <button class="btn btn-primary" id="openAddBtn" type="button"><i class="bi bi-plus-lg"></i> إضافة
+                    سؤال</button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-eyebrow"><i class="bi bi-shield-check-fill"></i> Teacher Workspace</div>
+                    <h1>بنك الأسئلة</h1>
+                    <p class="hero-sub">إدارة أسئلة البنك من مكان واحد: عرض الأسئلة، مراجعة الإجابات الصحيحة، وإضافة أو
+                        حذف الأسئلة عند توفر عقود الـAPI الخاصة بالـTeacher.</p>
+                </div>
+                <div class="hero-metrics">
+                    <div class="metric"><small>إجمالي الأسئلة</small><strong id="heroCount">—</strong></div>
+                    <div class="metric"><small>الحالة</small><strong id="heroStatus">جاري التحميل</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <main class="content">
+            <section class="questions-panel">
+                <div class="panel-head">
+                    <div class="panel-title">
+                        <i class="bi bi-stack"></i>
+                        <div>
+                            <h2>كل الأسئلة</h2>
+                            <p id="countLabel">عدد الأسئلة: —</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="openAddBtn2" type="button"><i class="bi bi-plus-lg"></i> إضافة
+                        سؤال</button>
+                </div>
+                <div class="question-scroll" id="questionList" aria-live="polite">
+                    <div class="loading">
+                        <div class="state-box">
+                            <div class="spinner"></div>
+                            <h3>جاري تحميل الأسئلة...</h3>
+                            <p>يتم جلب البيانات من بنك الأسئلة باستخدام نفس API الموجود في صفحة الطالب.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="side-panel">
+                <div class="side-block">
+                    <h3>ملخص البنك</h3>
+                    <p>العدد هنا ديناميكي من الـAPI وليس رقمًا ثابتًا.</p>
+                    <div class="mini-stat"><strong id="sideCount">—</strong><span>سؤال داخل البنك</span></div>
+                </div>
+                <div class="side-block">
+                    <h3>المتاح في الصفحة</h3>
+                    <ul class="tips">
+                        <li><i class="bi bi-check2-circle"></i><span>عرض MCQ و True / False فقط.</span></li>
+                        <li><i class="bi bi-image"></i><span>دعم السؤال النصي أو صورة السؤال.</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span>إظهار الإجابة الصحيحة من `isCorrect`.</span>
+                        </li>
+                        <li><i class="bi bi-trash3"></i><span>حذف مع Confirmation Modal.</span></li>
+                        <li><i class="bi bi-pencil"></i><span>لا يوجد Edit Question.</span></li>
+                    </ul>
+                </div>
+                <div class="side-block">
+                    <h3>مرجع البنك</h3>
+                    <p id="bankRef">QBankId: —</p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Add Question Modal -->
+    <div class="modal-backdrop hidden" id="addModal" role="dialog" aria-modal="true" aria-labelledby="addTitle">
+        <div class="modal-card add-modal-card">
+            <div class="add-modal-layout">
+                <div class="add-form-pane">
+                    <div class="add-modal-top">
+                        <div>
+                            <div class="add-modal-kicker">TEACHER QUESTION BUILDER</div>
+                            <h3 id="addTitle">إنشاء سؤال جديد</h3>
+                            <p>اكتب السؤال، أضف صورة، أو استخدم الاثنين معًا. الـPreview بيتحدث لحظيًا قبل الحفظ.</p>
+                        </div>
+                        <div class="add-modal-top-actions">
+                            <div class="step-pill"><i class="bi bi-stars"></i> مرن بالكامل</div>
+                            <button class="close-btn" id="closeAddBtn" type="button" aria-label="إغلاق">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <form id="addForm" class="form-grid" novalidate>
+                        <div class="form-section">
+                            <div class="section-label"><span class="section-no">1</span> نوع السؤال</div>
+                            <div class="segmented">
+                                <label><input type="radio" name="addType" value="mcq" checked><span><i
+                                            class="bi bi-ui-checks-grid"></i> MCQ</span></label>
+                                <label><input type="radio" name="addType" value="true_false"><span><i
+                                            class="bi bi-toggle2-on"></i> True / False</span></label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-label"><span class="section-no">2</span> محتوى السؤال</div>
+                            <div class="segmented content-mode">
+                                <label><input type="radio" name="contentMode" value="text" checked><span><i
+                                            class="bi bi-type"></i>نص فقط</span></label>
+                                <label><input type="radio" name="contentMode" value="image"><span><i
+                                            class="bi bi-image"></i>صورة فقط</span></label>
+                                <label><input type="radio" name="contentMode" value="both"><span><i
+                                            class="bi bi-layout-text-window-reverse"></i>نص + صورة</span></label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="field" id="textQuestionField">
+                                <label for="questionTitle">نص السؤال <span style="color:var(--blue)">(اختياري مع
+                                        الصورة)</span></label>
+                                <textarea class="smart-textarea" id="questionTitle"
+                                    placeholder="مثال: اختر الإجابة الصحيحة من الاختيارات التالية..."></textarea>
+                                <div class="field-error" id="textError">اكتب نص السؤال أو استخدم الصورة.</div>
+                            </div>
+
+                            <div class="field" id="imageQuestionField" style="margin-top:14px">
+                                <label>صورة السؤال <span style="color:var(--blue)">(اختياري مع النص)</span></label>
+                                <label class="upload-card" for="questionImage" id="uploadCard">
+                                    <input id="questionImage" type="file" accept="image/*">
+                                    <div class="upload-inner">
+                                        <div class="upload-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+                                        <div class="upload-title">ارفع صورة السؤال</div>
+                                        <div class="upload-sub">PNG, JPG, WEBP — الصورة هتظهر مباشرة في الـPreview</div>
+                                    </div>
+                                </label>
+                                <div class="image-preview-card hidden-field" id="imagePreviewCard">
+                                    <div class="image-preview-top">
+                                        <span class="image-preview-name" id="imagePreviewName"></span>
+                                        <button type="button" class="image-remove-btn" id="removeImageBtn"
+                                            aria-label="إزالة الصورة"><i class="bi bi-x-lg"></i> إزالة</button>
+                                    </div>
+                                    <div class="image-preview-body">
+                                        <img id="questionImagePreview" alt="صورة السؤال">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section" id="mcqFields">
+                            <div class="section-label"><span class="section-no">3</span> الإجابات وتحديد الصحيحة</div>
+                            <div class="choice-stack">
+                                <div class="choice-card">
+                                    <div class="choice-key">A</div><input data-choice="0" type="text"
+                                        placeholder="اكتب الإجابة الأولى">
+                                    <div class="correct-radio"><input aria-label="الإجابة الصحيحة A" type="radio"
+                                            name="correctChoice" value="0"></div>
+                                </div>
+                                <div class="choice-card">
+                                    <div class="choice-key">B</div><input data-choice="1" type="text"
+                                        placeholder="اكتب الإجابة الثانية">
+                                    <div class="correct-radio"><input aria-label="الإجابة الصحيحة B" type="radio"
+                                            name="correctChoice" value="1"></div>
+                                </div>
+                                <div class="choice-card">
+                                    <div class="choice-key">C</div><input data-choice="2" type="text"
+                                        placeholder="اكتب الإجابة الثالثة">
+                                    <div class="correct-radio"><input aria-label="الإجابة الصحيحة C" type="radio"
+                                            name="correctChoice" value="2"></div>
+                                </div>
+                                <div class="choice-card">
+                                    <div class="choice-key">D</div><input data-choice="3" type="text"
+                                        placeholder="اكتب الإجابة الرابعة">
+                                    <div class="correct-radio"><input aria-label="الإجابة الصحيحة D" type="radio"
+                                            name="correctChoice" value="3"></div>
+                                </div>
+                            </div>
+                            <div class="field-error" id="mcqError">اكتب الأربع إجابات وحدد إجابة صحيحة واحدة.</div>
+                        </div>
+
+                        <div class="form-section hidden-field" id="tfFields">
+                            <div class="section-label"><span class="section-no">3</span> الإجابة الصحيحة</div>
+                            <div class="tf-options">
+                                <div class="tf-card"><label><input type="radio" name="tfCorrect" value="true"><span><i
+                                                class="bi bi-check-circle-fill"></i> صح</span></label></div>
+                                <div class="tf-card"><label><input type="radio" name="tfCorrect" value="false"><span><i
+                                                class="bi bi-x-circle-fill"></i> خطأ</span></label></div>
+                            </div>
+                            <div class="field-error" id="tfError">حدد هل الإجابة الصحيحة صح أم خطأ.</div>
+                        </div>
+
+                        <div class="add-form-actions">
+                            <button class="btn btn-soft" id="cancelAddBtn" type="button">إلغاء</button>
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-plus-lg"></i> تجهيز
+                                السؤال</button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="add-preview-pane">
+                    <div class="preview-head">
+                        <div class="preview-title">Live Preview</div>
+                        <div class="preview-status" id="previewStatus">السؤال غير مكتمل</div>
+                    </div>
+                    <div class="preview-card" id="previewCard">
+                        <div class="preview-qhead">
+                            <div class="preview-number">1</div>
+                            <div class="preview-type" id="previewType">MCQ</div>
+                        </div>
+                        <div class="preview-question-text" id="previewText">اكتب نص السؤال أو أضف صورة ليظهر المحتوى
+                            هنا.</div>
+                        <div class="preview-image" id="previewImageWrap"><img id="previewImage" alt="Preview"></div>
+                        <div class="preview-answers" id="previewAnswers"></div>
+                    </div>
+                    <div class="preview-note"><i class="bi bi-lightbulb-fill"></i><span>السؤال يقدر يحتوي على نص فقط،
+                            صورة فقط، أو نص وصورة مع بعض. الإجابات تفضل مستقلة عن محتوى السؤال.</span></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation -->
+    <div class="modal-backdrop hidden" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+        <div class="modal-card" style="max-width:460px">
+            <div class="modal-head">
+                <div>
+                    <h3 id="deleteTitle">هل أنت متأكد من حذف هذا السؤال؟</h3>
+                    <p style="margin-top:5px;color:var(--muted);font-size:11px">سيتم حذف السؤال نهائيًا عند ربط Delete
+                        API الحقيقي.</p>
+                </div>
+                <button class="close-btn" id="closeDeleteBtn" type="button" aria-label="إغلاق"><i
+                        class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-soft" id="cancelDeleteBtn" type="button">إلغاء</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn" type="button"><i class="bi bi-trash3"></i> حذف
+                    السؤال</button>
+            </div>
+        </div>
+    </div>
+    <!-- =========================================================
+                FOOTER
+        ========================================================== -->
+
+    <footer class="main-footer">
+        <div class="footer-logo"><span>Bubble</span> Sheet</div>
+
+        <div class="footer-subtitle">منصة ذكية لإدارة وتصحيح الاختبارات</div>
+
+        <div class="footer-description">
+            💙 تساعد منصة
+            <strong>Bubble Sheet</strong>
+            المدارس والمعلمين والمراكز التعليمية على إنشاء الاختبارات وتصحيحها
+            وتحليل النتائج بدقة وسرعة.
+        </div>
+
+        <div class="footer-badge">Smart • Fast • Accurate</div>
+
+        <br />
+
+        <div class="social-glass">
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="footer-dev-title">&lt; DEVELOPED BY &gt;</div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/"> Fahd Gamal </a>
+
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/"> Mina Hany </a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+
+            Bubble Sheet — All Rights Reserved.
+        </div>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="JS/auth.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+    <script src="JS/add-quetion-bank.js"></script>
+</body>
+
+</html>

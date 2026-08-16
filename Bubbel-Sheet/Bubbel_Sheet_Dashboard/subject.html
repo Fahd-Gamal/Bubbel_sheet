@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>إدارة المواد الدراسية | Bubble Sheet</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="CSS/nav-dashboard.css" />
+    <link rel="stylesheet" href="CSS/subjects.css" />
+    <link rel="stylesheet" href="CSS/footer.css" />
+</head>
+
+<body>
+    <div class="page-root">
+        <!-- =========================================================
+                NAVBAR
+        ========================================================== -->
+
+        <nav class="glass-navbar" id="siteNav">
+            <div class="navbar-container">
+                <a href="dashboard.html" class="navbar-brand brand-center">
+                    <div class="brand-logo">
+                        <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper" />
+                    </div>
+
+                    <span class="logo-svg"> Bubble Sheet </span>
+                </a>
+
+                <div class="nav-actions">
+                    <div class="student-dropdown">
+                        <button class="student-profile" onclick="toggleMenu()" aria-haspopup="true" aria-label="حسابي">
+                            <div class="student-avatar-small" id="masterAvatarInitial">
+                                م
+                            </div>
+
+                            <span id="navbarMasterName"></span>
+
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <div class="nav-wallet" id="navWallet">
+                        <span class="nav-wallet-amount" id="studentBalance">
+                            شحن الرصيد <small>ج.م</small>
+                        </span>
+
+                        <a href="wallet.html" class="nav-wallet-plus" aria-label="إضافة رصيد" title="إضافة رصيد">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </div>
+                    <div class="notification-wrapper">
+                        <div class="notification-box" onclick="toggleNotifications(event)" role="button" tabindex="0"
+                            aria-label="الإشعارات">
+                            <i class="bi bi-bell-fill"></i>
+
+                            <span id="notifCount"> 2 </span>
+                        </div>
+
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-title">الإشعارات</div>
+
+                            <a href="#" class="notification-item">
+                                <i class="bi bi-person-plus-fill"></i>
+
+                                طالب جديد سجّل في المنصة
+                            </a>
+
+                            <a href="#" class="notification-item">
+                                <i class="bi bi-wallet2"></i>
+
+                                تم استخدام كود شحن
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                        aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                    <input type="checkbox" id="input" />
+
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </label>
+            </div>
+
+            <span class="nav-progress" id="navProgress" aria-hidden="true"> </span>
+        </nav>
+
+        <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+        <!-- =========================================================
+                MOBILE MENU
+        ========================================================== -->
+
+        <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+            <div class="student-menu-head">
+                <div class="student-avatar" id="masterAvatarMobile">م</div>
+
+                <div>
+                    <h4 id="mobilewelcomeName"></h4>
+
+                    <p>مستر / مشرف</p>
+                </div>
+            </div>
+
+            <div class="mobile-menu-items">
+                <a href="#home">
+                    <i class="bi bi-grid-fill"></i>
+                    الرئيسية
+                </a>
+
+                <a href="#stagesOverview">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    المراحل الدراسية
+                </a>
+
+                <a href="#years">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    السنوات الدراسية
+                </a>
+
+                <a href="#subjects">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    المواد
+                </a>
+
+                <a href="#announcements">
+                    <i class="bi bi-megaphone-fill"></i>
+                    الإعلانات
+                </a>
+
+                <a href="home.html" class="logout">
+                    <i class="bi bi-box-arrow-right"></i>
+                    تسجيل الخروج
+                </a>
+            </div>
+        </div>
+        <!-- finish nav -->
+        <!-- ===========================
+    MAIN
+    =========================== -->
+
+        <main class="main flex-grow-1">
+            <!-- Breadcrumb -->
+
+            <nav class="ay-breadcrumb" aria-label="breadcrumb">
+                <a href="dashboard.html"> الرئيسية </a>
+
+                <i class="bi bi-chevron-left"></i>
+
+                <a href="years.html"> الأعوام الدراسية </a>
+
+                <i class="bi bi-chevron-left"></i>
+
+                <span aria-current="page"> إدارة المواد الدراسية </span>
+            </nav>
+
+            <!-- Header -->
+
+            <div class="ay-header mb-4">
+                <div class="header-top">
+                    <div>
+                        <span class="eyebrow">
+                            <span class="dot"></span>
+
+                            إدارة المحتوى
+                        </span>
+
+                        <h1 class="ay-title">المواد الدراسية</h1>
+
+                        <p class="ay-subtitle">
+                            إدارة المواد الدراسية وإضافة المواد وتعديل بياناتها وحذفها.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subjects -->
+
+            <section id="subjectsSection" aria-live="polite">
+                <!-- Skeleton -->
+
+                <div class="row g-4" id="skeletonGrid" role="status" aria-label="جارِ تحميل المواد"></div>
+                <!-- Subjects -->
+
+                <div class="row g-4 d-none" id="subjectsGrid" role="list"></div>
+
+                <!-- Empty -->
+
+                <div class="ay-state d-none" id="emptyState">
+                    <div class="ay-state-icon">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                    </div>
+
+                    <p class="ay-state-msg">لا توجد مواد دراسية متاحة حاليًا.</p>
+
+                    <button type="button" class="ay-retry-btn" id="emptyRetryBtn">
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                        إعادة المحاولة
+                    </button>
+                </div>
+
+                <!-- Error -->
+
+                <div class="ay-state d-none" id="errorState">
+                    <div class="ay-state-icon ay-state-icon-warn">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+
+                    <p class="ay-state-msg">حدث خطأ أثناء تحميل المواد الدراسية.</p>
+
+                    <button type="button" class="ay-retry-btn" id="errorRetryBtn">
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                        إعادة المحاولة
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- =========================================================
+            FOOTER
+    ========================================================== -->
+
+    <footer class="main-footer">
+        <div class="footer-logo"><span>Bubble</span> Sheet</div>
+
+        <div class="footer-subtitle">منصة ذكية لإدارة وتصحيح الاختبارات</div>
+
+        <div class="footer-description">
+            💙 تساعد منصة
+            <strong>Bubble Sheet</strong>
+            المدارس والمعلمين والمراكز التعليمية على إنشاء الاختبارات وتصحيحها
+            وتحليل النتائج بدقة وسرعة.
+        </div>
+
+        <div class="footer-badge">Smart • Fast • Accurate</div>
+
+        <br />
+
+        <div class="social-glass">
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="footer-dev-title">&lt; DEVELOPED BY &gt;</div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/"> Fahd Gamal </a>
+
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/"> Mina Hany </a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+
+            Bubble Sheet — All Rights Reserved.
+        </div>
+    </footer>
+    <!-- =========================
+        SUBJECT ACTION MODAL
+========================= -->
+    <div class="subject-action-overlay d-none" id="subjectActionOverlay">
+        <div class="subject-action-modal" id="subjectActionModal">
+            <!-- CLOSE -->
+            <button type="button" class="subject-modal-close" id="subjectModalClose" aria-label="إغلاق">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <!-- =====================
+                DELETE CARD
+        ====================== -->
+            <div class="subject-delete-card d-none" id="subjectDeleteCard">
+                <div class="subject-action-icon delete-icon">
+                    <i class="bi bi-trash3-fill"></i>
+                </div>
+
+                <h3>حذف المادة</h3>
+
+                <p>
+                    هل أنت متأكد من حذف مادة
+                    <strong id="deleteSubjectName"></strong>؟
+                </p>
+
+                <span class="subject-action-warning">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    سيتم حذف المادة من هذا العام الدراسي.
+                </span>
+
+                <div class="subject-modal-actions">
+                    <button type="button" class="subject-modal-btn cancel" id="cancelDeleteBtn">
+                        إلغاء
+                    </button>
+
+                    <button type="button" class="subject-modal-btn danger" id="confirmDeleteBtn">
+                        <i class="bi bi-trash3"></i>
+                        حذف المادة
+                    </button>
+                </div>
+            </div>
+
+            <!-- =====================
+                EDIT CARD
+        ====================== -->
+            <div class="subject-edit-card d-none" id="subjectEditCard">
+                <div class="subject-action-icon edit-icon">
+                    <i class="bi bi-pencil-square"></i>
+                </div>
+
+                <h3>تعديل المادة</h3>
+
+                <p class="subject-modal-subtitle">
+                    قم بتعديل بيانات المادة ثم اضغط على حفظ التعديلات.
+                </p>
+
+                <form id="editSubjectForm">
+                    <!-- NAME -->
+                    <div class="subject-form-group">
+                        <label for="editSubjectName"> اسم المادة </label>
+
+                        <div class="subject-input-wrapper">
+                            <i class="bi bi-book"></i>
+
+                            <input type="text" id="editSubjectName" autocomplete="off" required />
+                        </div>
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="subject-form-group">
+                        <label for="editSubjectDescription"> وصف المادة </label>
+
+                        <div class="subject-input-wrapper textarea-wrapper">
+                            <i class="bi bi-card-text"></i>
+
+                            <textarea id="editSubjectDescription" rows="3" placeholder="اكتب وصف المادة..."
+                                required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- PRICE -->
+                    <div class="subject-form-group">
+                        <label for="editSubjectPrice"> سعر المادة </label>
+
+                        <div class="subject-input-wrapper">
+                            <i class="bi bi-cash-stack"></i>
+
+                            <input type="number" id="editSubjectPrice" min="0" step="0.01" required />
+
+                            <span class="input-unit"> ج.م </span>
+                        </div>
+                    </div>
+                    <!-- ACTIONS -->
+                    <div class="subject-modal-actions">
+                        <button type="button" class="subject-modal-btn cancel" id="cancelEditBtn">
+                            إلغاء
+                        </button>
+
+                        <button type="submit" class="subject-modal-btn primary" id="saveEditBtn">
+                            <i class="bi bi-check2-circle"></i>
+
+                            حفظ التعديلات
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="JS/auth.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+    <script src="JS/subjects.js"></script>
+</body>
+
+</html>

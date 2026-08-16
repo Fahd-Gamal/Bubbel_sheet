@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>إدارة أسئلة الامتحان</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="CSS/footer.css" />
+    <link rel="stylesheet" href="CSS/add-exam.css" />
+    <link rel="stylesheet" href="CSS/nav-dashboard.css" />
+</head>
+
+<body>
+    <!-- =========================================================
+                NAVBAR
+        ========================================================== -->
+
+    <nav class="glass-navbar" id="siteNav">
+        <div class="navbar-container">
+            <a href="dashboard.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper" />
+                </div>
+
+                <span class="logo-svg"> Bubble Sheet </span>
+            </a>
+
+            <div class="nav-actions">
+                <div class="student-dropdown">
+                    <button class="student-profile" onclick="toggleMenu()" aria-haspopup="true" aria-label="حسابي">
+                        <div class="student-avatar-small" id="masterAvatarInitial">م</div>
+
+                        <span id="navbarMasterName"></span>
+
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+
+                <div class="nav-wallet" id="navWallet">
+                    <span class="nav-wallet-amount" id="studentBalance">
+                        شحن الرصيد <small>ج.م</small>
+                    </span>
+
+                    <a href="wallet.html" class="nav-wallet-plus" aria-label="إضافة رصيد" title="إضافة رصيد">
+                        <i class="bi bi-plus-lg"></i>
+                    </a>
+                </div>
+
+                <div class="notification-wrapper">
+                    <div class="notification-box" onclick="toggleNotifications(event)" role="button" tabindex="0"
+                        aria-label="الإشعارات">
+                        <i class="bi bi-bell-fill"></i>
+
+                        <span id="notifCount"> 2 </span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-title">الإشعارات</div>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-person-plus-fill"></i>
+
+                            طالب جديد سجّل في المنصة
+                        </a>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-wallet2"></i>
+
+                            تم استخدام كود شحن
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                    aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                <input type="checkbox" id="input" />
+
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+            </label>
+        </div>
+
+        <span class="nav-progress" id="navProgress" aria-hidden="true"> </span>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- =========================================================
+                MOBILE MENU
+        ========================================================== -->
+
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="student-menu-head">
+            <div class="student-avatar" id="masterAvatarMobile">م</div>
+
+            <div>
+                <h4 id="mobilewelcomeName"></h4>
+
+                <p>مستر / مشرف</p>
+            </div>
+        </div>
+
+        <div class="mobile-menu-items">
+            <a href="#home">
+                <i class="bi bi-grid-fill"></i>
+                الرئيسية
+            </a>
+
+            <a href="#stagesOverview">
+                <i class="bi bi-mortarboard-fill"></i>
+                المراحل الدراسية
+            </a>
+
+            <a href="#years">
+                <i class="bi bi-mortarboard-fill"></i>
+                السنوات الدراسية
+            </a>
+
+            <a href="#subjects">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                المواد
+            </a>
+
+            <a href="#announcements">
+                <i class="bi bi-megaphone-fill"></i>
+                الإعلانات
+            </a>
+
+            <a href="home.html" class="logout">
+                <i class="bi bi-box-arrow-right"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </div>
+    <!-- finish nav -->
+    <div class="page">
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <header class="top">
+            <div class="heading">
+                <div class="hi">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                </div>
+
+                <div>
+                    <h1>إدارة أسئلة الامتحان</h1>
+
+                    <p>
+                        اختار الأسئلة من بنوك الأسئلة وأضفها للامتحان بدون إنشاء سؤال جديد
+                    </p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn ghost" id="refresh" type="button">
+                    <i class="fa-solid fa-rotate"></i>
+
+                    تحديث
+                </button>
+
+                <button class="btn primary" id="saveTop" type="button">
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    حفظ أسئلة الامتحان
+                </button>
+            </div>
+        </header>
+
+        <!-- =====================================================
+             EXAM SUMMARY
+        ====================================================== -->
+
+        <section class="summary">
+            <div class="sumtop">
+                <div>
+                    <h2 class="sumtitle" id="examName">جاري تحميل الامتحان...</h2>
+
+                    <p class="sumdesc" id="examDesc">جاري تحميل البيانات...</p>
+                </div>
+
+                <div class="count">
+                    <strong id="examCount"> 0 </strong>
+
+                    <span> سؤال في الامتحان </span>
+                </div>
+            </div>
+
+            <div class="meta">
+                <span class="chip">
+                    <i class="fa-solid fa-book-open"></i>
+
+                    <span id="lessonName"> — </span>
+                </span>
+
+                <span class="chip">
+                    <i class="fa-solid fa-clock"></i>
+
+                    <span id="duration"> — </span>
+                </span>
+
+                <span class="chip">
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <span id="banksCount"> 0 بنك </span>
+                </span>
+
+                <span class="chip">
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span id="selectedMeta"> 0 سؤال محدد </span>
+                </span>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             BANK SELECTOR
+        ====================================================== -->
+
+        <section class="selector">
+            <div class="selhead">
+                <h2 class="stitle">اختيار بنك الأسئلة</h2>
+
+                <div class="ssub">
+                    كل البنوك تظهر للمدرس سواء Active أو Not Active
+                </div>
+            </div>
+
+            <div class="selwrap">
+                <select class="select" id="bankSelect">
+                    <option value="">اختر بنك الأسئلة...</option>
+                </select>
+
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+            <div class="note hidden" id="bankNote">
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span id="bankNoteText"></span>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             WORKSPACE
+        ====================================================== -->
+
+        <main class="workspace">
+            <!-- =================================================
+                 BANK QUESTIONS
+            ================================================== -->
+
+            <section class="panel">
+                <div class="phead">
+                    <div class="pheadleft">
+                        <div class="pi">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="ptitle">أسئلة البنك</h2>
+
+                            <p class="psub" id="bankSubtitle">اختر بنك الأسئلة أولاً</p>
+                        </div>
+                    </div>
+
+                    <div class="tools">
+                        <button class="mini" id="selectAll" type="button" disabled>
+                            <i class="fa-solid fa-check-double"></i>
+
+                            تحديد الكل
+                        </button>
+
+                        <button class="mini" id="clear" type="button" disabled>
+                            <i class="fa-solid fa-xmark"></i>
+
+                            إلغاء التحديد
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input id="bankSearch" type="text" placeholder="ابحث داخل أسئلة البنك..." />
+                </div>
+
+                <div class="list" id="bankList">
+                    <div class="empty">
+                        <div class="emptyicon">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+
+                        <h3>اختر بنك الأسئلة</h3>
+
+                        <p>بعد اختيار البنك هتظهر الأسئلة هنا.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =================================================
+                 EXAM QUESTIONS
+            ================================================== -->
+
+            <section class="panel">
+                <div class="phead">
+                    <div class="pheadleft">
+                        <div class="pi">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="ptitle">أسئلة الامتحان</h2>
+
+                            <p class="psub">الأسئلة الموجودة حاليًا داخل الامتحان</p>
+                        </div>
+                    </div>
+
+                    <div class="tools">
+                        <button class="mini danger" id="removeAll" type="button" disabled>
+                            <i class="fa-solid fa-trash-can"></i>
+
+                            إزالة الكل
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input id="examSearch" type="text" placeholder="ابحث داخل أسئلة الامتحان..." />
+                </div>
+
+                <div class="list" id="examList">
+                    <div class="empty">
+                        <div class="emptyicon">
+                            <i class="fa-solid fa-clipboard-question"></i>
+                        </div>
+
+                        <h3>لا توجد أسئلة في الامتحان</h3>
+
+                        <p>حدد أسئلة من البنك لإضافتها هنا.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- =====================================================
+             BOTTOM SAVE BAR
+        ====================================================== -->
+
+        <div class="bottom">
+            <div class="binfo">
+                <div class="ax-bi">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+
+                <div class="btext">
+                    <strong id="bottomCount"> 0 سؤال محدد </strong>
+
+                    <span> الاختيارات تتجمع محليًا حتى الضغط على حفظ </span>
+                </div>
+            </div>
+
+            <button class="btn primary" id="save" type="button">
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                حفظ أسئلة الامتحان
+            </button>
+        </div>
+    </div>
+    <!-- =========================================================
+                FOOTER
+        ========================================================== -->
+
+    <footer class="main-footer">
+        <div class="footer-logo"><span>Bubble</span> Sheet</div>
+
+        <div class="footer-subtitle">منصة ذكية لإدارة وتصحيح الاختبارات</div>
+
+        <div class="footer-description">
+            💙 تساعد منصة
+            <strong>Bubble Sheet</strong>
+            المدارس والمعلمين والمراكز التعليمية على إنشاء الاختبارات وتصحيحها
+            وتحليل النتائج بدقة وسرعة.
+        </div>
+
+        <div class="footer-badge">Smart • Fast • Accurate</div>
+
+        <br />
+
+        <div class="social-glass">
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="footer-dev-title">&lt; DEVELOPED BY &gt;</div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/"> Fahd Gamal </a>
+
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/"> Mina Hany </a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+
+            Bubble Sheet — All Rights Reserved.
+        </div>
+    </footer>
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div class="toastbox" id="toastbox"></div>
+
+    <!-- =========================================================
+         REMOVE ALL MODAL
+    ========================================================== -->
+
+    <div class="modal hidden" id="modal">
+        <div class="modalbox">
+            <div class="mh">
+                <h3>إزالة جميع الأسئلة؟</h3>
+
+                <button class="close" id="closeModal" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="mb">
+                سيتم إزالة الأسئلة من القائمة الحالية محليًا. لن يتم إرسال التغيير
+                للسيرفر إلا بعد الحفظ.
+            </div>
+
+            <div class="mf">
+                <button class="btn ghost" id="cancelModal" type="button">
+                    إلغاء
+                </button>
+
+                <button class="btn" id="confirmRemove" type="button" style="background: var(--ax-danger); color: #fff">
+                    إزالة الكل
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/auth.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+    <script src="JS/add-exam.js"></script>
+</body>
+
+</html>

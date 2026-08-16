@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Bubble Sheet — الأعوام الدراسية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!--for footer -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/nav-dashboard.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+    <link rel="stylesheet" href="CSS/years.css">
+</head>
+
+<body>
+    <!-- =========================================================
+            NAVBAR
+    ========================================================== -->
+
+    <nav class="glass-navbar" id="siteNav">
+        <div class="navbar-container">
+            <a href="dashboard.html" class="navbar-brand brand-center">
+                <div class="brand-logo">
+                    <img src="IMG/logo.png" alt="Logo" class="logo-text-wrapper" />
+                </div>
+
+                <span class="logo-svg"> Bubble Sheet </span>
+            </a>
+            <div class="nav-actions">
+                <div class="student-dropdown">
+                    <button class="student-profile" onclick="toggleMenu()" aria-haspopup="true" aria-label="حسابي">
+                        <div class="student-avatar-small" id="masterAvatarInitial">م</div>
+
+                        <span id="navbarMasterName"></span>
+
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                </div>
+
+                <div class="nav-wallet" id="navWallet">
+                    <span class="nav-wallet-amount" id="studentBalance">
+                        شحن الرصيد <small>ج.م</small>
+                    </span>
+
+                    <a href="wallet.html" class="nav-wallet-plus" aria-label="إضافة رصيد" title="إضافة رصيد">
+                        <i class="bi bi-plus-lg"></i>
+                    </a>
+                </div>
+
+                <div class="notification-wrapper">
+                    <div class="notification-box" onclick="toggleNotifications(event)" role="button" tabindex="0"
+                        aria-label="الإشعارات">
+                        <i class="bi bi-bell-fill"></i>
+
+                        <span id="notifCount"> 2 </span>
+                    </div>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-title">الإشعارات</div>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-person-plus-fill"></i>
+
+                            طالب جديد سجّل في المنصة
+                        </a>
+
+                        <a href="#" class="notification-item">
+                            <i class="bi bi-wallet2"></i>
+
+                            تم استخدام كود شحن
+                        </a>
+                    </div>
+                </div>
+                <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0"
+                    aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <label class="theme-switch" aria-label="تبديل الوضع الليلي والنهاري">
+                <input type="checkbox" id="input" />
+
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+            </label>
+        </div>
+        <span class="nav-progress" id="navProgress" aria-hidden="true"> </span>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- =========================================================
+            MOBILE MENU
+    ========================================================== -->
+
+    <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+        <div class="student-menu-head">
+            <div class="student-avatar" id="masterAvatarMobile">م</div>
+
+            <div>
+                <h4 id="mobilewelcomeName"></h4>
+
+                <p>مستر / مشرف</p>
+            </div>
+        </div>
+
+        <div class="mobile-menu-items">
+            <a href="dashboard.html">
+                <i class="bi bi-grid-fill"></i>
+                الرئيسية
+            </a>
+
+            <a href="#stagesOverview">
+                <i class="bi bi-mortarboard-fill"></i>
+                المراحل الدراسية
+            </a>
+
+            <a href="#years">
+                <i class="bi bi-mortarboard-fill"></i>
+                السنوات الدراسية
+            </a>
+
+            <a href="#subjects">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                المواد
+            </a>
+
+            <a href="#announcements">
+                <i class="bi bi-megaphone-fill"></i>
+                الإعلانات
+            </a>
+
+            <a href="home.html" class="logout">
+                <i class="bi bi-box-arrow-right"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </div>
+    <!-- finish nav -->
+    <div class="bg-canvas">
+        <div class="bg-spot bs1"></div>
+        <div class="bg-spot bs2"></div>
+        <div class="bg-zspot bs3"></div>
+    </div>
+    <!-- ===========================
+    MAIN CONTENT
+    =========================== -->
+    <main class="main flex-grow-1">
+        <!-- =====================
+                    SECTION — BREADCRUMB
+                    ===================== -->
+        <nav class="ay-breadcrumb" aria-label="breadcrumb">
+            <a href="dashboard.html">الرئيسية</a>
+            <i class="bi bi-chevron-left"></i>
+            <span aria-current="page">الأعوام الدراسية</span>
+        </nav>
+        <!-- =====================
+        SECTION — PAGE HEADER
+        ===================== -->
+        <div class="ay-header mb-4">
+            <span class="eyebrow"><span class="dot"></span>المراحل الدراسية</span>
+            <h1 class="ay-title">الأعوام الدراسية</h1>
+            <p class="ay-subtitle">اختر عامك الدراسي لتتصفح المواد والامتحانات الخاصة بيه.</p>
+        </div>
+
+        <!-- =====================
+        SECTION — YEARS GRID
+        ===================== -->
+        <section id="academicYearsSection" aria-live="polite">
+
+            <!-- Skeleton Loading State -->
+            <div class="row g-4" id="skeletonGrid" role="status" aria-label="جارِ تحميل الأعوام الدراسية">
+                <!-- skeleton cards injected / static markup below -->
+            </div>
+
+            <!-- Real Cards Grid (populated via JS) -->
+            <div class="row g-4 d-none" id="yearsGrid" role="list"></div>
+
+            <!-- Empty State -->
+            <div class="ay-state d-none" id="emptyState">
+                <div class="ay-state-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </div>
+                <p class="ay-state-msg">لا توجد أعوام دراسية متاحة حاليًا.</p>
+                <button type="button" class="ay-retry-btn" id="emptyRetryBtn">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    إعادة المحاولة
+                </button>
+            </div>
+
+            <!-- Error State -->
+            <div class="ay-state d-none" id="errorState">
+                <div class="ay-state-icon ay-state-icon-warn">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <p class="ay-state-msg">حدث خطأ أثناء تحميل الأعوام الدراسية.</p>
+                <button type="button" class="ay-retry-btn" id="errorRetryBtn">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    إعادة المحاولة
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+
+        <div class="footer-logo">
+            <span>Bubble</span> Sheet
+        </div>
+
+        <div class="footer-subtitle">
+            منصة ذكية لإدارة وتصحيح الاختبارات
+        </div>
+
+        <div class="footer-description">
+            💙 تساعد منصة <strong>Bubble Sheet</strong> المدارس والمعلمين والمراكز التعليمية
+            على إنشاء الاختبارات وتصحيحها وتحليل النتائج بدقة وسرعة.
+            تم تصميم المنصة لتوفير تجربة حديثة تسهّل إدارة الامتحانات
+            ومتابعة الأداء وتحليل النتائج بشكل احترافي.
+        </div>
+
+        <div class="footer-badge">
+            Smart • Fast • Accurate
+        </div>
+
+        <br>
+
+        <div class="social-glass">
+
+            <a href="https://www.facebook.com/profile.php?id=61590523994765" class="facebook">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <a href="#" class="youtube">
+                <i class="bi bi-youtube"></i>
+            </a>
+
+            <a href="http://wa.me/+201033878808" class="whatsapp">
+                <i class="bi bi-whatsapp"></i>
+            </a>
+
+        </div>
+
+        <div class="footer-dev-title">
+            &lt; DEVELOPED BY &gt;
+        </div>
+
+        <div class="developers">
+            <a href="https://www.facebook.com/share/1HFecNkbx6/">Fahd Gamal</a>
+            <a href="https://www.facebook.com/share/1FLw3LeiFA/">Mina Hany</a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span class="copyright">2026</span>
+            Bubble Sheet — All Rights Reserved.
+        </div>
+
+    </footer>
+    <!-- =====================
+        MODAL — EDIT YEAR
+        ===================== -->
+    <div class="modal fade ay-modal" id="editYearModal" tabindex="-1" aria-labelledby="editYearModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editYearModalLabel">
+                        <i class="bi bi-pencil-square"></i>
+                        تعديل العام الدراسي
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <form id="editYearForm" novalidate>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="editYearId" name="YearId" />
+
+                        <div class="ay-form-group">
+                            <label for="editYearName" class="ay-form-label">اسم الصف</label>
+                            <input type="text" id="editYearName" name="YearName" class="ay-form-input"
+                                placeholder="مثال: الصف الأول الإعدادي" required maxlength="100" />
+                            <div class="ay-form-error" id="editYearNameError">من فضلك اكتب اسم الصف</div>
+                        </div>
+
+                        <div class="ay-form-group">
+                            <label class="ay-form-label">صورة الغلاف</label>
+
+                            <div class="ay-image-upload" id="editImageUpload">
+                                <div class="ay-image-preview" id="editImagePreview">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                                <div class="ay-image-actions">
+                                    <label for="editYearImage" class="ay-upload-btn">
+                                        <i class="bi bi-upload"></i>
+                                        اختيار صورة
+                                    </label>
+                                    <button type="button" class="ay-remove-img-btn d-none" id="editRemoveImageBtn">
+                                        <i class="bi bi-trash3"></i>
+                                        إزالة الصورة
+                                    </button>
+                                </div>
+                                <input type="file" id="editYearImage" name="ImageFile" accept="image/*" hidden />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="ay-btn-cancel" data-bs-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="ay-btn-save" id="editYearSaveBtn">
+                            <span class="ay-btn-save-text">
+                                <i class="bi bi-check-lg"></i>
+                                حفظ التعديلات
+                            </span>
+                            <span class="ay-btn-spinner d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                جارِ الحفظ...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================
+        MODAL — DELETE CONFIRM
+        ===================== -->
+    <div class="modal fade ay-modal ay-modal-danger" id="deleteYearModal" tabindex="-1"
+        aria-labelledby="deleteYearModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body ay-delete-body">
+                    <div class="ay-delete-icon">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <h5 class="ay-delete-title">حذف العام الدراسي؟</h5>
+                    <p class="ay-delete-text">
+                        هل أنت متأكد أنك عايز تحذف
+                        <strong id="deleteYearName">هذا العام الدراسي</strong>؟
+                        <br />
+                        الإجراء ده مش هينفع يتراجع فيه، وكل المواد والامتحانات المرتبطة بيه هتتأثر.
+                    </p>
+                </div>
+                <div class="modal-footer ay-delete-footer">
+                    <button type="button" class="ay-btn-cancel" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="ay-btn-delete" id="confirmDeleteYearBtn">
+                        <span class="ay-btn-save-text">
+                            <i class="bi bi-trash3"></i>
+                            نعم، احذف
+                        </span>
+                        <span class="ay-btn-spinner d-none">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            جارِ الحذف...
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =====================================================
+        MODAL — STAGE ANNOUNCEMENT
+    ====================================================== -->
+
+    <div class="modal fade stage-announcement-modal" id="stageAnnouncementModal" tabindex="-1"
+        aria-labelledby="stageAnnouncementTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content stage-announcement-content">
+
+                <!-- Close -->
+                <button type="button" class="stage-announcement-close" data-bs-dismiss="modal" aria-label="إغلاق">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+                <!-- Decorative glow -->
+                <div class="announcement-glow announcement-glow-1"></div>
+                <div class="announcement-glow announcement-glow-2"></div>
+
+                <div class="stage-announcement-inner">
+
+                    <!-- Top Badge -->
+                    <div class="announcement-badge">
+                        <span class="announcement-badge-dot"></span>
+                        <span id="stageAnnouncementBadge">
+                            إعلان هام
+                        </span>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="announcement-heading">
+                        <span class="announcement-icon">
+                            <i class="bi bi-megaphone-fill"></i>
+                        </span>
+
+                        <div>
+                            <h2 id="stageAnnouncementTitle">
+                                إعلان هام
+                            </h2>
+
+                            <p id="stageAnnouncementSubtitle">
+                                إليك أحدث الإعلانات الخاصة بمرحلتك الدراسية
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Announcement Image -->
+                    <div class="announcement-image-wrapper">
+
+                        <div class="announcement-image-shine"></div>
+
+                        <img id="stageAnnouncementImage" src="" alt="الإعلان" class="announcement-image" />
+
+                        <div class="announcement-image-fallback d-none" id="stageAnnouncementFallback">
+
+                            <i class="bi bi-image"></i>
+
+                            <span>
+                                لا توجد صورة للإعلان
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom -->
+                    <div class="announcement-footer">
+
+                        <div class="announcement-footer-info">
+                            <i class="bi bi-info-circle-fill"></i>
+
+                            <span id="stageAnnouncementFooterText">
+                                نتمنى لك تجربة تعليمية مميزة
+                            </span>
+                        </div>
+
+                        <button type="button" class="announcement-close-btn" data-bs-dismiss="modal">
+
+                            <span>فهمت</span>
+
+                            <i class="bi bi-check-lg"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/auth.js"></script>
+    <script src="JS/navbar-dashboard.js"></script>
+    <script src="JS/years.js"></script>
+</body>
+
+</html>
