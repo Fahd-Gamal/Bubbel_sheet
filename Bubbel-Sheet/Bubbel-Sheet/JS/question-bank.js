@@ -2924,18 +2924,67 @@ window.addEventListener(
             return;
         }
 
-        state.visibilityViolationLock = true;
+        /*
+           IMPORTANT — MOBILE FALSE POSITIVES:
 
-        registerViolation(
-            "تم رصد مغادرة نافذة بنك الأسئلة."
-        );
+           On mobile browsers, "window blur" fires for many
+           harmless reasons that are NOT the student leaving
+           the page: opening the on-screen keyboard, the
+           address bar hiding/showing on scroll, a system
+           notification banner, etc. In those cases focus
+           returns almost immediately.
+
+           Real tab/app switching is still caught reliably by
+           the "visibilitychange" handler above regardless of
+           this fix.
+
+           So instead of registering the violation immediately,
+           we wait briefly and re-check that the window is
+           genuinely still unfocused (and the page still
+           visible, i.e. not a real tab switch which
+           visibilitychange already handles) before counting it.
+           This does not change MAX_VIOLATIONS or remove any
+           violation case — it only filters out mobile blur
+           noise that isn't a real violation.
+        */
 
         window.setTimeout(
             function () {
 
-                state.visibilityViolationLock = false;
+                if (
+                    !state.examStarted ||
+                    state.examSubmitted
+                ) {
+                    return;
+                }
+
+                if (document.hidden) {
+                    return;
+                }
+
+                if (document.hasFocus()) {
+                    return;
+                }
+
+                if (state.visibilityViolationLock) {
+                    return;
+                }
+
+                state.visibilityViolationLock = true;
+
+                registerViolation(
+                    "تم رصد مغادرة نافذة بنك الأسئلة."
+                );
+
+                window.setTimeout(
+                    function () {
+
+                        state.visibilityViolationLock = false;
+                    },
+                    1000
+                );
             },
-            1000
+            450
         );
     }
 );
