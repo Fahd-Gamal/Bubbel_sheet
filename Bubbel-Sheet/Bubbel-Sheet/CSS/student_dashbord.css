@@ -1,0 +1,1251 @@
+/* =====================================================
+   ROOT / TOKENS
+===================================================== */
+
+:root {
+
+    --c: #00E2E0;
+    --b: #00A9F2;
+    --i: #172D9D;
+    --p: #787CFE;
+    --t: #48BED9;
+
+    --gm: linear-gradient(135deg, var(--i), var(--p), var(--b));
+    --ga: linear-gradient(120deg, var(--c), var(--b));
+
+
+    --bg: #eef4ff;
+
+    --glass: rgba(255, 255, 255, .68);
+    --border: rgba(120, 124, 254, .2);
+
+
+    --text: #0f1c5c;
+    --muted: #6878a8;
+
+
+    --radius: 24px;
+
+    --shadow:
+        0 10px 35px rgba(23, 45, 157, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .8);
+
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+
+body {
+
+    font-family: 'Cairo', sans-serif;
+
+    background: var(--bg);
+
+    color: var(--muted);
+
+    overflow-x: hidden;
+
+    min-height: 100vh;
+
+}
+
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+
+.bg-canvas {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 0;
+
+
+}
+
+
+
+
+.bg-spot {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    animation: float 20s infinite alternate;
+
+}
+
+
+.bs1 {
+
+    width: 350px;
+    height: 350px;
+
+    background: #00e2e0;
+
+    top: -100px;
+    left: -100px;
+
+}
+
+
+.bs2 {
+
+    width: 300px;
+    height: 300px;
+
+    background: #787cfe;
+
+    bottom: -80px;
+    right: -80px;
+
+}
+
+
+.bs3 {
+
+    width: 250px;
+    height: 250px;
+
+    background: #00a9f2;
+
+    top: 50%;
+    left: 50%;
+
+}
+
+
+@keyframes float {
+
+    to {
+
+        transform: translate(40px, 30px);
+
+    }
+
+}
+
+
+
+
+
+/* =====================================================
+   GLASS
+===================================================== */
+
+
+.gc {
+
+
+    background: var(--glass);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(20px);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .4s var(--ease);
+
+}
+
+
+.gc:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 25px 60px rgba(23, 45, 157, .18);
+
+}
+
+
+
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+
+.page-root {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+
+.main {
+    padding: 2rem;
+    min-height: 100vh;
+    margin-top: -60px;
+}
+
+
+
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+
+.sidebar {
+
+
+    width: 260px;
+
+    height: 100vh;
+
+    position: fixed;
+
+    right: 0;
+
+    top: 0;
+
+
+    background: var(--glass);
+
+    backdrop-filter: blur(25px);
+
+    border-left: 1px solid var(--border);
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    z-index: 100;
+
+
+}
+
+
+
+.sidebar-logo {
+
+    padding: 1.5rem;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.logo-mark {
+
+    width: 45px;
+    height: 45px;
+
+
+    background: var(--gm);
+
+    border-radius: 14px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+}
+
+
+
+.logo-text-wrapper {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+}
+
+
+
+.logo-text {
+
+    font-weight: 900;
+
+    font-size: 1.1rem;
+
+    background: var(--gm);
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+
+
+.nav-item {
+
+
+    margin: 5px 12px;
+
+
+    padding: 12px 15px;
+
+
+    border-radius: 15px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+
+    text-decoration: none;
+
+    color: var(--muted);
+
+
+    font-weight: 700;
+
+
+    transition: .3s;
+
+
+}
+
+
+
+.nav-item:hover,
+.nav-item.active {
+
+
+    background: rgba(120, 124, 254, .12);
+
+    color: var(--i);
+
+    transform: translateX(-4px);
+
+}
+
+
+
+
+.sidebar-avatar {
+
+
+    margin-top: auto;
+
+    padding: 1rem;
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+
+    border-top: 1px solid var(--border);
+
+
+}
+
+
+
+
+.av-circle {
+
+
+    width: 42px;
+
+    height: 42px;
+
+
+    border-radius: 50%;
+
+
+    background: var(--gm);
+
+
+    color: white;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    font-weight: 900;
+
+
+}
+
+
+
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+
+.topbar {
+
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+
+    margin-bottom: 2rem;
+
+
+}
+
+
+
+.topbar-title {
+
+
+    font-size: 1.4rem;
+
+    font-weight: 900;
+
+    color: var(--text);
+
+
+}
+
+
+
+
+.topbar-badge {
+
+
+    background: var(--glass);
+
+    border: 1px solid var(--border);
+
+    padding: 8px 15px;
+
+
+    border-radius: 50px;
+
+
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+
+
+    font-weight: 700;
+
+
+}
+
+
+
+.dot-live {
+
+    width: 9px;
+
+    height: 9px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+
+.welcome-card {
+
+
+    padding: 2.5rem;
+
+    border-radius: 30px;
+
+
+    background:
+
+        linear-gradient(135deg,
+            rgba(23, 45, 157, .1),
+            rgba(120, 124, 254, .15));
+
+
+
+}
+
+
+
+.welcome-greeting {
+
+
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+
+    font-weight: 900;
+
+    color: var(--text);
+
+
+}
+
+
+
+.name-hl {
+
+    background: var(--gm);
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+
+.welcome-sub {
+
+    margin-top: 15px;
+
+    line-height: 2;
+
+}
+
+
+
+.welcome-avatar {
+
+
+    width: 90px;
+
+    height: 90px;
+
+    border-radius: 50%;
+
+
+    background: var(--gm);
+
+
+    color: white;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+
+}
+
+/* =====================================================
+   SECTION HEAD
+===================================================== */
+
+.sec-hdr {
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+.eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--p);
+
+    font-size: 1.75rem;
+
+    font-weight: 800;
+
+}
+
+
+.eyebrow .dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--c);
+
+}
+
+
+.sec-hdr h2 {
+
+    margin-top: 8px;
+
+    color: var(--text);
+
+    font-weight: 900;
+
+    font-size: 1.3rem;
+
+}
+
+
+.sec-hdr p {
+
+    margin-top: 5px;
+
+}
+
+
+
+/* =====================================================
+   INFO CARD
+===================================================== */
+
+
+.info-grid {
+
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+
+    gap: 1rem;
+
+
+}
+
+
+
+.info-item {
+
+
+    padding: 1rem;
+
+
+    border-radius: 18px;
+
+
+    background: rgba(255, 255, 255, .5);
+
+
+    border: 1px solid var(--border);
+
+
+}
+
+
+.info-label {
+
+
+    font-size: .75rem;
+
+    color: var(--p);
+
+    font-weight: 800;
+
+
+}
+
+
+
+.info-val {
+
+
+    margin-top: 5px;
+
+    color: var(--text);
+
+    font-weight: 800;
+
+
+}
+
+
+
+/* =====================================================
+   STAGE CARDS
+===================================================== */
+
+
+.stage-panel {
+
+
+    height: 100%;
+
+
+}
+
+
+
+.stage-img {
+
+
+    height: 240px;
+
+    overflow: hidden;
+
+}
+
+
+
+.stage-img img {
+
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+
+}
+
+
+
+.stage-body {
+
+
+    padding: 1.5rem;
+
+
+}
+
+
+
+.stage-badge {
+
+
+    display: inline-block;
+
+    padding: 5px 15px;
+
+
+    border-radius: 50px;
+
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+
+}
+
+
+
+.stage-body h3 {
+
+
+    margin-top: 15px;
+
+
+    font-size: 1.2rem;
+
+
+    color: var(--text);
+
+
+    font-weight: 900;
+
+
+}
+
+
+
+.stage-body p {
+
+
+    line-height: 1.9;
+
+
+    font-size: .88rem;
+
+
+}
+
+
+
+
+/* =====================================================
+   START BUTTON
+===================================================== */
+
+
+.stage-arrow {
+
+
+    margin-top: 20px;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    gap: 10px;
+
+
+    padding: 13px 25px;
+
+
+    border-radius: 50px;
+
+
+    background: var(--gm);
+
+
+    color: white;
+
+
+    font-weight: 800;
+
+
+    cursor: pointer;
+
+
+    width: fit-content;
+
+
+    transition: .35s var(--ease);
+
+
+    box-shadow:
+        0 12px 30px rgba(0, 169, 242, .3);
+
+
+}
+
+
+
+.stage-arrow:hover {
+
+
+    transform:
+
+        translateY(-6px) scale(1.05);
+
+
+}
+
+
+
+.stage-arrow i {
+
+
+    transition: .3s;
+
+
+}
+
+
+
+.stage-arrow:hover i {
+
+
+    transform: translateX(-6px);
+
+
+}
+
+
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+
+.stat-card {
+
+
+    text-align: center;
+
+
+    padding: 1.5rem;
+
+
+}
+
+
+
+.stat-icon-wrap {
+
+
+    width: 60px;
+
+    height: 60px;
+
+
+    border-radius: 18px;
+
+
+    margin: auto;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    font-size: 1.5rem;
+
+
+}
+
+
+
+.stat-num {
+
+
+    margin-top: 15px;
+
+
+    font-size: 2.2rem;
+
+
+    font-weight: 900;
+
+
+    background: var(--gm);
+
+
+    background-clip: text;
+
+    color: transparent;
+
+
+}
+
+
+
+.stat-label {
+
+
+    font-size: .8rem;
+
+
+    font-weight: 800;
+
+
+}
+
+
+
+
+/* =====================================================
+   MOBILE BUTTON
+===================================================== */
+
+
+.mob-toggle {
+
+
+    display: none;
+
+
+    position: fixed;
+
+
+    top: 15px;
+
+    right: 15px;
+
+
+    width: 45px;
+
+    height: 45px;
+
+
+    border-radius: 15px;
+
+
+    border: 1px solid var(--border);
+
+
+    background: var(--glass);
+
+
+    z-index: 200;
+
+
+}
+
+
+
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+
+
+@media(max-width:992px) {
+
+
+    .sidebar {
+
+
+        transform: translateX(100%);
+
+
+        transition: .4s;
+
+
+    }
+
+
+
+    .sidebar.open {
+
+
+        transform: translateX(0);
+
+
+    }
+
+
+
+
+    .main {
+
+
+        margin-right: 0;
+
+        padding: 1.2rem;
+
+
+    }
+
+
+
+    .mob-toggle {
+
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+
+    }
+
+
+
+    .topbar {
+
+
+        padding-top: 60px;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+@media(max-width:768px) {
+
+
+    .welcome-card {
+
+
+        padding: 1.5rem;
+
+
+    }
+
+
+
+    .welcome-card .d-flex {
+
+
+        flex-direction: column-reverse;
+
+
+    }
+
+
+
+    .welcome-avatar {
+
+
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 1.5rem;
+
+
+    }
+
+
+
+    .info-grid {
+
+
+        grid-template-columns: 1fr;
+
+
+    }
+
+
+    .stage-arrow {
+
+
+        width: 100%;
+
+
+    }
+
+
+
+
+    .stage-body {
+
+
+        padding: 1.2rem;
+
+
+    }
+
+
+
+
+    .row>* {
+        width: 100%;
+    }
+
+
+
+    .topbar {
+
+
+        flex-direction: column;
+
+
+        align-items: flex-start;
+
+
+        gap: 15px;
+
+
+    }
+
+    .topbar-badge {
+
+
+        width: 100%;
+
+
+        justify-content: center;
+
+
+        font-size: .75rem;
+
+
+    }
+
+
+
+}
+
+@media(max-width:480px) {
+
+    .main {
+        padding: .8rem;
+    }
+    .welcome-greeting {
+        font-size: 1.5rem;
+    }
+
+
+
+    .stage-body p {
+
+
+        font-size: .82rem;
+    }
+    .stat-num {
+        font-size: 1.8rem;
+    }
+}

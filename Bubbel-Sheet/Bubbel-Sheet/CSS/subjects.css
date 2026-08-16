@@ -1,0 +1,904 @@
+/* =====================================================
+1. DESIGN TOKENS
+===================================================== */
+
+:root {
+
+    /* Brand gradient + solid accents */
+    --p: #172d9d;
+    /* primary deep blue */
+    --i: #00a9f2;
+    /* accent cyan */
+    --c: #0d1b6b;
+    /* contrast / darkest blue */
+    --b: #00a9f2;
+    /* focus ring blue */
+    --tm: #16a34a;
+    /* "online" green */
+
+    --gm: linear-gradient(135deg, #172d9d 0%, #00a9f2 100%);
+    --ga: linear-gradient(135deg, #00a9f2 0%, #172d9d 100%);
+
+    /* CTA accent — distinct from the header gradient for clearer
+visual hierarchy on the subject card button */
+    --cta1: #0ea5e9;
+    --cta2: #0284c7;
+    --gcta: linear-gradient(135deg, var(--cta1) 0%, var(--cta2) 100%);
+
+    /* Surfaces */
+    --bg: #f4f6fd;
+    --glass: rgba(255, 255, 255, .72);
+    --border: rgba(23, 45, 157, .09);
+    --text: #1c2340;
+    --muted: #6b7280;
+
+    /* Shape / motion */
+    --radius: 22px;
+    --shadow: 0 10px 40px rgba(23, 45, 157, .08);
+    --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+body.dark {
+
+    --bg: #0b1024;
+    --glass: rgba(23, 28, 56, .6);
+    --border: rgba(255, 255, 255, .08);
+    --text: #eef1ff;
+    --muted: #9aa3c7;
+    --shadow: 0 10px 40px rgba(0, 0, 0, .35);
+}
+
+
+/* =====================================================
+2. BASE / RESET
+===================================================== */
+body {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    transition: color .4s var(--ease);
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* =====================================================
+4. PAGE SHELL
+===================================================== */
+
+.page-root {
+    min-height: 100vh;
+    align-items: stretch;
+}
+
+.main {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 100px 16px 48px;
+    }
+}
+
+/* =====================================================
+5. GENERIC GLASS CARD PRIMITIVE
+Shared base for .subject-card / .skeleton-card / .ay-state.
+Each variant class layers its own look on top of this.
+===================================================== */
+
+.gc {
+    position: relative;
+    border-radius: var(--radius);
+    background: var(--glass);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+
+.gc-bar {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5px;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+
+/* =====================================================
+6. PAGE HEADER
+===================================================== */
+
+.ay-header {
+    padding-top: 4px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: .85rem;
+    color: var(--i);
+    letter-spacing: .3px;
+}
+
+.eyebrow .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gm);
+    box-shadow: 0 0 0 4px rgba(0, 169, 242, .15);
+}
+
+.ay-title {
+    margin-top: 8px;
+    color: var(--text);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+.ay-subtitle {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 560px;
+}
+
+
+/* =====================================================
+7. BREADCRUMB
+===================================================== */
+
+.ay-breadcrumb {
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 1.25rem;
+
+    font-size: .9rem;
+    font-weight: 700;
+
+    color: var(--muted);
+
+}
+
+.ay-breadcrumb a {
+
+    color: var(--muted);
+
+    text-decoration: none;
+
+    transition: color .3s;
+
+}
+
+.ay-breadcrumb a:hover,
+.ay-breadcrumb a:focus-visible {
+
+    color: var(--i);
+
+}
+
+.ay-breadcrumb span[aria-current="page"] {
+
+    color: var(--p);
+    font-weight: 800;
+
+}
+
+.ay-breadcrumb i {
+
+    font-size: .7rem;
+
+    color: var(--muted);
+
+    opacity: .7;
+
+}
+
+
+/* =====================================================
+8. SUBJECT PREMIUM CARD
+===================================================== */
+
+/* Grid column: 1 on mobile, 2 on tablet, 3 on desktop —
+handled via Bootstrap col classes on the element itself,
+this class only carries card-specific sizing. */
+.subject-col {
+    display: flex;
+}
+
+.subject-card {
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    cursor: pointer;
+
+    outline: none;
+
+    padding: 0;
+
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+
+}
+
+.subject-card:hover,
+.subject-card:focus-visible {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 48px rgba(23, 45, 157, .16);
+
+}
+
+.subject-card:focus-visible {
+
+    box-shadow:
+        0 0 0 3px var(--b),
+        0 20px 48px rgba(23, 45, 157, .16);
+
+}
+
+.subject-card:active {
+
+    transform: translateY(-2px) scale(.99);
+
+}
+
+/* -------- Icon banner -------- */
+
+.subject-banner {
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 148px;
+
+    background: var(--gm);
+    overflow: hidden;
+
+}
+
+.subject-banner::before {
+
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 26px);
+
+}
+
+.subject-banner::after {
+
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, .22) 0, transparent 45%),
+        radial-gradient(circle at 88% 85%, rgba(255, 255, 255, .14) 0, transparent 42%);
+
+}
+
+.subject-icon {
+
+    position: relative;
+    z-index: 1;
+
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .38);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    color: #fff;
+    font-size: 2.25rem;
+
+    box-shadow:
+        0 12px 30px rgba(13, 27, 107, .3),
+        inset 0 1px 0 rgba(255, 255, 255, .3);
+
+    transition: transform .4s var(--ease);
+
+}
+
+.subject-card:hover .subject-icon,
+.subject-card:focus-visible .subject-icon {
+
+    transform: scale(1.08) rotate(-3deg);
+
+}
+
+/* -------- Body -------- */
+
+.subject-body {
+
+    flex: 1 1 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.35rem 1.35rem 1.1rem;
+
+}
+
+.subject-name {
+
+    color: var(--text);
+
+    font-weight: 800;
+
+    font-size: 1.15rem;
+
+    margin: 0 0 .4rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.subject-meta {
+
+    margin: 0 0 1rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--muted);
+
+    font-size: .85rem;
+    font-weight: 600;
+
+}
+
+.subject-meta i {
+
+    color: var(--i);
+    font-size: .9rem;
+
+}
+
+/* -------- Description -------- */
+
+.subject-desc {
+
+    margin: 0 0 1rem;
+
+    color: var(--muted);
+
+    font-size: .88rem;
+    line-height: 1.7;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+}
+
+/* -------- Optional badges row (only rendered when the API
+data actually supports it) -------- */
+
+.subject-badges {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin-bottom: 1rem;
+
+}
+
+.subject-badge {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 12px;
+
+    border-radius: 50px;
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+.subject-badge-free {
+
+    background: rgba(22, 163, 74, .12);
+    color: var(--tm);
+
+}
+
+.subject-badge-paid {
+
+    background: rgba(245, 158, 11, .14);
+    color: #b45309;
+
+}
+
+body.dark .subject-badge-paid {
+    background: rgba(245, 158, 11, .18);
+    color: #fbbf24;
+}
+
+/* -------- Price section -------- */
+
+.subject-price {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: .7rem 1rem;
+
+    border-radius: 14px;
+
+    margin-bottom: 1rem;
+
+    background: linear-gradient(135deg, rgba(0, 169, 242, .1), rgba(23, 45, 157, .08));
+    border: 1px solid var(--border);
+
+}
+
+.subject-price-label {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: .82rem;
+    font-weight: 700;
+
+    color: var(--muted);
+
+}
+
+.subject-price-label i {
+
+    color: var(--i);
+
+}
+
+.subject-price-value {
+
+    font-size: 1.1rem;
+    font-weight: 900;
+
+    color: var(--p);
+
+}
+
+body.dark .subject-price-value {
+    color: #bcd4ff;
+}
+
+/* -------- CTA button -------- */
+
+.subject-btn {
+
+    margin-top: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 13px 18px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: var(--gcta);
+    color: #fff;
+
+    font-weight: 800;
+    font-size: .92rem;
+
+    cursor: pointer;
+
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s var(--ease);
+
+    box-shadow: 0 10px 24px rgba(2, 132, 199, .3);
+
+}
+
+.subject-card:hover .subject-btn,
+.subject-card:focus-visible .subject-btn {
+
+    box-shadow: 0 16px 34px rgba(2, 132, 199, .4);
+
+    filter: brightness(1.06);
+
+}
+
+.subject-btn i {
+    transition: transform .3s var(--ease);
+}
+
+.subject-card:hover .subject-btn i {
+    transform: translateX(-4px);
+}
+
+[dir="rtl"] .subject-card:hover .subject-btn i {
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+9. SKELETON LOADING STATE
+===================================================== */
+
+.skeleton-card {
+
+    height: 100%;
+    min-height: 340px;
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.skeleton-shape {
+
+    border-radius: 14px;
+
+    background: linear-gradient(100deg,
+            rgba(120, 124, 254, .12) 8%,
+            rgba(120, 124, 254, .22) 18%,
+            rgba(120, 124, 254, .12) 33%);
+
+    background-size: 200% 100%;
+
+    animation: skeleton-sheen 1.6s ease-in-out infinite;
+
+}
+
+body.dark .skeleton-shape {
+
+    background: linear-gradient(100deg,
+            rgba(255, 255, 255, .06) 8%,
+            rgba(255, 255, 255, .14) 18%,
+            rgba(255, 255, 255, .06) 33%);
+
+    background-size: 200% 100%;
+
+}
+
+.skeleton-banner {
+
+    width: 100%;
+    height: 200px;
+
+    border-radius: 0;
+
+    flex-shrink: 0;
+
+}
+
+.skeleton-body {
+
+    padding: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1;
+
+}
+
+.skeleton-line {
+
+    height: 18px;
+    width: 70%;
+
+    border-radius: 8px;
+
+    margin-bottom: 1.75rem;
+
+}
+
+.skeleton-btn {
+
+    height: 44px;
+    width: 100%;
+
+    border-radius: 50px;
+
+    margin-top: auto;
+
+}
+
+@keyframes skeleton-sheen {
+
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .skeleton-shape {
+        animation: none;
+    }
+
+}
+
+
+/* -----------------------------------------------------
+9b. Skeleton Card variant (used on this page)
+----------------------------------------------------- */
+
+.skeleton-card.skeleton-row {
+
+    flex-direction: column;
+
+    padding: 0;
+
+    width: 100%;
+
+}
+
+.skeleton-icon {
+
+    width: 100%;
+    height: 140px;
+
+    border-radius: 0;
+
+}
+
+.skeleton-row .skeleton-body {
+
+    padding: 1.35rem;
+
+    align-items: flex-start;
+
+}
+
+.skeleton-row .skeleton-line {
+
+    height: 16px;
+    width: 55%;
+
+    margin-bottom: 1.1rem;
+
+}
+
+.skeleton-row .skeleton-btn {
+
+    width: 100%;
+
+    margin-top: auto;
+
+    border-radius: 50px;
+
+}
+
+
+/* =====================================================
+10. EMPTY / ERROR STATES
+===================================================== */
+
+.ay-state {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding: 4rem 1.5rem;
+
+    margin: 0 auto;
+
+    border-radius: var(--radius);
+
+    background: var(--glass);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+
+}
+
+.ay-state-icon {
+
+    width: 84px;
+    height: 84px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 1.5rem;
+
+    background: var(--gm);
+
+    color: #fff;
+
+    font-size: 2.2rem;
+
+}
+
+.ay-state-icon-warn {
+
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+
+}
+
+.ay-state-msg {
+
+    color: var(--text);
+
+    font-weight: 700;
+
+    font-size: 1.05rem;
+
+    max-width: 420px;
+
+    margin-bottom: 1.75rem;
+
+}
+
+.ay-retry-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 12px 28px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: var(--gm);
+
+    color: #fff;
+
+    font-weight: 800;
+    font-size: .95rem;
+
+    cursor: pointer;
+
+    transition: .35s var(--ease);
+
+    box-shadow:
+        0 12px 30px rgba(0, 169, 242, .3);
+
+}
+
+.ay-retry-btn:hover,
+.ay-retry-btn:focus-visible {
+
+    transform: translateY(-4px) scale(1.03);
+
+}
+
+.ay-retry-btn:focus-visible {
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px var(--b),
+        0 12px 30px rgba(0, 169, 242, .3);
+
+}
+
+.ay-retry-btn i {
+
+    transition: .4s;
+
+}
+
+.ay-retry-btn:hover i {
+
+    transform: rotate(-180deg);
+
+}
+
+
+/* =====================================================
+11. RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .ay-state {
+        padding: 3rem 1.25rem;
+    }
+
+    .skeleton-banner {
+        height: 170px;
+    }
+
+    .skeleton-body {
+        padding: 1.25rem;
+    }
+
+    .ay-breadcrumb {
+        font-size: .8rem;
+    }
+
+    .subject-banner {
+        height: 120px;
+    }
+
+    .subject-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 1.7rem;
+        border-radius: 16px;
+    }
+
+    .subject-body {
+        padding: 1.1rem 1.1rem .95rem;
+    }
+
+    .subject-name {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .ay-state-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 1.8rem;
+    }
+}

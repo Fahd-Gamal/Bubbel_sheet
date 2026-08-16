@@ -1,0 +1,1352 @@
+/* ==========================================================================
+   BUBBLE SHEET — HOME NAVBAR STYLES (nav.css)
+   Aligned with the Dashboard navbar design language (nav-dashboard.css)
+   while keeping the Home page fully isolated — no class conflicts.
+   ========================================================================== */
+
+/* ==========================================================================
+   ROOT TOKENS — mirrors nav-dashboard.css exactly so both navbars share
+   the same brand palette, motion timing, and geometry variables.
+   ========================================================================== */
+:root {
+    --cyan: #00E2E0;
+    --blue: #00A9F2;
+    --indigo: #172D9D;
+    --purple: #787CFE;
+    --teal: #48BED9;
+
+    --grad-main: linear-gradient(135deg, var(--indigo) 0%, var(--purple) 55%, var(--blue) 100%);
+    --grad-accent: linear-gradient(120deg, var(--cyan), var(--blue));
+    --grad-warm: linear-gradient(135deg, var(--purple), var(--teal));
+
+    /* Glass surface tokens */
+    --body-bg: #f0f6ff;
+    --glass-bg: rgba(255, 255, 255, 0.62);
+    --glass-bg-h: rgba(255, 255, 255, 0.80);
+    --glass-border: rgba(120, 124, 254, 0.18);
+    --glass-shadow: 0 12px 40px rgba(23, 45, 157, 0.10), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    --glass-hover: 0 24px 60px rgba(23, 45, 157, 0.16), 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    --text-dark: #0f1c5c;
+    --text-body: #334470;
+    --text-muted: #6878a8;
+
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-pill: 999px;
+
+    /* Unified motion system */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: .22s;
+    --dur-med: .4s;
+
+    /* Navbar geometry — same as dashboard */
+    --nav-h: 84px;
+    --nav-h-scrolled: 68px;
+    --nav-pad-x: 2rem;
+    --nav-pad-x-sm: 1rem;
+
+    /* Light Mode */
+    --light-bg: #BFD0F3;
+    --light-secondary: #E8FAFF;
+    --light-primary: #00A9F2;
+    --light-accent: #00E2E0;
+    --light-highlight: #787CFE;
+    --light-text: #172D9D;
+    --light-text-secondary: #48BED9;
+    --light-border: #BFEFFF;
+    --light-card: #FFFFFF;
+    --light-shadow: rgba(0, 169, 242, 0.15);
+
+    /* Dark Mode */
+    --dark-bg: #081126;
+    --dark-secondary: #10204D;
+    --dark-primary: #172D9D;
+    --dark-accent: #00A9F2;
+    --dark-highlight: #787CFE;
+    --dark-text: #FFFFFF;
+    --dark-text-secondary: #48BED9;
+    --dark-border: #1F3BAF;
+    --dark-card: #0D183D;
+    --dark-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   RESET
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   THEME — Dark / Light applied to body
+   ========================================================================== */
+body.dark {
+    --bg: var(--dark-bg);
+    --secondary: var(--dark-secondary);
+    --primary: var(--dark-primary);
+    --accent: var(--dark-accent);
+    --highlight: var(--dark-highlight);
+    --text: var(--dark-text);
+    --text-secondary: var(--dark-text-secondary);
+    --border: var(--dark-border);
+    --card: var(--dark-card);
+    --shadow: var(--dark-shadow);
+}
+
+body {
+    --bg:
+        radial-gradient(ellipse 700px 500px at 15% 10%, rgba(0, 226, 224, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 600px 600px at 85% 20%, rgba(120, 124, 254, 0.16) 0%, transparent 65%),
+        radial-gradient(ellipse 800px 400px at 50% 80%, rgba(0, 169, 242, 0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 500px 500px at 5% 70%, rgba(72, 190, 217, 0.12) 0%, transparent 65%),
+        linear-gradient(160deg, #eaf6ff 0%, #f5f0ff 35%, #e8f8ff 70%, #f0f0ff 100%);
+    --secondary: var(--light-secondary);
+    --primary: var(--light-primary);
+    --accent: var(--light-accent);
+    --highlight: var(--light-highlight);
+    --text: var(--light-text);
+    --text-secondary: var(--light-text-secondary);
+    --border: var(--light-border);
+    --card: var(--light-card);
+    --shadow: var(--light-shadow);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition:
+        background-color var(--dur-med) var(--ease),
+        color var(--dur-med) var(--ease);
+    line-height: 1.6;
+}
+
+/* Push page content below fixed navbar */
+body {
+    padding-top: var(--nav-h);
+}
+
+/* ==========================================================================
+   LEGACY NAV-LINK — animated underline grows on hover / stays filled active
+   ========================================================================== */
+.nav-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, .85);
+    font-weight: 500;
+    padding-bottom: 4px;
+    position: relative;
+    transition: color var(--dur-fast) var(--ease);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    inset-inline-start: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--grad-accent);
+    border-radius: 2px;
+    transition: width var(--dur-med) var(--ease);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #fff;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   THEME SWITCH — identical to dashboard
+   ========================================================================== */
+.theme-switch {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    flex-shrink: 0;
+    direction: ltr;
+}
+
+.theme-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.toggle-track {
+    width: 62px;
+    height: 32px;
+    border-radius: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #87CEEB, #4A90E2);
+    transition:
+        background var(--dur-med) var(--ease),
+        box-shadow var(--dur-med) var(--ease);
+    box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, .15),
+        0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.toggle-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform var(--dur-med) var(--ease),
+        background var(--dur-med) var(--ease);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+}
+
+.toggle-thumb::before {
+    content: "☀️";
+    font-size: 13px;
+}
+
+.theme-switch input:focus-visible+.toggle-track {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+}
+
+.theme-switch input:checked+.toggle-track {
+    background: linear-gradient(135deg, #111827, #000000);
+}
+
+.theme-switch input:checked+.toggle-track .toggle-thumb {
+    transform: translateX(30px) rotate(360deg);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.theme-switch input:checked+.toggle-track .toggle-thumb::before {
+    content: "🌙";
+}
+
+.toggle-track::before {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    transition: opacity var(--dur-med) var(--ease);
+}
+
+.theme-switch input:checked+.toggle-track::before {
+    opacity: 1;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    top: 7px;
+    left: 10px;
+    box-shadow:
+        9px 7px white,
+        20px -2px white,
+        15px 13px white,
+        29px 3px white;
+}
+
+/* ==========================================================================
+   NAVBAR SHELL — same geometry as dashboard (.glass-navbar)
+   The gradient background fades in nicely over the hero section.
+   Real glass (backdrop-filter) only activates on scroll (.is-scrolled)
+   ========================================================================== */
+.glass-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    /* Gradient tuned to the brand's own indigo → purple → blue identity,
+       transparent at the very top edge so the hero content stays visible
+       until the user scrolls */
+    background: linear-gradient(0deg,
+            rgba(23, 45, 157, 0) 20%,
+            rgba(120, 124, 254, 0.50) 58%,
+            rgba(23, 45, 157, 0.88) 100%);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    box-shadow: none;
+    border: none;
+    transition:
+        height var(--dur-med) var(--ease),
+        background var(--dur-med) var(--ease),
+        box-shadow var(--dur-med) var(--ease),
+        backdrop-filter var(--dur-med) var(--ease);
+}
+
+body.dark .glass-navbar {
+    background: linear-gradient(0deg,
+            rgba(8, 17, 38, 0) 20%,
+            rgba(16, 32, 77, 0.62) 58%,
+            rgba(8, 17, 38, 0.94) 100%);
+}
+
+/* ==========================================================================
+   SCROLL PROGRESS STRIP — the animated line under the navbar.
+   Moving shimmer (background-position) + a soft breathing glow so it
+   reads as "alive" even while scroll position is static, plus a smooth
+   width transition as the user scrolls. Premium, not flashy.
+   ========================================================================== */
+.nav-progress {
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple), var(--cyan));
+    background-size: 300% 100%;
+    animation: navProgressShimmer 6s linear infinite, navProgressPulse 2.4s ease-in-out infinite;
+    box-shadow: 0 0 12px 1px rgba(0, 169, 242, .6);
+    transition: width .12s linear;
+    border-radius: 0 4px 4px 0;
+}
+
+@keyframes navProgressShimmer {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 300% 0%;
+    }
+}
+
+@keyframes navProgressPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px 1px rgba(0, 169, 242, .5);
+    }
+
+    50% {
+        box-shadow: 0 0 16px 3px rgba(0, 226, 224, .75);
+    }
+}
+
+/* Scrolled state — real glass kicks in */
+.glass-navbar.is-scrolled {
+    height: var(--nav-h-scrolled);
+    background: rgba(23, 45, 157, .60);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 10px 30px -14px rgba(15, 28, 92, .45);
+}
+
+body.dark .glass-navbar.is-scrolled {
+    background: rgba(8, 17, 38, .78);
+}
+
+/* ==========================================================================
+   NAVBAR CONTAINER — same max-width / flex row as dashboard
+   ========================================================================== */
+.navbar-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--nav-pad-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+}
+
+/* ==========================================================================
+   BRAND — logo uses brand-center class (centered on desktop, like dashboard)
+   ========================================================================== */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+    font-weight: 700;
+    transition: transform var(--dur-fast) var(--ease);
+    flex-shrink: 0;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+    transform: translateX(-50%) scale(1.04);
+}
+
+/* Centered position on desktop */
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.brand-logo {
+    width: clamp(72px, 6vw, 88px);
+    height: clamp(72px, 6vw, 88px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    flex-shrink: 0;
+    transition:
+        width var(--dur-med) var(--ease),
+        height var(--dur-med) var(--ease);
+}
+
+.logo-text-wrapper {
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* text next to logo */
+.logo-svg {
+    font-weight: 700;
+    font-size: clamp(.9rem, 1.4vw, 1.3rem);
+    white-space: nowrap;
+    color: #fff;
+}
+
+/* ==========================================================================
+   NAV RIGHT — wraps theme toggle on the LEFT side of navbar (RTL-safe)
+   ========================================================================== */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    order: 0;
+}
+
+/* ==========================================================================
+   DESKTOP AUTH BUTTONS — right side of navbar
+   ========================================================================== */
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    margin-inline-start: auto;
+    flex-shrink: 0;
+}
+
+.glass-btn {
+    padding: .6rem 1.5rem;
+    background: rgba(255, 255, 255, .18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .30);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: .95rem;
+    font-weight: 500;
+    transition:
+        background var(--dur-fast) var(--ease),
+        border-color var(--dur-fast) var(--ease),
+        transform var(--dur-fast) var(--ease),
+        box-shadow var(--dur-fast) var(--ease);
+    display: inline-block;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, .30);
+    border-color: rgba(255, 255, 255, .50);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, .18);
+}
+
+.glass-btn:active {
+    transform: translateY(0) scale(.97);
+}
+
+body.dark .glass-btn {
+    background: rgba(255, 255, 255, .10);
+    border-color: rgba(255, 255, 255, .18);
+}
+
+body.dark .glass-btn:hover {
+    background: rgba(255, 255, 255, .20);
+}
+
+/* Register button gets gradient fill — premium feel */
+.btn-register {
+    background: linear-gradient(135deg, #667eea 0%, #2563ff 100%);
+    border: none;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, .35);
+}
+
+.btn-register:hover {
+    box-shadow: 0 8px 24px rgba(37, 99, 255, .45);
+    background: linear-gradient(135deg, #7a8ff5 0%, #3a72ff 100%);
+}
+
+/* ==========================================================================
+   HAMBURGER — same morph-to-X as dashboard
+   ========================================================================== */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    background: rgba(255, 255, 255, .20);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .30);
+    border-radius: 10px;
+    transition: background var(--dur-fast) var(--ease);
+    z-index: 10001;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, .30);
+}
+
+body.dark .hamburger {
+    background: rgba(255, 255, 255, .10);
+}
+
+body.dark .hamburger:hover {
+    background: rgba(255, 255, 255, .20);
+}
+
+.hamburger span {
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition:
+        transform var(--dur-med) var(--ease),
+        opacity var(--dur-fast) var(--ease);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   MOBILE OVERLAY
+   ========================================================================== */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .50);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity var(--dur-med) var(--ease),
+        visibility var(--dur-med);
+    z-index: 9997;
+}
+
+.menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   MOBILE MENU — slides in from the right, same as dashboard
+   ========================================================================== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, .15),
+        inset 0 0 0 1px rgba(255, 255, 255, .20);
+    /* Start below the navbar */
+    padding: calc(var(--nav-h) + 1rem) 1.5rem 2rem;
+    transition: right var(--dur-med) var(--ease);
+    z-index: 9998;
+    overflow-y: auto;
+}
+
+body.dark .mobile-menu {
+    background: rgba(8, 17, 38, .82);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, .40),
+        inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+
+.mobile-menu.show {
+    right: 0;
+}
+
+/* Menu items layout */
+.mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+}
+
+.mobile-menu-items .glass-btn {
+    width: 100%;
+    text-align: center;
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+}
+
+/* ==========================================================================
+   NOTIFICATION DROPDOWN (also used on Home for logged-in state)
+   ========================================================================== */
+.notification-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.notification-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    position: relative;
+    cursor: pointer;
+    transition:
+        background var(--dur-fast) var(--ease),
+        transform var(--dur-fast) var(--ease);
+}
+
+.notification-box:hover {
+    background: rgba(255, 255, 255, .26);
+    transform: translateY(-1px);
+}
+
+.notification-box i {
+    font-size: 19px;
+}
+
+.notification-box span {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff4757;
+    color: #fff;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    left: auto;
+    width: min(320px, calc(100vw - 20px));
+    border-radius: 24px;
+    overflow: hidden;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px) scale(.97);
+    transition:
+        opacity var(--dur-fast) var(--ease),
+        transform var(--dur-med) var(--ease),
+        visibility var(--dur-fast);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, .88);
+    border: 1px solid rgba(255, 255, 255, .40);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .15);
+    color: var(--text-dark);
+}
+
+.notification-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+body.dark .notification-dropdown {
+    background: rgba(16, 20, 35, .88);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .notification-dropdown.show {
+        position: fixed;
+        top: calc(var(--nav-h-scrolled) + 10px);
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+}
+
+.notification-title {
+    padding: 16px 18px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(120, 124, 254, .15);
+}
+
+body.dark .notification-title {
+    border-bottom-color: rgba(255, 255, 255, .08);
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--dur-fast) var(--ease);
+}
+
+.notification-item:hover {
+    background: rgba(120, 124, 254, .10);
+}
+
+body.dark .notification-item:hover {
+    background: rgba(255, 255, 255, .08);
+}
+
+.notification-item i {
+    font-size: 18px;
+    color: var(--teal);
+}
+
+/* ==========================================================================
+   MOBILE STUDENT MENU HEAD (dashboard-style header inside mobile panel)
+   ========================================================================== */
+.student-menu-head {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.student-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00e2e0, #172d9d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.student-menu-head h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.student-menu-head p {
+    margin: 3px 0 0;
+    color: #ddd;
+    font-size: .85rem;
+}
+
+/* ==========================================================================
+   MOBILE MENU ITEMS — icon + label row, hover shifts inward (RTL-safe)
+   ========================================================================== */
+.mobile-menu-items a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    transition:
+        background var(--dur-fast) var(--ease),
+        padding-inline-end var(--dur-fast) var(--ease);
+}
+
+.mobile-menu-items a:hover {
+    background: rgba(255, 255, 255, .10);
+    padding-inline-end: 24px;
+}
+
+.mobile-menu-items i {
+    font-size: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-title {
+    padding: 15px 16px 5px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.logout {
+    color: #ff6b6b !important;
+    margin-top: 12px;
+}
+
+/* ==========================================================================
+   DESKTOP STUDENT PROFILE (post-login, mirrored from dashboard)
+   ========================================================================== */
+.student-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    background: rgba(255, 255, 255, .15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    height: 42px;
+    transition:
+        background var(--dur-fast) var(--ease),
+        transform var(--dur-fast) var(--ease);
+}
+
+.student-profile:hover {
+    background: rgba(255, 255, 255, .24);
+    transform: translateY(-1px);
+}
+
+.student-profile span {
+    font-size: .9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.student-avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00e2e0, #172d9d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: .85rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.student-profile i {
+    font-size: 12px;
+}
+
+/* ==========================================================================
+   WALLET CHIP — desktop + mobile, aligned with dashboard design
+   ========================================================================== */
+.student-wallet {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 14px 6px 6px;
+    height: 42px;
+    background: rgba(255, 255, 255, .75);
+    border: 1px solid rgba(120, 124, 254, .18);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition:
+        transform var(--dur-fast) var(--ease),
+        box-shadow var(--dur-fast) var(--ease);
+}
+
+body.dark .student-wallet {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .12);
+}
+
+.student-wallet:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(23, 45, 157, .14);
+}
+
+.student-wallet i {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #fff;
+    font-size: .95rem;
+    background: linear-gradient(135deg, #00E2E0, #00A9F2);
+    flex-shrink: 0;
+    transition: transform var(--dur-fast) var(--ease);
+}
+
+.student-wallet:hover i {
+    transform: rotate(90deg);
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.wallet-label {
+    font-size: .68rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+body.dark .wallet-label {
+    color: rgba(255, 255, 255, .60);
+}
+
+.wallet-balance {
+    font-size: .9rem;
+    font-weight: 900;
+    color: #172D9D;
+    white-space: nowrap;
+}
+
+body.dark .wallet-balance {
+    color: #fff;
+}
+
+.wallet-balance small {
+    color: #00A9F2;
+    font-size: .7rem;
+}
+
+.desktop-wallet {
+    display: flex;
+}
+
+.mobile-wallet {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-wallet i {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #00E2E0, #00A9F2);
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.mobile-wallet .wallet-label,
+.mobile-wallet .wallet-balance {
+    color: #fff;
+}
+
+/* ==========================================================================
+   NAV-WALLET CHIP (new compact wallet that sits inside the navbar row)
+   ========================================================================== */
+.nav-wallet {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 6px 0 14px;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: background var(--dur-fast) var(--ease);
+}
+
+.nav-wallet:hover {
+    background: rgba(255, 255, 255, .22);
+}
+
+body.dark .nav-wallet {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .14);
+}
+
+.nav-wallet-amount {
+    font-size: .9rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .2px;
+}
+
+.nav-wallet-amount small {
+    font-size: .7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .80);
+    margin-inline-start: 2px;
+}
+
+.nav-wallet-plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--grad-accent);
+    color: #fff;
+    text-decoration: none;
+    transition:
+        transform var(--dur-fast) var(--ease),
+        box-shadow var(--dur-fast) var(--ease);
+}
+
+.nav-wallet-plus i {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.nav-wallet-plus:hover {
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(0, 169, 242, .45);
+}
+
+.nav-wallet-plus:active {
+    transform: scale(.94);
+}
+
+/* ==========================================================================
+   LEGACY NAV-LINKS-RESPONSIVE (dropdown area, kept for compatibility)
+   ========================================================================== */
+.nav-links-responsive {
+    display: flex;
+    gap: 10px;
+    transition: all var(--dur-fast) var(--ease);
+    margin-inline-end: -42px;
+}
+
+.nav-links-responsive a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, .90);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition:
+        color var(--dur-fast) var(--ease),
+        background var(--dur-fast) var(--ease),
+        transform var(--dur-fast) var(--ease);
+}
+
+.nav-links-responsive a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, .15);
+    transform: scale(1.06);
+}
+
+.nav-links-responsive a:active {
+    transform: scale(.96);
+    background: rgba(255, 255, 255, .22);
+}
+
+/* Dropdown trigger */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    min-width: 260px;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(23, 45, 157, .18);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition:
+        opacity var(--dur-fast) var(--ease),
+        transform var(--dur-med) var(--ease),
+        visibility var(--dur-fast);
+    z-index: 999;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+body.dark .dropdown-menu {
+    background: rgba(13, 24, 61, .90);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .40);
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: background var(--dur-fast) var(--ease);
+}
+
+body.dark .dropdown-menu a {
+    color: #fff;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(120, 124, 254, .12);
+}
+
+/* ==========================================================================
+   RESPONSIVE — consolidated breakpoint ladder (mirrors dashboard ladder)
+   ========================================================================== */
+@media (max-width: 1200px) {
+    :root {
+        --nav-h: 78px;
+    }
+
+    .nav-links-responsive {
+        gap: 2px;
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --nav-h: 72px;
+        --nav-h-scrolled: 62px;
+    }
+
+    /* Hide desktop-only elements */
+    .navbar-buttons,
+    .nav-links-responsive,
+    .desktop-wallet {
+        display: none !important;
+    }
+
+    .mobile-wallet {
+        display: flex;
+    }
+
+    .navbar-container {
+        padding: 0 12px;
+        gap: 8px;
+    }
+
+    /* Center the brand (static in mobile flow) */
+    .navbar-brand {
+        position: static;
+        transform: none;
+        flex: 1;
+        justify-content: center;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover {
+        transform: none;
+    }
+
+    /* Show hamburger */
+    .hamburger {
+        display: flex !important;
+        width: 40px;
+        height: 40px;
+        order: 4;
+    }
+
+    /* Theme switch to start */
+    .nav-right {
+        order: 0;
+    }
+
+    /* Brand stays center */
+    .navbar-brand {
+        order: 3;
+    }
+
+    /* Logo sizing for mobile */
+    .brand-logo {
+        width: 72px;
+        height: 72px;
+    }
+
+    .logo-text-wrapper {
+        width: 125%;
+        height: 125%;
+        object-fit: contain;
+    }
+
+    .logo-svg {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 1rem;
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Toggle sizing */
+    .toggle-track {
+        width: 68px;
+        height: 35px;
+    }
+
+    .toggle-thumb {
+        width: 29px;
+        height: 29px;
+    }
+
+    .theme-switch input:checked+.toggle-track .toggle-thumb {
+        transform: translateX(31px) rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --nav-h: 66px;
+        --nav-h-scrolled: 58px;
+        --nav-pad-x: 1rem;
+    }
+
+    .navbar-container {
+        padding: 0 9px;
+        gap: 5px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .mobile-menu {
+        width: 100%;
+    }
+
+    .hamburger {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hamburger span {
+        width: 20px;
+    }
+
+    /* Full-width buttons in mobile menu */
+    .mobile-menu-items .glass-btn {
+        padding: .7rem 1.2rem;
+    }
+}
+
+@media (max-width: 391px) {
+    :root {
+        --nav-h: 62px;
+        --nav-h-scrolled: 56px;
+    }
+
+    .navbar-container {
+        padding: 0 7px;
+        gap: 3px;
+    }
+
+    .hamburger {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+    .hamburger span {
+        width: 18px;
+    }
+
+    .logo-svg {
+        font-size: .88rem;
+        max-width: 100px;
+    }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — honour system preferences
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .glass-navbar,
+    .toggle-thumb,
+    .toggle-track,
+    .hamburger span,
+    .mobile-menu,
+    .menu-overlay,
+    .notification-dropdown,
+    .nav-link::after,
+    .nav-progress,
+    .glass-btn,
+    .btn-register {
+        transition: none !important;
+        animation: none !important;
+    }
+}

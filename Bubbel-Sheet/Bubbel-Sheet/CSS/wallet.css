@@ -1,0 +1,727 @@
+
+:root {
+/* Brand palette — matches student_dashbord.css.
+    Plain values on purpose: a variable can't fall back to itself
+    (--c: var(--c, ...) is invalid CSS). If nav.css also sets these
+    on :root, it loads after this file, so it simply wins by normal
+    cascade order — no var() trick needed. */
+--c: #00E2E0;
+--b: #00A9F2;
+--i: #172D9D;
+--p: #787CFE;
+--t: #48BED9;
+
+--gm: linear-gradient(135deg, var(--i), var(--p), var(--b));
+--ga: linear-gradient(120deg, var(--c), var(--b));
+
+--radius: 24px;
+--ease: cubic-bezier(.22, 1, .36, 1);
+
+--glass-bg: rgba(255, 255, 255, .68);
+--glass-border: rgba(120, 124, 254, .2);
+--glass-shadow: 0 10px 35px rgba(23, 45, 157, .12), inset 0 1px 0 rgba(255, 255, 255, .8);
+--glass-hover: 0 25px 60px rgba(23, 45, 157, .18);
+
+--text-dark: #0f1c5c;
+--text-muted: #6878a8;
+--text-body: #6878a8;
+
+--radius-md: 16px;
+}
+
+body.dark {
+--glass-bg: rgba(20, 28, 45, .55);
+--glass-border: rgba(255, 255, 255, .08);
+--glass-shadow: 0 8px 40px rgba(0, 0, 0, .45);
+--glass-hover: 0 20px 55px rgba(0, 0, 0, .55);
+
+--text-dark: #ffffff;
+--text-muted: #b7bfd0;
+--text-body: #cbd5e0;
+}
+
+/* =====================================================
+GLASS CARDS
+===================================================== */
+.gc {
+background: var(--glass-bg);
+border: 1px solid var(--glass-border);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-radius: var(--radius);
+box-shadow: var(--glass-shadow);
+position: relative;
+overflow: hidden;
+transition: .4s var(--ease);
+}
+
+.gc:hover {
+transform: translateY(-6px);
+box-shadow: var(--glass-hover);
+}
+
+/* =====================================================
+PAGE WRAPPER
+===================================================== */
+.page-root {
+flex: 1;
+padding-top: 100px;
+}
+
+.wallet-main {
+max-width: 1200px;
+margin: 0 auto;
+padding: 2.5rem 1.5rem;
+}
+
+/* =====================================================
+PAGE HEADER
+===================================================== */
+.page-header {
+margin-bottom: 2.5rem;
+}
+
+.page-header-inner {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.page-icon-wrap {
+width: 56px;
+height: 56px;
+border-radius: 18px;
+background: var(--gm);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 1.5rem;
+flex-shrink: 0;
+box-shadow: 0 8px 24px rgba(23, 45, 157, .3);
+}
+
+.page-title-text h1 {
+font-size: 1.9rem;
+font-weight: 900;
+color: var(--text-dark);
+line-height: 1.1;
+}
+
+body.dark .page-title-text h1 {
+color: #fff;
+}
+
+.page-title-text p {
+font-size: .95rem;
+color: var(--text-muted);
+margin-top: 4px;
+}
+
+/* =====================================================
+EYEBROW / SECTION HEADER
+===================================================== */
+.eyebrow {
+display: flex;
+align-items: center;
+gap: 8px;
+color: var(--p);
+font-size: .75rem;
+font-weight: 800;
+margin-bottom: 8px;
+}
+
+.eyebrow .dot {
+width: 7px;
+height: 7px;
+border-radius: 50%;
+background: var(--c);
+}
+
+.sec-hdr {
+margin-bottom: 1.5rem;
+}
+
+.sec-hdr h2 {
+margin-top: 8px;
+color: var(--text-dark);
+font-weight: 900;
+font-size: 1.2rem;
+}
+
+body.dark .sec-hdr h2 {
+color: #fff;
+}
+
+.sec-hdr p {
+margin-top: 5px;
+color: var(--text-muted);
+font-size: .88rem;
+}
+
+/* =====================================================
+BALANCE HERO CARD
+===================================================== */
+.balance-card {
+padding: 2.5rem;
+background: var(--gm);
+border: none;
+position: relative;
+overflow: hidden;
+}
+
+.balance-card::before {
+content: '';
+position: absolute;
+width: 300px;
+height: 300px;
+border-radius: 50%;
+background: rgba(255, 255, 255, .07);
+top: -100px;
+left: -80px;
+}
+
+.balance-card::after {
+content: '';
+position: absolute;
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: rgba(255, 255, 255, .05);
+bottom: -60px;
+right: -50px;
+}
+
+.balance-card:hover {
+transform: translateY(-6px);
+}
+
+.balance-label {
+font-size: .85rem;
+font-weight: 700;
+color: rgba(255, 255, 255, .75);
+display: flex;
+align-items: center;
+gap: 8px;
+position: relative;
+z-index: 2;
+}
+
+.balance-label i {
+font-size: 1.1rem;
+}
+
+.balance-amount {
+font-size: clamp(2.5rem, 6vw, 4rem);
+font-weight: 900;
+color: #fff;
+position: relative;
+z-index: 2;
+line-height: 1.15;
+margin-top: .5rem;
+}
+
+.balance-amount small {
+font-size: 1.2rem;
+font-weight: 700;
+opacity: .85;
+margin-right: 6px;
+}
+
+.balance-meta {
+font-size: .82rem;
+color: rgba(255, 255, 255, .65);
+margin-top: .5rem;
+position: relative;
+z-index: 2;
+}
+
+.balance-badge {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 6px 14px;
+border-radius: 50px;
+background: rgba(255, 255, 255, .15);
+border: 1px solid rgba(255, 255, 255, .25);
+color: #fff;
+font-size: .8rem;
+font-weight: 700;
+position: relative;
+z-index: 2;
+margin-top: 1.5rem;
+}
+
+.balance-badge .live-dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #22c55e;
+animation: walletPulse 2s ease infinite;
+}
+
+@keyframes walletPulse {
+
+0%,
+100% {
+    opacity: 1;
+    transform: scale(1);
+}
+
+50% {
+    opacity: .6;
+    transform: scale(1.3);
+}
+}
+
+/* =====================================================
+QUICK STATS
+===================================================== */
+.quick-stat {
+padding: 1.4rem 1.5rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.quick-stat-icon {
+width: 50px;
+height: 50px;
+border-radius: 15px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.3rem;
+flex-shrink: 0;
+}
+
+.qs-green {
+background: rgba(34, 197, 94, .15);
+color: #22c55e;
+}
+
+.qs-blue {
+background: rgba(0, 169, 242, .15);
+color: var(--b);
+}
+
+.qs-red {
+background: rgba(255, 107, 107, .15);
+color: #ff6b6b;
+}
+
+.quick-stat-info {
+flex: 1;
+}
+
+.quick-stat-val {
+font-size: 1.4rem;
+font-weight: 900;
+color: var(--text-dark);
+line-height: 1;
+}
+
+body.dark .quick-stat-val {
+color: #fff;
+}
+
+.quick-stat-lbl {
+font-size: .75rem;
+color: var(--text-muted);
+font-weight: 700;
+margin-top: 4px;
+}
+
+/* =====================================================
+CHARGE CARD
+===================================================== */
+.charge-card {
+padding: 2rem;
+}
+
+.charge-input-wrap {
+position: relative;
+}
+
+.charge-input-wrap .input-icon {
+position: absolute;
+right: 1rem;
+top: 50%;
+transform: translateY(-50%);
+color: var(--text-muted);
+font-size: 1.1rem;
+pointer-events: none;
+z-index: 1;
+}
+
+.wallet-input {
+width: 100%;
+padding: 1rem 3rem 1rem 1rem;
+border-radius: var(--radius-md);
+border: 2px solid var(--glass-border);
+background: rgba(255, 255, 255, .5);
+color: var(--text-dark);
+font-family: 'Cairo', 'Segoe UI', sans-serif;
+font-size: 1rem;
+font-weight: 600;
+transition: .3s var(--ease);
+outline: none;
+direction: rtl;
+}
+
+body.dark .wallet-input {
+background: rgba(13, 24, 61, .5);
+color: #fff;
+border-color: rgba(120, 124, 254, .3);
+}
+
+.wallet-input::placeholder {
+color: var(--text-muted);
+font-weight: 400;
+}
+
+.wallet-input:focus {
+border-color: var(--p);
+background: rgba(255, 255, 255, .85);
+box-shadow: 0 0 0 4px rgba(120, 124, 254, .15);
+}
+
+body.dark .wallet-input:focus {
+background: rgba(13, 24, 61, .85);
+box-shadow: 0 0 0 4px rgba(120, 124, 254, .2);
+}
+
+/* Charge Button */
+.btn-charge {
+width: 100%;
+padding: 1rem;
+border-radius: var(--radius-md);
+border: none;
+background: var(--gm);
+color: #fff;
+font-family: 'Cairo', 'Segoe UI', sans-serif;
+font-size: 1.05rem;
+font-weight: 900;
+cursor: pointer;
+transition: .35s var(--ease);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+box-shadow: 0 12px 30px rgba(23, 45, 157, .3);
+position: relative;
+overflow: hidden;
+}
+
+.btn-charge::after {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 60%;
+height: 100%;
+background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .2), transparent);
+transform: skewX(-20deg);
+transition: left .6s ease;
+}
+
+.btn-charge:hover {
+transform: translateY(-4px) scale(1.02);
+box-shadow: 0 18px 40px rgba(23, 45, 157, .4);
+}
+
+.btn-charge:hover::after {
+left: 130%;
+}
+
+.btn-charge:active {
+transform: translateY(0) scale(.99);
+}
+
+.btn-charge:disabled {
+opacity: .75;
+cursor: not-allowed;
+transform: none;
+}
+
+.btn-charge .spinner-border {
+width: 1.2rem;
+height: 1.2rem;
+border-width: 2px;
+}
+
+/* =====================================================
+ALERT MESSAGES
+===================================================== */
+.wallet-alert {
+border-radius: var(--radius-md);
+padding: 1rem 1.25rem;
+display: flex;
+align-items: center;
+gap: 12px;
+font-weight: 700;
+font-size: .92rem;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid;
+animation: walletAlertIn .4s var(--ease) both;
+}
+
+@keyframes walletAlertIn {
+from {
+    opacity: 0;
+    transform: translateY(-10px) scale(.97);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+}
+
+.wallet-alert i {
+font-size: 1.3rem;
+flex-shrink: 0;
+}
+
+.alert-success-gl {
+background: rgba(34, 197, 94, .15);
+border-color: rgba(34, 197, 94, .3);
+color: #15803d;
+}
+
+body.dark .alert-success-gl {
+color: #86efac;
+}
+
+.alert-error-gl {
+background: rgba(255, 107, 107, .15);
+border-color: rgba(255, 107, 107, .3);
+color: #dc2626;
+}
+
+body.dark .alert-error-gl {
+color: #fca5a5;
+}
+
+/* =====================================================
+TABLES
+===================================================== */
+.table-card {
+padding: 2rem;
+overflow: hidden;
+}
+
+.table-responsive-gl {
+overflow-x: auto;
+}
+
+.wallet-table {
+width: 100%;
+border-collapse: collapse;
+font-size: .9rem;
+}
+
+.wallet-table thead tr {
+border-bottom: 2px solid var(--glass-border);
+}
+
+.wallet-table thead th {
+padding: 12px 16px;
+font-weight: 900;
+font-size: .8rem;
+color: var(--text-muted);
+text-align: right;
+white-space: nowrap;
+letter-spacing: .03em;
+}
+
+.wallet-table tbody tr {
+border-bottom: 1px solid rgba(120, 124, 254, .08);
+transition: background .25s ease;
+}
+
+.wallet-table tbody tr:last-child {
+border-bottom: none;
+}
+
+.wallet-table tbody tr:hover {
+background: rgba(120, 124, 254, .06);
+}
+
+.wallet-table tbody td {
+padding: 14px 16px;
+color: var(--text-body);
+text-align: right;
+vertical-align: middle;
+}
+
+body.dark .wallet-table tbody td {
+color: #cbd5e0;
+}
+
+.wallet-table tbody td:first-child {
+font-weight: 700;
+color: var(--text-dark);
+}
+
+body.dark .wallet-table tbody td:first-child {
+color: #fff;
+}
+
+/* Status Badges */
+.badge-status {
+display: inline-flex;
+align-items: center;
+gap: 5px;
+padding: 5px 12px;
+border-radius: 50px;
+font-size: .75rem;
+font-weight: 800;
+}
+
+.badge-status i {
+font-size: .7rem;
+}
+
+.bs-success {
+background: rgba(34, 197, 94, .15);
+color: #15803d;
+border: 1px solid rgba(34, 197, 94, .25);
+}
+
+body.dark .bs-success {
+color: #86efac;
+}
+
+.bs-pending {
+background: rgba(251, 191, 36, .15);
+color: #b45309;
+border: 1px solid rgba(251, 191, 36, .25);
+}
+
+body.dark .bs-pending {
+color: #fcd34d;
+}
+
+.bs-failed {
+background: rgba(255, 107, 107, .15);
+color: #dc2626;
+border: 1px solid rgba(255, 107, 107, .25);
+}
+
+body.dark .bs-failed {
+color: #fca5a5;
+}
+
+.bs-active {
+background: rgba(0, 169, 242, .15);
+color: #0369a1;
+border: 1px solid rgba(0, 169, 242, .25);
+}
+
+body.dark .bs-active {
+color: #7dd3fc;
+}
+
+/* Amount Cells */
+.amount-cell {
+font-weight: 900;
+font-size: .95rem;
+}
+
+.amount-pos {
+color: #22c55e;
+}
+
+.amount-neg {
+color: #ff6b6b;
+}
+
+/* Code Cell */
+.code-cell {
+font-family: 'Courier New', monospace;
+font-weight: 700;
+color: var(--p);
+background: rgba(120, 124, 254, .1);
+padding: 3px 10px;
+border-radius: 8px;
+font-size: .85rem;
+display: inline-block;
+}
+
+/* Empty State */
+.empty-state {
+text-align: center;
+padding: 3rem 1rem;
+color: var(--text-muted);
+}
+
+.empty-state i {
+font-size: 3rem;
+opacity: .35;
+display: block;
+margin-bottom: 1rem;
+}
+
+/* =====================================================
+SCROLL REVEAL
+===================================================== */
+[data-r] {
+/* opacity: 0; */
+transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+
+[data-r="up"] {
+transform: translateY(30px);
+}
+
+[data-r="left"] {
+transform: translateX(-30px);
+}
+
+[data-r="right"] {
+transform: translateX(30px);
+}
+
+[data-r].vis {
+opacity: 1;
+transform: none;
+}
+
+.d1 {
+transition-delay: .05s;
+}
+
+.d2 {
+transition-delay: .12s;
+}
+
+.d3 {
+transition-delay: .19s;
+}
+
+.d4 {
+transition-delay: .26s;
+}
+
+/* =====================================================
+RESPONSIVE — wallet page only
+===================================================== */
+@media (max-width: 768px) {
+.wallet-main {
+    padding: 1.5rem 1rem;
+}
+
+.balance-card {
+    padding: 1.75rem;
+}
+
+.charge-card {
+    padding: 1.5rem;
+}
+
+.table-card {
+    padding: 1.25rem;
+}
+}

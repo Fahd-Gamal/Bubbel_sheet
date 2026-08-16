@@ -1,0 +1,549 @@
+/* =====================================================
+   Lessons.css
+   Page-scoped styles for the Lessons (دروس المادة) page.
+   Reuses the Bubble Sheet design tokens defined in nav.css
+   (--cyan / --blue / --indigo / --purple / --teal, --radius-*,
+   --ease, Cairo font) so the page matches the platform identity.
+   Every selector is prefixed with `lsn-` so nothing here can
+   leak into or collide with other pages' styles.
+===================================================== */
+
+body {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ---------- Ambient background (page-scoped, does not touch <body>) ---------- */
+.lsn-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.lsn-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .55;
+    animation: lsnFloat 16s ease-in-out infinite;
+}
+
+.lsn-orb-1 {
+    width: 420px;
+    height: 420px;
+    top: -120px;
+    left: -100px;
+    background: radial-gradient(circle, var(--cyan), transparent 70%);
+    animation-delay: 0s;
+}
+
+.lsn-orb-2 {
+    width: 380px;
+    height: 380px;
+    top: 10%;
+    right: -120px;
+    background: radial-gradient(circle, var(--purple), transparent 70%);
+    animation-delay: -4s;
+}
+
+.lsn-orb-3 {
+    width: 340px;
+    height: 340px;
+    bottom: -80px;
+    left: 15%;
+    background: radial-gradient(circle, var(--blue), transparent 70%);
+    animation-delay: -8s;
+}
+
+.lsn-orb-4 {
+    width: 300px;
+    height: 300px;
+    bottom: 5%;
+    right: 10%;
+    background: radial-gradient(circle, var(--teal), transparent 70%);
+    animation-delay: -12s;
+}
+
+@keyframes lsnFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -25px) scale(1.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lsn-orb {
+        animation: none;
+    }
+}
+
+/* ---------- Layout ---------- */
+.lsn-page-root {
+    padding-top: 120px;
+}
+
+.lsn-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .lsn-main {
+        padding: 0 1.1rem 2rem;
+    }
+
+    .lsn-page-root {
+        padding-top: 100px;
+    }
+}
+
+/* ---------- Topbar ---------- */
+.lsn-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.75rem;
+}
+
+.lsn-topbar-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+body.dark .lsn-topbar-title {
+    color: var(--dark-text);
+}
+
+.lsn-topbar-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: .92rem;
+}
+
+body.dark .lsn-topbar-badge {
+    color: var(--dark-text-secondary);
+}
+
+.lsn-dot-live {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 0 4px rgba(0, 226, 224, .18);
+    display: inline-block;
+    animation: lsnPulse 2s ease-in-out infinite;
+}
+
+@keyframes lsnPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .45;
+    }
+}
+
+/* ---------- Section header (eyebrow / title / subtitle) ---------- */
+.lsn-sec-hdr {
+    margin-bottom: 1.5rem;
+}
+
+.lsn-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: var(--light-primary);
+    background: rgba(0, 169, 242, .1);
+    border: 1px solid rgba(0, 169, 242, .2);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+}
+
+body.dark .lsn-eyebrow {
+    color: var(--dark-accent);
+    background: rgba(0, 169, 242, .12);
+    border-color: rgba(0, 169, 242, .28);
+}
+
+.lsn-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+}
+
+.lsn-sec-hdr h2 {
+    margin-top: .7rem;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--text-dark);
+}
+
+body.dark .lsn-sec-hdr h2 {
+    color: var(--dark-text);
+}
+
+.lsn-sec-hdr p {
+    margin-top: .35rem;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+body.dark .lsn-sec-hdr p {
+    color: var(--dark-text-secondary);
+}
+
+/* =====================================================
+   HERO — Subject header
+===================================================== */
+.lsn-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.4rem 2.6rem;
+    margin-bottom: 2.5rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--glass-bg), var(--glass-bg-h));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+
+body.dark .lsn-hero {
+    background: linear-gradient(135deg, rgba(13, 24, 61, .75), rgba(16, 32, 77, .55));
+    border-color: var(--dark-border);
+}
+
+.lsn-hero::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -80px;
+    top: -100px;
+    background: radial-gradient(circle, rgba(120, 124, 254, .28), transparent 70%);
+    pointer-events: none;
+}
+
+.lsn-hero-icon {
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    color: #fff;
+    background: var(--grad-main);
+    box-shadow: 0 12px 30px rgba(23, 45, 157, .28);
+    position: relative;
+    z-index: 2;
+}
+
+.lsn-hero-body {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-width: 0;
+}
+
+.lsn-hero-body h1 {
+    margin-top: .6rem;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+body.dark .lsn-hero-body h1 {
+    color: var(--dark-text);
+}
+
+.lsn-subject-name {
+    background: var(--grad-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lsn-hero-body p {
+    margin-top: .6rem;
+    max-width: 640px;
+    color: var(--text-body);
+    line-height: 1.8;
+    font-size: .98rem;
+}
+
+body.dark .lsn-hero-body p {
+    color: var(--dark-text-secondary);
+}
+
+.lsn-hero-stats {
+    display: flex;
+    gap: 1.6rem;
+    margin-top: 1.3rem;
+    flex-wrap: wrap;
+}
+
+.lsn-hero-stat {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.lsn-hero-stat strong {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--light-primary);
+}
+
+body.dark .lsn-hero-stat strong {
+    color: var(--dark-accent);
+}
+
+.lsn-hero-stat span {
+    font-size: .8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+body.dark .lsn-hero-stat span {
+    color: var(--dark-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .lsn-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.8rem;
+        text-align: right;
+    }
+
+    .lsn-hero-icon {
+        width: 72px;
+        height: 72px;
+        font-size: 2rem;
+    }
+
+    .lsn-hero-body h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* =====================================================
+   LESSON CARDS
+===================================================== */
+.lsn-card-col {
+    display: flex;
+}
+
+.lsn-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    padding: 1.6rem 1.5rem 1.5rem;
+    background: linear-gradient(160deg, var(--glass-bg), var(--glass-bg-h));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+
+body.dark .lsn-card {
+    background: linear-gradient(160deg, rgba(13, 24, 61, .8), rgba(16, 32, 77, .5));
+    border-color: var(--dark-border);
+}
+
+.lsn-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--glass-hover);
+    border-color: rgba(120, 124, 254, .4);
+}
+
+.lsn-card-bar {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: var(--lsn-accent, var(--grad-main));
+}
+
+.lsn-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.lsn-card-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    background: var(--lsn-accent, var(--grad-main));
+    flex-shrink: 0;
+    transition: transform .35s var(--ease);
+}
+
+.lsn-card:hover .lsn-card-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.lsn-card-number {
+    font-size: .78rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    background: rgba(120, 124, 254, .1);
+    border: 1px solid rgba(120, 124, 254, .18);
+    padding: 4px 11px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+}
+
+body.dark .lsn-card-number {
+    color: var(--dark-text-secondary);
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.lsn-card h3 {
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: .5rem;
+}
+
+body.dark .lsn-card h3 {
+    color: var(--dark-text);
+}
+
+.lsn-card p {
+    color: var(--text-muted);
+    font-size: .9rem;
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 1.2rem;
+}
+
+body.dark .lsn-card p {
+    color: var(--dark-text-secondary);
+}
+
+.lsn-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.lsn-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+}
+
+.lsn-status i {
+    font-size: .7rem;
+}
+
+.lsn-status.not-started {
+    color: var(--text-muted);
+    background: rgba(120, 124, 254, .08);
+}
+
+body.dark .lsn-status.not-started {
+    color: var(--dark-text-secondary);
+    background: rgba(255, 255, 255, .06);
+}
+
+.lsn-status.in-progress {
+    color: #b8860b;
+    background: rgba(255, 193, 7, .14);
+}
+
+.lsn-status.completed {
+    color: #0f9d58;
+    background: rgba(15, 157, 88, .14);
+}
+
+.lsn-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    padding: .55rem 1.2rem;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: .88rem;
+    color: #fff;
+    background: var(--lsn-accent, var(--grad-main));
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+
+.lsn-card-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(23, 45, 157, .3);
+    color: #fff;
+}
+
+.lsn-card-btn:active {
+    transform: translateY(0) scale(.97);
+}
+
+.lsn-card-btn i {
+    font-size: .85rem;
+}
+
+/* Reveal-on-scroll (progressive enhancement, no JS dependency required) */
+[data-r="up"] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+[data-r="up"].lsn-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 576px) {
+    .lsn-card {
+        padding: 1.3rem 1.2rem 1.2rem;
+    }
+}
